@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>综合考试 · 营养中心作业标准</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:#f5f7fa;color:#1e293b;line-height:1.7}
+  .container{max-width:760px;margin:0 auto;padding:16px 16px 80px}
+  .header{background:linear-gradient(135deg,#006b4a,#00d68f 55%,#00b37a);color:#fff;padding:24px;border-radius:16px;margin-bottom:16px;position:relative;overflow:hidden}
+  .header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.25),rgba(255,255,255,0))}
+  .header h1{font-size:20px;font-weight:700;position:relative;z-index:1}
+  .header .sub{font-size:13px;opacity:.8;position:relative;z-index:1}
+  .header .meta{display:flex;gap:10px;margin-top:6px;flex-wrap:wrap}
+  .header .meta span{background:rgba(255,255,255,.15);padding:2px 10px;border-radius:8px;font-size:11px}
+  .timer-bar{background:#fff;border-radius:12px;padding:10px 16px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 1px 3px rgba(0,0,0,.06);margin-bottom:14px}
+  .timer-bar .countdown{font-size:18px;font-weight:700;background:linear-gradient(135deg,#00d68f,#00b37a);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .timer-bar .countdown.warning{-webkit-text-fill-color:#dc2626}
+  .info-card{background:linear-gradient(135deg,#f0fdf6,#e6faf2);border:1px solid #b3f0d9;border-radius:10px;padding:12px 16px;margin-bottom:14px;font-size:12px}
+  .section{margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.06);border-radius:12px}
+  .section-title{font-size:15px;font-weight:700;padding:10px 14px;background:#fff;border-radius:12px 12px 0 0;border-bottom:2px solid #e2e8f0;display:flex;align-items:center;gap:6px}
+  .section-title .score{font-size:12px;color:#94a3b8;margin-left:auto}
+  .section-body{background:#fff;border-radius:0 0 12px 12px;padding:4px 14px 10px}
+  .question{padding:10px 0;border-bottom:1px solid #f1f5f9}
+  .question:last-child{border-bottom:none}
+  .q-num{font-weight:600;color:#006b4a;margin-right:4px;font-size:13px}
+  .q-text{font-weight:500;margin-bottom:6px;font-size:13px}
+  .options{display:flex;flex-direction:column;gap:4px}
+  .option{display:flex;align-items:flex-start;gap:6px;padding:5px 8px;border-radius:6px;cursor:pointer}
+  .option:hover{background:#f0fdf6}
+  .option input[type="radio"]{margin-top:2px;accent-color:#00d68f}
+  .option label{cursor:pointer;font-size:13px;flex:1}
+  .option.selected{background:#e6faf2}
+  .option input[type="checkbox"]{margin-top:2px;accent-color:#00d68f}
+  .q-textarea textarea{width:100%;min-height:60px;border:1px solid #e2e8f0;border-radius:8px;padding:8px;font-size:13px;font-family:inherit;resize:vertical}
+  .q-textarea textarea:focus{border-color:#00d68f;box-shadow:0 0 0 3px rgba(0,214,143,.1)}
+  .q-textarea textarea.tall{min-height:100px}
+  .submit-area{text-align:center;margin:20px 0}
+  .btn-primary{display:inline-flex;align-items:center;gap:6px;padding:10px 32px;background:linear-gradient(135deg,#00d68f,#00b37a);color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 2px 8px rgba(0,214,143,.2)}
+  .btn-primary:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(0,214,143,.3)}
+  .btn-secondary{background:#fff;color:#475569;border:1px solid #e2e8f0;padding:8px 20px;border-radius:8px;font-size:13px;cursor:pointer}
+  .btn-secondary:hover{background:#f0fdf6;border-color:#00d68f}
+  .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:1000;justify-content:center;align-items:center;padding:20px}
+  .modal-overlay.active{display:flex}
+  .modal{background:#fff;border-radius:14px;padding:28px;max-width:480px;width:100%;max-height:80vh;overflow-y:auto;text-align:center}
+  .modal .score-display{font-size:42px;font-weight:800;margin:10px 0}
+  .modal .score-display.pass{color:#10b981}
+  .modal .score-display.fail{color:#dc2626}
+  .entrance-modal{display:flex;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:2000;justify-content:center;align-items:center;padding:20px}
+  .entrance-modal.hidden{display:none}
+  .entrance-card{background:#fff;border-radius:14px;padding:28px;max-width:400px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.2)}
+  .entrance-card .icon{width:48px;height:48px;background:linear-gradient(135deg,#00d68f,#00b37a);border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:22px}
+  .entrance-step{display:none}
+  .entrance-step.active{display:block}
+  .entrance-step .warn-box{background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:10px;font-size:12px;color:#92400e;margin-bottom:10px}
+  .entrance-step .btn-row{display:flex;gap:8px}
+  .entrance-step .btn-row .btn{flex:1;justify-content:center}
+</style>
+</head>
+<body>
+
+<div class="entrance-modal" id="entranceModal">
+  <div class="entrance-card">
+    <div class="entrance-step active" id="entStep1">
+      <div class="icon">📝</div>
+      <h2 style="font-size:17px;text-align:center;margin-bottom:4px">准备进入考试</h2>
+      <div style="font-size:12px;color:#64748b;text-align:center;margin-bottom:12px">营养中心作业标准（上）</div>
+      <div class="warn-box"><strong>⚠️ 重要提示</strong><br><br>综合考试一旦进入：<br>• <strong>不能中途退出</strong>，退出将视为自动交卷<br>• 进入后计时器开始，<strong>60分钟</strong>内完成<br>• 系统将记录首次进入时间作为考核依据</div>
+      <div class="btn-row"><button class="btn btn-secondary" onclick="window.location.href='https://18602653289-kasen.github.io/kasen-nutrition-training/%E5%AD%A6%E4%B9%A0%E5%B9%B3%E5%8F%B0.html'" style="flex:1;padding:8px 16px;border:1px solid #e2e8f0;background:#fff;border-radius:8px;cursor:pointer;font-size:13px">暂时不考</button><button class="btn btn-primary" onclick="entranceStep2()" style="flex:1;padding:8px 16px;background:linear-gradient(135deg,#00d68f,#00b37a);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600">我已了解，继续 →</button></div>
+    </div>
+    <div class="entrance-step" id="entStep2">
+      <div class="icon">🔒</div>
+      <h2 style="font-size:17px;text-align:center;margin-bottom:4px">最终确认</h2>
+      <div style="font-size:12px;color:#64748b;text-align:center;margin-bottom:12px">请再次确认</div>
+      <div class="warn-box">• 60分钟 · 闭卷<br>• 满分100分 · 合格80分<br>• 含单选、多选、判断、简答、案例<br>• 中途退出视为自动交卷<br>• 成绩将记录进培训档案</div>
+      <div class="btn-row"><button class="btn btn-secondary" onclick="entranceStep1()" style="flex:1;padding:8px 16px;border:1px solid #e2e8f0;background:#fff;border-radius:8px;cursor:pointer;font-size:13px">← 返回</button><button class="btn btn-primary" onclick="startExam()" style="flex:1;padding:8px 16px;background:linear-gradient(135deg,#00d68f,#00b37a);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600">✅ 确认，开始考试</button></div>
+    </div>
+  </div>
+</div>
+
+<div class="container" id="app" style="display:none">
+  <div class="header">
+    <h1>📝 综合考试</h1>
+    <div class="sub">营养中心作业标准（上）—— 接待前准备</div>
+    <div class="meta"><span>📝 满分 100 分</span><span>⏱ 60 分钟闭卷</span><span>✅ 合格线 80 分</span></div>
+  </div>
+  <div class="timer-bar"><span style="font-weight:600;font-size:13px">⏱ 剩余时间</span><span class="countdown" id="countdown">60:00</span></div>
+  <div class="info-card"><strong>📌 答题说明：</strong>单选题每题1分（共20分）· 多选题每题1分（共15分）· 判断题每题1分（共10分）· 简答题共15分 · 案例分析题共15分。客观题自动判分，主观题由阅卷人评分。</div>
+
+  <div class="section"><div class="section-title">一、单选题 <span class="score">共20题 · 每题1分</span></div><div class="section-body" id="mcqContainer"></div></div>
+  <div class="section"><div class="section-title">二、多选题 <span class="score">共15题 · 每题1分</span></div><div class="section-body" id="multiContainer"></div></div>
+  <div class="section"><div class="section-title">三、判断题 <span class="score">共10题 · 每题1分</span></div><div class="section-body" id="tfContainer"></div></div>
+  <div class="section"><div class="section-title">四、简答题 <span class="score">共2题 · 共15分</span></div><div class="section-body" id="shortContainer"></div></div>
+  <div class="section"><div class="section-title">五、案例分析题 <span class="score">1题 · 4小问 · 共15分</span></div><div class="section-body" id="caseContainer"></div></div>
+
+  <div class="submit-area"><button class="btn-primary" onclick="confirmSubmit()">📤 交卷</button></div>
+</div>
+
+<div class="modal-overlay" id="resultModal"><div class="modal"><h2>📊 考试结果</h2><div class="score-display" id="scoreDisplay">0</div><div class="grade" id="gradeDisplay"></div><div class="breakdown" id="breakdown"></div><button class="btn-secondary" onclick="closeResult()">关闭</button><button class="btn-secondary" style="display:inline-flex;align-items:center;gap:4px;margin-top:8px;padding:8px 16px;background:none;color:#64748b;border:1px solid #e2e8f0;cursor:pointer;font-size:13px" onclick="window.location.href='https://18602653289-kasen.github.io/kasen-nutrition-training/%E5%AD%A6%E4%B9%A0%E5%B9%B3%E5%8F%B0.html'">‹ 返回学习平台</button></div></div>
+
+<script>
+const STORAGE_KEY = 'kasen_…ion';
+
+function getState(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY))||{}}catch(e){return{}}}
+function saveState(s){localStorage.setItem(STORAGE_KEY,JSON.stringify(s))}
+
+// MCQ data (20 questions)
+const mcqs = [
+  {q:"S-E-C模式中，S代表什么？",o:["A. 学员","B. 平台","C. 专家","D. 助理"],a:1},
+  {q:"为什么认知要先行于解决？",o:["A. 成本最低","B. 学员只有先建立科学营养观念，才能理解方案价值，主动配合","C. 公司战略要求","D. 品牌建设需要"],a:1},
+  {q:"公司战略目标递进逻辑是？",o:["A. 品牌→体量→解决→认知","B. 认知→解决→体量→品牌","C. 解决→认知→体量→品牌","D. 体量→认知→解决→品牌"],a:1},
+  {q:"3-3-3制式中三个循环的核心驱动力是什么？",o:["A. 公司推出新产品","B. 学员持续获得健康改善，自愿升级、续购、转介","C. 助理不断打电话","D. 专家不断开新课"],a:1},
+  {q:"哪个选项最能体现思想规范的本质？",o:["A. 按标准流程执行","B. 跳出单一任务看全局","C. 每天读书","D. 请示领导"],a:1},
+  {q:"完整商业闭环的第一个环节是？",o:["A. 教育","B. 指导","C. 接待","D. 转化"],a:2},
+  {q:"以下哪项不属于学员升级保护措施？",o:["A. 12个月服务周期","B. 投诉少于3次","C. 售后预警","D. 保证每月减重5公斤"],a:3},
+  {q:"专家六步链路中，关键原因分析之后是？",o:["A. 信息汇总","B. 危害分析","C. 解决方案","D. 建议方案"],a:1},
+  {q:"以下哪项不属于助理八大作业动作？",o:["A. 健康早会","B. 专家课程","C. 产品研发","D. 精准营养"],a:2},
+  {q:"3-3-3制式中第一个3代表？",o:["A. 三个循环","B. 三个角色","C. 三个动作","D. 三个目标"],a:1},
+  {q:"第二个3代表？",o:["A. 三个角色","B. 三个核心动作","C. 三个循环","D. 三个部门"],a:1},
+  {q:"第三个3代表？",o:["A. 三个角色","B. 三个动作","C. 三个循环（升级、续购、转介）","D. 三个目标"],a:2},
+  {q:"助理客资接待规模目标为？",o:["A. >5000人","B. >1万人","C. >5万人","D. >10万人"],a:1},
+  {q:"续购转介率目标为？",o:["A. >50%","B. >80%","C. >102%","D. >120%"],a:2},
+  {q:"哪种心态属于心态规范明确要求的？",o:["A. 随遇而安","B. 先舍后得","C. 明哲保身","D. 得过且过"],a:1},
+  {q:"总监级考核指标中，学员数量目标是？",o:["A. >5000人","B. >1万人","C. >5万人","D. >10万人"],a:1},
+  {q:"总监级GMV目标是？",o:["A. >500万","B. >1000万","C. >5000万","D. >1亿"],a:1},
+  {q:"1+20模式中1位专家配几位助理？",o:["A. 5位","B. 10位","C. 20位","D. 50位"],a:2},
+  {q:"商业闭环的最后一个环节是？",o:["A. 保护","B. 转化","C. 口碑增长","D. 指导"],a:2},
+  {q:"以下哪个属于转化前的关键节点？",o:["A. 定制方案","B. 专家通话","C. 学员激活","D. 精准营养"],a:2}
+];
+
+// Multi-select data (15 questions - key ones)
+const multis = [
+  {q:"S-E-C模式中的核心职能？",o:["S—提供培育、产品、工具","E—提供深度服务","a—负责接待、激活、跟进","C—被服务对象和口碑传播者","供应商—提供原料"],a:[0,1,2,3]},
+  {q:"学员要做到什么？",o:["持续学习课程，提升健康认知","接受健康指导，养成习惯","接受专家建议，解决问题","什么都不用做","按时学习即可"],a:[0,1,2]},
+  {q:"平台提供什么？",o:["提供培育","提供产品","提供工具","提供客资","保障薪资"],a:[0,1,2,3,4]},
+  {q:"3-3-3制式中三个角色的核心动作是？",o:["助理—接待与留存","专家—深度服务与转化","学员—参与学习与改善","平台—提供工具","助理—健康早会与指导"],a:[0,1,2]},
+  {q:"个人规范五维度包括？",o:["气质规范","心态规范","思想规范","专业规范","管理规范"],a:[0,1,2,3,4]},
+  {q:"完整商业闭环的关键环节包括？",o:["接待","教育","指导","转化","保护"],a:[0,1,2,3,4]},
+  {q:"专家六步链路中的必要步骤？",o:["信息汇总","原因分析","危害分析","建议方案","执行计划"],a:[0,1,2,3,4]},
+  {q:"属于转化前关键节点的是？",o:["学员激活","健康早会","开场白首通","APP注册下载","学员留存"],a:[0,1,2,3,4]},
+  {q:"心态规范中的要求？",o:["牺牲小我成全大我","先舍后得","沟通亲切","坚持坚韧","无情绪"],a:[0,1,3]},
+  {q:"执行中的关键执行动作？",o:["健康早会","健康指导","三餐打卡","定制方案","精准营养"],a:[0,1,3,4]},
+  {q:"重点慢病管理范围？",o:["高血压","糖尿病","高血脂","流行性感冒","高尿酸"],a:[0,1,2,4]},
+  {q:"管理规范的具体要求？",o:["讲组织—服从安排","讲结果—关注产出","工作要严格","生活要包容"],a:[0,1,2,3]}
+];
+
+// True/False data (10 questions)
+const tfs = [
+  {q:"健康早会应由专家主导，助理只需要通知学员参加。",a:0},
+  {q:"个人规范中只要专业能力强就够了，其他维度不重要。",a:0},
+  {q:"学员升级保护设置投诉上限是为了限制学员投诉。",a:0},
+  {q:""无情绪"就是要求员工压抑情绪、伪装自己。",a:0},
+  {q:"战略目标是递进关系，前三个阶段做不好不影响品牌。",a:0},
+  {q:"流程是死的，人可以灵活调整，跳过一些步骤也可以。",a:0},
+  {q:"六步问题解决链路中，解决方案和直接进入执行计划就行。",a:0},
+  {q:"3-3-3制式的三个循环相互独立，做好一个就行。",a:0},
+  {q:"高认知只指员工自身的专业认知，与学员无关。",a:0},
+  {q:"思想规范的深度思考能力与按标准流程执行不矛盾。",a:1}
+];
+
+// Render functions
+function renderMCQs(){renderQ('mcqContainer',mcqs,'mcq','radio')}
+function renderMulti(){renderQ('multiContainer',multis,'multi','checkbox')}
+function renderTF(){renderQ('tfContainer',tfs,'tf','radio')}
+function renderQ(containerId,data,prefix,type){
+  var c=document.getElementById(containerId);if(!c)return;
+  c.innerHTML=data.map(function(q,i){var opts=q.o.map(function(o,oi){return'<div class="option"><input type="'+type+'" name="'+prefix+'_'+i+'" value="'+oi+'" id="'+prefix+'_'+i+'_'+oi+'"><label for="'+prefix+'_'+i+'_'+oi+'">'+o+'</label></div>';}).join('');
+  return'<div class="question"><div class="q-text"><span class="q-num">'+(i+1)+'.</span> '+q.q+'</div><div class="options">'+opts+'</div></div>';}).join('');
+}
+
+// Short answer & case
+renderShort();renderCase();
+function renderShort(){
+  var c=document.getElementById('shortContainer');if(!c)return;
+  c.innerHTML='<div class="question"><div class="q-text"><span class="q-num">1.</span>请结合所学内容，说明三观一致为什么是"第一道筛选标准"？个人规范五维度中哪两个维度最能体现"努力拼搏"？（7分）</div><div class="q-textarea"><textarea id="sa1" class="tall" placeholder="请在此作答..."></textarea></div></div><div class="question"><div class="q-text"><span class="q-num">2.</span>请分析"认知"在战略目标递进逻辑中的位置？助理在"认知传递"阶段承担什么职责？为什么要与专家形成配合？（8分）</div><div class="q-textarea"><textarea id="sa2" class="tall" placeholder="请在此作答..."></textarea></div></div>';
+}
+
+function renderCase(){
+  var c=document.getElementById('caseContainer');if(!c)return;
+  c.innerHTML='<div class="question" style="padding-bottom:4px"><div class="q-text" style="font-size:14px;font-weight:600">【场景分析】</div><div style="font-size:12px;color:#64748b;margin-bottom:8px">新入职助理小王在工作中遇到的四个场景...（详见试卷原文）</div>'+
+  [1,2,3,4].map(function(i){return'<div style="margin-top:8px;padding:8px;background:#f8fafc;border-radius:6px"><div class="q-text" style="font-size:13px">场景'+['一','二','三','四'][i-1]+'分析（'+[3,4,4,4][i-1]+'分）</div><div class="q-textarea"><textarea id="case_'+i+'" class="tall" placeholder="请在此作答..."></textarea></div></div>';}).join('')+'</div>';
+}
+
+// Timer
+var timeLeft=3600,ti=null;
+function formatTime(s){var m=Math.floor(s/60),sec=s%60;return(m<10?'0':'')+m+':'+(sec<10?'0':'')+sec}
+function updateTimer(){var el=document.getElementById('countdown');el.textContent=formatTime(timeLeft);if(timeLeft<=300)el.classList.add('warning');if(timeLeft<=0){clearInterval(ti);autoSubmit()}}
+
+// Entrance
+function entranceStep1(){document.getElementById('entStep1').classList.add('active');document.getElementById('entStep2').classList.remove('active')}
+function entranceStep2(){document.getElementById('entStep1').classList.remove('active');document.getElementById('entStep2').classList.add('active')}
+function startExam(){var s=getState();if(!s.startedAt){s.startedAt=new Date().toISOString();s.status='in_progress';saveState(s)}
+  document.getElementById('entranceModal').classList.add('hidden');document.getElementById('app').style.display='block';ti=setInterval(function(){timeLeft--;updateTimer();if(timeLeft<=0)clearInterval(ti);},1000);updateTimer()}
+
+// Submit
+function confirmSubmit(){if(confirm('确认交卷？\n\n客观题将自动判分，主观题需要阅卷评分。'))doSubmit()}
+function autoSubmit(){alert('⏰ 时间到！自动交卷。');doSubmit()}
+
+function doSubmit(){
+  clearInterval(ti);
+  var mcqScore=0;mcqs.forEach(function(q,i){var sel=document.querySelector('input[name="mcq_'+i+'"]:checked');if(sel&&parseInt(sel.value)===q.a)mcqScore++;});
+  var multiScore=0;multis.forEach(function(q,i){var checks=document.querySelectorAll('input[name="multi_'+i+'"]:checked'),vals=[];checks.forEach(function(c){vals.push(parseInt(c.value));});var correct=true;if(vals.length!==q.a.length)correct=false;else{q.a.forEach(function(v){if(vals.indexOf(v)<0)correct=false;});}if(correct)multiScore++;});
+  var tfScore=0;tfs.forEach(function(q,i){var sel=document.querySelector('input[name="tf_'+i+'"]:checked');if(sel&&parseInt(sel.value)===q.a)tfScore++;});
+  var autoScore=mcqScore+multiScore+tfScore;
+  var result={mcqScore:mcqScore,mcqTotal:20,multiScore:multiScore,multiTotal:multis.length,tfScore:tfScore,tfTotal:10,shortTotal:15,caseTotal:15,autoScore:autoScore,totalFull:20+multis.length+10+15+15};
+  var s=getState();s.status='completed';s.completedAt=new Date().toISOString();s.result=result;saveState(s);
+  showResult(result);
+}
+
+function showResult(data){
+  var el=document.getElementById('scoreDisplay');el.textContent=data.autoScore+'/'+(data.mcqTotal+data.multiTotal+data.tfTotal);el.className='score-display'+(data.autoScore>=35?' pass':' fail');
+  document.getElementById('gradeDisplay').innerHTML='客观题：<strong>'+data.mcqScore+'/'+data.mcqTotal+'</strong>（单选）· <strong>'+data.multiScore+'/'+data.multiTotal+'</strong>（多选）· <strong>'+data.tfScore+'/'+data.tfTotal+'</strong>（判断）<br>主观题：<span style="color:#f59e0b">待阅卷评分（简答+案例共30分）</span>';
+  document.getElementById('breakdown').innerHTML='<div class="bd-item">📝 单选题</div><div class="bd-item">'+data.mcqScore+'/'+data.mcqTotal+'</div><div class="bd-item">✅ 多选题</div><div class="bd-item">'+data.multiScore+'/'+data.multiTotal+'</div><div class="bd-item">⚖️ 判断题</div><div class="bd-item">'+data.tfScore+'/'+data.tfTotal+'</div><div class="bd-item" style="color:#f59e0b">📋 简答题（待批改）</div><div class="bd-item">—/'+data.shortTotal+'</div><div class="bd-item" style="color:#f59e0b">🏥 案例分析（待批改）</div><div class="bd-item">—/'+data.caseTotal+'</div>';
+  document.getElementById('resultModal').classList.add('active');
+}
+function closeResult(){document.getElementById('resultModal').classList.remove('active')}
+window.addEventListener('beforeunload',function(e){var s=getState();if(s&&s.status==='in_progress'){doSubmit();e.preventDefault();e.returnValue='';}});
+
+// Init
+renderMCQs();renderMulti();renderTF();
+var es=getState();
+if(es&&es.status==='completed'){document.getElementById('entranceModal').classList.add('hidden');document.getElementById('app').style.display='block';showResult(es.result);}
+else if(es&&es.status==='in_progress'){document.getElementById('entranceModal').classList.add('hidden');document.getElementById('app').style.display='block';ti=setInterval(function(){timeLeft--;updateTimer();if(timeLeft<=0)clearInterval(ti);},1000);updateTimer();}
+</script>
+</body></html>
