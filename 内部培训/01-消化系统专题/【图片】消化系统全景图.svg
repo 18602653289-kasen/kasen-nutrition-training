@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" font-family="'PingFang SC','Microsoft YaHei',sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#64748b"/>
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#3b82f6"/>
+    </marker>
+    <filter id="shadow" x="-2%" y="-2%" width="104%" height="104%">
+      <feDropShadow dx="1" dy="2" stdDeviation="2" flood-opacity="0.1"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="600" fill="#f8fafc" rx="12"/>
+
+  <!-- Title -->
+  <text x="400" y="32" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e293b">消化系统全景图</text>
+  <text x="400" y="52" text-anchor="middle" font-size="13" fill="#94a3b8">消化管五站 + 附属器官三巨头</text>
+
+  <!-- ===== 消化管（传送带） ===== -->
+  <!-- Zone box -->
+  <rect x="80" y="70" width="640" height="370" rx="10" fill="none" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="100" y="92" font-size="13" font-weight="bold" fill="#64748b">消化管（传送带）</text>
+
+  <!-- ① 口腔 -->
+  <rect x="120" y="110" width="100" height="80" rx="10" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="170" y="145" text-anchor="middle" font-size="15" font-weight="bold" fill="#92400e">① 口腔</text>
+  <text x="170" y="165" text-anchor="middle" font-size="11" fill="#a16207">机械粉碎</text>
+  <text x="170" y="180" text-anchor="middle" font-size="11" fill="#a16207">唾液淀粉酶</text>
+
+  <!-- Arrow 1→2 -->
+  <line x1="220" y1="150" x2="270" y2="150" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="245" y="142" text-anchor="middle" font-size="10" fill="#94a3b8">食管</text>
+
+  <!-- ② 食管 -->
+  <rect x="275" y="110" width="100" height="80" rx="10" fill="#fce7f3" stroke="#ec4899" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="325" y="145" text-anchor="middle" font-size="15" font-weight="bold" fill="#9d174d">② 食管</text>
+  <text x="325" y="165" text-anchor="middle" font-size="11" fill="#be185d">25cm输送通道</text>
+  <text x="325" y="180" text-anchor="middle" font-size="11" fill="#ec4899">⚠️ 最脆弱的环节</text>
+
+  <!-- Arrow 2→3 -->
+  <line x1="375" y1="150" x2="420" y2="150" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- ③ 胃 -->
+  <rect x="425" y="110" width="100" height="80" rx="10" fill="#fee2e2" stroke="#ef4444" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="475" y="145" text-anchor="middle" font-size="15" font-weight="bold" fill="#991b1b">③ 胃</text>
+  <text x="475" y="165" text-anchor="middle" font-size="11" fill="#b91c1c">强酸(pH 1.5-3)</text>
+  <text x="475" y="180" text-anchor="middle" font-size="11" fill="#b91c1c">胃蛋白酶+内因子</text>
+
+  <!-- Arrow 3→4 -->
+  <line x1="525" y1="150" x2="570" y2="150" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- ④ 小肠 -->
+  <rect x="575" y="100" width="100" height="100" rx="10" fill="#f0fdf4" stroke="#22c55e" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="625" y="140" text-anchor="middle" font-size="15" font-weight="bold" fill="#166534">④ 小肠</text>
+  <text x="625" y="158" text-anchor="middle" font-size="11" fill="#15803d">5-7米</text>
+  <text x="625" y="174" text-anchor="middle" font-size="11" fill="#15803d">吸收面积≈网球场</text>
+  <text x="625" y="190" text-anchor="middle" font-size="11" fill="#15803d">⭐ 消化吸收核心</text>
+
+  <!-- Arrow 4→5 - going down and left -->
+  <path d="M625,200 L625,280 L350,280 L350,320" stroke="#64748b" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/>
+
+  <!-- ⑤ 大肠 -->
+  <rect x="270" y="320" width="160" height="80" rx="10" fill="#f0fdf4" stroke="#f97316" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="350" y="355" text-anchor="middle" font-size="15" font-weight="bold" fill="#9a3412">⑤ 大肠</text>
+  <text x="350" y="375" text-anchor="middle" font-size="11" fill="#c2410c">水分回收+粪便形成</text>
+  <text x="350" y="390" text-anchor="middle" font-size="11" fill="#ea580c">100万亿微生物家园</text>
+
+  <!-- ===== 附属器官（配套工位） ===== -->
+  <!-- Zone box -->
+  <rect x="80" y="450" width="640" height="130" rx="10" fill="none" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="100" y="472" font-size="13" font-weight="bold" fill="#64748b">附属器官（配套工位）</text>
+
+  <!-- 肝脏 -->
+  <rect x="120" y="485" width="160" height="75" rx="10" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="200" y="512" text-anchor="middle" font-size="14" font-weight="bold" fill="#1e3a5f">肝脏（代谢中枢）</text>
+  <text x="200" y="530" text-anchor="middle" font-size="10" fill="#2563eb">重1.2-1.5kg | 双重供血</text>
+  <text x="200" y="548" text-anchor="middle" font-size="10" fill="#2563eb">五大功能 | 胆汁制造600-1200ml/天</text>
+  <!-- Connector line to duodenum -->
+  <path d="M200,485 L200,450 L625,200" stroke="#3b82f6" stroke-width="1" stroke-dasharray="4,3" fill="none" marker-end="url(#arrow-blue)" opacity="0.5"/>
+
+  <!-- 胆囊 -->
+  <rect x="320" y="485" width="140" height="75" rx="10" fill="#f0fdf4" stroke="#22c55e" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="390" y="512" text-anchor="middle" font-size="14" font-weight="bold" fill="#166534">胆囊（搭档）</text>
+  <text x="390" y="530" text-anchor="middle" font-size="10" fill="#15803d">浓缩胆汁10-15倍</text>
+  <text x="390" y="548" text-anchor="middle" font-size="10" fill="#15803d">30-60ml | ⚠️ 管径2-3mm</text>
+
+  <!-- 胰腺 -->
+  <rect x="500" y="485" width="160" height="75" rx="10" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="580" y="512" text-anchor="middle" font-size="14" font-weight="bold" fill="#92400e">胰腺（消化液工厂）</text>
+  <text x="580" y="530" text-anchor="middle" font-size="10" fill="#a16207">三大消化酶+碳酸氢盐</text>
+  <text x="580" y="548" text-anchor="middle" font-size="10" fill="#a16207">酶原形式→自我保护</text>
+
+  <!-- Legend -->
+  <rect x="80" y="585" width="10" height="10" rx="2" fill="#fef3c7" stroke="#f59e0b" stroke-width="1"/>
+  <text x="95" y="594" font-size="10" fill="#94a3b8">消化管</text>
+  <rect x="180" y="585" width="10" height="10" rx="2" fill="#dbeafe" stroke="#3b82f6" stroke-width="1"/>
+  <text x="195" y="594" font-size="10" fill="#94a3b8">附属器官</text>
+</svg>

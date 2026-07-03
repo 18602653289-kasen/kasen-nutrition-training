@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" font-family="'PingFang SC','Microsoft YaHei',sans-serif">
+  <defs>
+    <filter id="shadow" x="-2%" y="-2%" width="104%" height="104%">
+      <feDropShadow dx="1" dy="2" stdDeviation="2" flood-opacity="0.1"/>
+    </filter>
+  </defs>
+  <rect width="800" height="400" fill="#f8fafc" rx="12"/>
+  <text x="400" y="32" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e293b">胃酸三大核心任务</text>
+  <text x="400" y="52" text-anchor="middle" font-size="13" fill="#94a3b8">消化质量的上游控制者 —— 胃壁细胞分泌盐酸（pH 1.5-3.0）</text>
+
+  <!-- Center: 胃 -->
+  <rect x="300" y="110" width="200" height="70" rx="35" fill="#fee2e2" stroke="#ef4444" stroke-width="2" filter="url(#shadow)"/>
+  <text x="400" y="142" text-anchor="middle" font-size="18" font-weight="bold" fill="#991b1b">胃</text>
+  <text x="400" y="162" text-anchor="middle" font-size="11" fill="#b91c1c">胃酸 (pH 1.5-3.0)</text>
+
+  <!-- Task 1: 激活 -->
+  <rect x="30" y="80" width="220" height="90" rx="10" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="140" y="105" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e3a5f">任务一：激活胃蛋白酶原</text>
+  <text x="140" y="125" text-anchor="middle" font-size="10" fill="#2563eb">胃蛋白酶原（无活性）</text>
+  <text x="140" y="140" text-anchor="middle" font-size="10" fill="#3b82f6">↓ 胃酸激活（切除一段肽链）</text>
+  <text x="140" y="155" text-anchor="middle" font-size="10" fill="#2563eb">胃蛋白酶（有活性）→ 分解蛋白质</text>
+
+  <line x1="250" y1="125" x2="300" y2="140" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Task 2: 杀菌 -->
+  <rect x="290" y="200" width="220" height="90" rx="10" fill="#f0fdf4" stroke="#22c55e" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="400" y="225" text-anchor="middle" font-size="15" font-weight="bold" fill="#166534">任务二：杀菌</text>
+  <text x="400" y="245" text-anchor="middle" font-size="10" fill="#15803d">第一道化学防线</text>
+  <text x="400" y="260" text-anchor="middle" font-size="10" fill="#15803d">pH 1.5-3.0 → 消灭食物中的病原体</text>
+  <text x="400" y="278" text-anchor="middle" font-size="10" fill="#dc2626">胃酸不足→细菌进入小肠→SIBO风险</text>
+
+  <line x1="400" y1="180" x2="400" y2="200" stroke="#22c55e" stroke-width="1.5"/>
+
+  <!-- Task 3: 发信号 -->
+  <rect x="550" y="80" width="220" height="90" rx="10" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="660" y="105" text-anchor="middle" font-size="15" font-weight="bold" fill="#92400e">任务三：发信号</text>
+  <text x="660" y="125" text-anchor="middle" font-size="10" fill="#a16207">酸性食糜入十二指肠</text>
+  <text x="660" y="140" text-anchor="middle" font-size="10" fill="#a16207">刺激CCK → 胆囊排胆汁</text>
+  <text x="660" y="155" text-anchor="middle" font-size="10" fill="#a16207">刺激促胰液素 → 胰腺分泌消化酶</text>
+
+  <line x1="500" y1="125" x2="550" y2="140" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#64748b"/>
+    </marker>
+  </defs>
+
+  <!-- Bottom note -->
+  <rect x="80" y="320" width="640" height="55" rx="8" fill="#fff7ed" stroke="#f59e0b" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="400" y="340" text-anchor="middle" font-size="12" font-weight="bold" fill="#c2410c">🔥 一棒掉，棒棒掉</text>
+  <text x="400" y="358" text-anchor="middle" font-size="11" fill="#a16207">胃酸不足 → 蛋白质消化卡死 + 杀菌失败 + 下游信号中断 → 胰液和胆汁跟着不足</text>
+  <text x="400" y="372" text-anchor="middle" font-size="10" fill="#94a3b8">这是分析客户消化问题的核心逻辑——从上游往下一站站推导，找到连锁反应的第一块骨牌</text>
+</svg>

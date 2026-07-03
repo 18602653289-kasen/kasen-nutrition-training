@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>综合考试 · 消化系统（上）— 结构功能与慢病根源</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:#f0f2f5;color:#1e293b;line-height:1.7}
+  .container{max-width:760px;margin:0 auto;padding:16px 16px 80px}
+
+  /* Header */
+  .header{background:linear-gradient(135deg,#006b4a,#00d68f 55%,#00b37a);color:#fff;padding:28px 24px 24px;border-radius:16px;margin-bottom:20px}
+  .header h1{font-size:22px;font-weight:700;margin-bottom:4px}
+  .header .sub{font-size:14px;opacity:.85}
+  .header .meta{display:flex;gap:16px;margin-top:10px;font-size:13px;flex-wrap:wrap}
+  .header .meta span{background:rgba(255,255,255,.15);padding:3px 12px;border-radius:10px}
+
+  /* Timer */
+  .timer-bar{background:#fff;border-radius:12px;padding:12px 18px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 1px 4px rgba(0,0,0,.06);margin-bottom:16px}
+  .timer-bar .label{font-weight:600;font-size:14px}
+  .timer-bar .countdown{font-size:20px;font-weight:700;font-variant-numeric:tabular-nums;color:#00d68f}
+  .timer-bar .countdown.warning{color:#e74c3c}
+
+  /* Info card */
+  .info-card{background:#e6faf2;border:1px solid #b3f0d9;border-radius:12px;padding:14px 18px;margin-bottom:16px;font-size:13px}
+  .info-card strong{color:#00d68f}
+
+  /* Sections */
+  .section{margin-bottom:20px}
+  .section-title{font-size:16px;font-weight:700;padding:10px 16px;background:#fff;border-radius:12px 12px 0 0;border-bottom:2px solid #00d68f;display:flex;align-items:center;gap:8px}
+  .section-title .score{font-weight:400;font-size:13px;color:#64748b;margin-left:auto}
+  .section-body{background:#fff;border-radius:0 0 12px 12px;padding:4px 16px 12px}
+
+  /* Question */
+  .question{padding:14px 0;border-bottom:1px solid #f1f5f9}
+  .question:last-child{border-bottom:none}
+  .q-num{font-weight:600;color:#00d68f;margin-right:4px}
+  .q-text{font-weight:500;margin-bottom:8px}
+  .q-text .blanks{color:#e74c3c;font-weight:600}
+
+  /* Options */
+  .options{display:flex;flex-direction:column;gap:6px}
+  .option{display:flex;align-items:flex-start;gap:8px;padding:6px 10px;border-radius:8px;cursor:pointer;transition:background .15s}
+  .option:hover{background:#f1f5f9}
+  .option input[type="radio"]{margin-top:3px;flex-shrink:0;accent-color:#00d68f;width:16px;height:16px}
+  .option label{cursor:pointer;font-size:14px;flex:1}
+  .option.selected{background:#e6faf2}
+
+  /* Text inputs */
+  .blank-input{display:inline-block;margin:0 2px}
+  .blank-input input{border:none;border-bottom:2px solid #cbd5e1;padding:2px 4px;font-size:14px;width:120px;outline:none;transition:border-color .2s;background:transparent}
+  .blank-input input:focus{border-color:#00d68f}
+  .blank-input input.wide{width:160px}
+
+  /* Textarea */
+  .q-textarea textarea{width:100%;min-height:80px;border:1px solid #e2e8f0;border-radius:8px;padding:10px;font-size:14px;font-family:inherit;line-height:1.6;resize:vertical;outline:none;transition:border-color .2s}
+  .q-textarea textarea:focus{border-color:#00d68f}
+  .q-textarea textarea.tall{min-height:120px}
+
+  /* Fill blank row */
+  .fill-row{display:flex;flex-direction:column;gap:6px;margin-top:4px}
+  .fill-item{display:flex;align-items:center;gap:6px;font-size:14px}
+  .fill-item input{border:none;border-bottom:2px solid #cbd5e1;padding:2px 4px;font-size:14px;width:100px;outline:none;transition:border-color .2s;background:transparent}
+  .fill-item input:focus{border-color:#00d68f}
+  .fill-item input.mid{width:140px}
+  .fill-item input.long{width:180px}
+
+  /* Submit */
+  .submit-area{text-align:center;margin:24px 0}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 36px;border-radius:12px;font-size:16px;font-weight:600;border:none;cursor:pointer;transition:all .2s}
+  .btn-primary{background:#00d68f;color:#fff}
+  .btn-primary:hover{background:#3b5de7;transform:translateY(-1px);box-shadow:0 4px 12px rgba(79,110,247,.3)}
+  .btn-primary:disabled{background:#94a3b8;cursor:not-allowed;transform:none;box-shadow:none}
+  .btn-secondary{background:#e2e8f0;color:#475569}
+
+  /* Result modal */
+  .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:1000;justify-content:center;align-items:center;padding:20px}
+  .modal-overlay.active{display:flex}
+  .modal{background:#fff;border-radius:16px;padding:32px;max-width:520px;width:100%;max-height:80vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.2);text-align:center}
+  .modal h2{font-size:22px;margin-bottom:4px}
+  .modal .score-display{font-size:48px;font-weight:800;color:#00d68f;margin:12px 0}
+  .modal .score-display.pass{color:#10b981}
+  .modal .score-display.fail{color:#e74c3c}
+  .modal .grade{margin-bottom:16px;font-size:15px}
+  .modal .breakdown{margin-top:16px;text-align:left}
+  .modal .breakdown-item{display:flex;justify-content:space-between;padding:6px 0;font-size:14px;border-bottom:1px solid #f1f5f9}
+  .modal .breakdown-item:last-child{border-bottom:none}
+  .modal .btn{margin-top:16px}
+
+  /* Print */
+  @media print{
+    .timer-bar,.btn,.submit-area,.modal-overlay{display:none!important}
+    .header{break-inside:avoid}
+    .section-body{break-inside:avoid}
+    body{background:#fff}
+    .container{padding:0}
+    .section-title{background:#f8fafc}
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar{width:4px}
+  ::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:4px}
+</style>
+</head>
+<body>
+
+<div class="container" id="app">
+  <!-- Header -->
+  <div class="header">
+    <h1>📘 综合考试</h1>
+    <div class="sub">消化系统（上）— 结构功能与慢病根源</div>
+    <div class="meta">
+      <span>📝 满分 100 分</span>
+      <span>⏱ 60 分钟闭卷</span>
+      <span>📅 <span id="dateDisplay"></span></span>
+    </div>
+  </div>
+
+  <!-- Timer -->
+  <div class="timer-bar" id="timerBar">
+    <span class="label">⏱ 剩余时间</span>
+    <span class="countdown" id="countdown">60:00</span>
+  </div>
+
+  <!-- Info -->
+  <div class="info-card">
+    <strong>📌 答题说明：</strong>
+    单选题每题1分（共20分）· 填空题每空2分（共20分）· 简答题每题5分（共20分）· 综合案例题每题20分（共40分）。
+    简答题和案例题由阅卷人评分，提交后客观题自动出分。
+  </div>
+
+  <!-- Part 1: 单选题 -->
+  <div class="section" id="part1">
+    <div class="section-title"><span>一、单选题</span><span class="score">共20题 · 每题1分</span></div>
+    <div class="section-body" id="mcqContainer"></div>
+  </div>
+
+  <!-- Part 2: 填空题 -->
+  <div class="section" id="part2">
+    <div class="section-title"><span>二、填空题</span><span class="score">共4题 · 每空2分</span></div>
+    <div class="section-body" id="fillContainer"></div>
+  </div>
+
+  <!-- Part 3: 简答题 -->
+  <div class="section" id="part3">
+    <div class="section-title"><span>三、简答题</span><span class="score">共4题 · 每题5分</span></div>
+    <div class="section-body" id="shortContainer"></div>
+  </div>
+
+  <!-- Part 4: 综合案例题 -->
+  <div class="section" id="part4">
+    <div class="section-title"><span>四、综合案例题</span><span class="score">共2题 · 每题20分</span></div>
+    <div class="section-body" id="caseContainer"></div>
+  </div>
+
+  <!-- Submit -->
+  <div class="submit-area">
+    <button class="btn btn-primary" id="submitBtn" onclick="confirmSubmit()">📤 交卷</button>
+  </div>
+</div>
+
+<!-- Result Modal -->
+<div class="modal-overlay" id="resultModal">
+  <div class="modal">
+    <h2 id="resultTitle">📊 考试结果</h2>
+    <div class="score-display" id="scoreDisplay">0</div>
+    <div class="grade" id="gradeDisplay"></div>
+    <div class="breakdown" id="breakdown"></div>
+    <button class="btn btn-secondary" onclick="closeResult()">关闭</button>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// DATE
+// ============================================================
+document.getElementById('dateDisplay').textContent = new Date().toLocaleDateString('zh-CN');
+
+// ============================================================
+// MCQ DATA (单选题)
+// ============================================================
+const mcqs = [
+  { q: "消化系统的三大核心功能是（　）", opts: ["A. 消化吸收、屏障防御、菌群调控","B. 消化吸收、循环运输、菌群调控","C. 消化吸收、屏障防御、免疫调节","D. 消化吸收、代谢解毒、菌群调控"], ans: 0 },
+  { q: "食物经过消化管的正确顺序是（　）", opts: ["A. 口腔→食管→胃→大肠→小肠","B. 口腔→食管→胃→小肠→大肠","C. 口腔→胃→食管→小肠→大肠","D. 食管→口腔→胃→小肠→大肠"], ans: 1 },
+  { q: "以下哪个器官同时具备内分泌和外分泌双重功能？（　）", opts: ["A. 肝脏","B. 胆囊","C. 胰腺","D. 胃"], ans: 2 },
+  { q: "胃蛋白酶原以\"酶原\"形式分泌，这个设计的核心意义是（　）", opts: ["A. 加速蛋白质消化","B. 保护胃自身不被消化","C. 帮助食物储存","D. 增强胃部血流量"], ans: 1 },
+  { q: "关于胃酸不足的后果，以下哪项描述是正确的？（　）", opts: ["A. 胃酸不足会导致胃蛋白酶过度激活","B. 胃酸不足会增强下游胰酶和胆汁的分泌","C. 胃酸不足可能导致小肠细菌过度生长（SIBO）","D. 胃酸不足会增强矿物质吸收效率"], ans: 2 },
+  { q: "以下哪项是胰酶不足的典型信号？（　）", opts: ["A. 反酸烧心","B. 右上腹绞痛","C. 大便粘腻、浮在水面、有食物残渣","D. 大便干硬呈球状"], ans: 2 },
+  { q: "以下哪项是胆汁不足的典型信号？（　）", opts: ["A. 一吃油腻就腹胀、恶心","B. 餐后立即饥饿","C. 大便干硬","D. 食欲亢进"], ans: 0 },
+  { q: "以下哪种饮食习惯最容易增加胆结石风险？（　）", opts: ["A. 每餐都吃优质脂肪","B. 长期不吃早餐","C. 每天吃足量膳食纤维","D. 每天喝充足的水"], ans: 1 },
+  { q: "胆囊切除后，客户一吃油腻就腹泻，直接原因是（　）", opts: ["A. 肝脏停止分泌胆汁","B. 失去浓缩和定时释放胆汁的功能","C. 胰腺停止分泌脂肪酶","D. 肠道菌群完全失衡"], ans: 1 },
+  { q: "肠漏发生时，控制紧密连接开关的连蛋白（Zonulin）处于什么状态？（　）", opts: ["A. 被抑制","B. 被过度激活，开关一直打开","C. 功能正常","D. 完全不工作"], ans: 1 },
+  { q: "肠道黏膜三道防线中，\"护城河\"指的是（　）", opts: ["A. 上皮细胞层","B. 黏液层","C. 紧密连接蛋白","D. 分泌型IgA"], ans: 1 },
+  { q: "以下哪种伤害源的作用机制是\"直接激活连蛋白信号通路，打开紧密连接\"？（　）", opts: ["A. 酒精","B. 非甾体抗炎药","C. 麸质","D. 慢性压力"], ans: 2 },
+  { q: "肠漏引发的慢性低度炎症，与感冒发烧的急性炎症相比，最恰当的描述是（　）", opts: ["A. 来得快去得也快","B. 像火山喷发一样猛烈","C. 像阴燃的暗火，没有明火但持续破坏","D. 只在局部发生，不影响全身"], ans: 2 },
+  { q: "短链脂肪酸激活肠道L细胞后，分泌的GLP-1对血糖的主要作用是（　）", opts: ["A. 升高血糖","B. 促进胰岛素分泌、抑制胰高血糖素","C. 加速胃排空","D. 抑制胰岛素分泌"], ans: 1 },
+  { q: "人体大约95%的血清素在哪里合成？（　）", opts: ["A. 大脑","B. 肝脏","C. 肠道","D. 胰腺"], ans: 2 },
+  { q: "肝肠循环中，胆汁酸在回肠末端的重吸收比例约为（　）", opts: ["A. 约30%","B. 约50%","C. 约70%","D. 约95%"], ans: 3 },
+  { q: "肝肠循环障碍导致结节囊肿的核心通路是（　）", opts: ["A. 废弃雌激素被重新激活并重吸收，形成雌激素优势","B. 胆汁酸合成减少","C. 脂肪消化障碍","D. 蛋白质吸收不良"], ans: 0 },
+  { q: "五步修复框架中，哪一步的核心目标是\"打扫战场，准备原料\"？（　）", opts: ["A. 移除伤害","B. 替代消化","C. 修复黏膜","D. 支持肝胆"], ans: 2 },
+  { q: "关于五步修复框架的适用范围，以下哪种说法是正确的？（　）", opts: ["A. 每个客户都必须严格按照第一步到第五步的顺序执行","B. 根据客户自测结果排优先级，不是每人都需要做全五步","C. 只需要做第三步修复黏膜，其他步骤可选","D. 五步可以同时进行，不需要考虑顺序"], ans: 1 },
+  { q: "我们的核心信念中，\"激活自愈力\"的含义是（　）", opts: ["A. 用营养素代替身体完成修复","B. 把阻碍自愈的因素拿掉，把修复需要的原料给足，让身体自己修复","C. 依靠药物激活免疫系统","D. 通过手术切除病灶"], ans: 1 }
+];
+
+// ============================================================
+// FILL DATA (填空题 - stored as expected answers for reference)
+// ============================================================
+// Note: Fill-in-blanks are manually graded, answers stored for reference
+const fillQuestions = [
+  {
+    q: "1、消化管五个站点依次是：______、______、______、______、______。",
+    blanks: [
+      { label: "站点1", width: "mid" },
+      { label: "站点2", width: "mid" },
+      { label: "站点3", width: "mid" },
+      { label: "站点4", width: "mid" },
+      { label: "站点5", width: "mid" }
+    ],
+    answers: ["口腔", "食管", "胃", "小肠（十二指肠/空肠/回肠）", "大肠"]
+  },
+  {
+    q: "2、消化系统附属器官三巨头分别是：______、______、______。",
+    blanks: [
+      { label: "器官1", width: "mid" },
+      { label: "器官2", width: "mid" },
+      { label: "器官3", width: "mid" }
+    ],
+    answers: ["肝脏", "胆囊", "胰腺"]
+  },
+  {
+    q: "3、肠道黏膜的三道防线（按古城比喻从外到内）分别是：护城河（______）、城墙（上皮细胞+______）、巡逻兵（______）。",
+    blanks: [
+      { label: "护城河", width: "mid" },
+      { label: "城墙", width: "long" },
+      { label: "巡逻兵", width: "mid" }
+    ],
+    answers: ["黏液层", "紧密连接", "分泌型IgA"]
+  },
+  {
+    q: "4、胃酸不足的四大常见原因是：长期服用______、______感染、慢性压力、年龄增长。",
+    blanks: [
+      { label: "原因1", width: "long" },
+      { label: "原因2", width: "mid" }
+    ],
+    answers: ["抑酸药（PPI/H2受体阻滞剂）", "幽门螺杆菌"]
+  }
+];
+
+// ============================================================
+// SHORT ANSWER DATA (简答题)
+// ============================================================
+const shortQuestions = [
+  { id: "sa1", q: "1、请写出胃酸的三大任务。", hint: "提示：从激活、杀菌、发信号三个角度回答。" },
+  { id: "sa2", q: "2、请写出菌群的三大核心功能。", hint: "提示：从代谢、屏障、免疫三个角度回答。" },
+  { id: "sa3", q: "3、请写出五步修复框架中\"修复黏膜\"这一步需要用到的四类精准营养名称。", hint: "提示：考虑修复肠道黏膜必需的营养素。" },
+  { id: "sa4", q: "4、请写出腐败发酵与有益发酵的三个关键区别。", hint: "提示：从底物、产物、肠道环境/结果三个维度比较。" }
+];
+
+// ============================================================
+// CASE DATA (综合案例题)
+// ============================================================
+const caseQuestions = [
+  {
+    id: "case1",
+    title: "案例一（反酸烧心+消化评估）",
+    desc: "一位48岁男性客户，主诉\"反酸烧心\"两年，一直服用奥美拉唑（PPI），但饭后腹胀依旧，吃高蛋白食物后腹胀尤其明显。近期体检发现血清维生素B₁₂偏低。",
+    sub: [
+      { id: "c1q1", q: "（1）该客户的反酸烧心更可能是胃酸过多还是胃酸过少？请列出至少两条判断依据。" },
+      { id: "c1q2", q: "（2）该客户腹胀和B₁₂偏低分别可以用消化接力赛中哪个环节的故障来解释？请写出对应环节名称和简要机制。" },
+      { id: "c1q3", q: "（3）胃酸不足会导致下游哪两种消化液分泌不足？请写出这两种消化液的名称及不足时的典型表现（各写一条）。" },
+      { id: "c1q4", q: "（4）针对该客户，请从五步修复框架中选择最应优先执行的两步，并分别写出一项具体核心动作。" }
+    ]
+  },
+  {
+    id: "case2",
+    title: "案例二（多症状综合分析）",
+    desc: "一位55岁女性客户，胆囊切除术后3年，一吃油腻就腹泻。同时患有2型糖尿病（空腹血糖7.5mmol/L），体检还发现乳腺增生。",
+    sub: [
+      { id: "c2q1", q: "（1）该客户\"吃油腻就腹泻\"的生理原因是什么？请用不超过三句话概括。" },
+      { id: "c2q2", q: "（2）请从肠漏机制出发，写出该客户血糖问题的一条完整传导链（用箭头串联关键环节）。" },
+      { id: "c2q3", q: "（3）请从肝肠循环机制出发，写出该客户乳腺增生问题的一条完整传导链（用箭头串联关键环节）。" },
+      { id: "c2q4", q: "（4）请从五步修复框架中选择该客户最应优先执行的三步，并分别写出一项具体核心动作。" }
+    ]
+  }
+];
+
+// ============================================================
+// RENDER FUNCTIONS
+// ============================================================
+
+// Render MCQs
+function renderMCQs() {
+  const container = document.getElementById('mcqContainer');
+  container.innerHTML = mcqs.map((item, idx) => {
+    const optsHtml = item.opts.map((opt, oi) => {
+      const val = `${idx}-${oi}`;
+      return `<div class="option" onclick="setMCQ(${idx},${oi})">
+        <input type="radio" name="mcq_${idx}" value="${oi}" id="mcq_${val}">
+        <label for="mcq_${val}">${opt}</label>
+      </div>`;
+    }).join('');
+    return `<div class="question">
+      <div class="q-text"><span class="q-num">${idx+1}.</span> ${item.q}</div>
+      <div class="options">${optsHtml}</div>
+    </div>`;
+  }).join('');
+}
+
+function setMCQ(qidx, oidx) {
+  const radios = document.querySelectorAll(`input[name="mcq_${qidx}"]`);
+  radios[oidx].checked = true;
+}
+
+// Render Fill-in-the-blanks
+function renderFills() {
+  const container = document.getElementById('fillContainer');
+  container.innerHTML = fillQuestions.map((item, idx) => {
+    const blanksHtml = item.blanks.map((b, bi) => {
+      const id = `fill_${idx}_${bi}`;
+      return `<span class="blank-input"><input type="text" id="${id}" class="${b.width}" placeholder="${b.label}"></span>`;
+    });
+    // Split q text by ______ and interleave blanks
+    let parts = item.q.split(/(______)/g);
+    let html = '';
+    let bi = 0;
+    for (let p of parts) {
+      if (p === '______') {
+        html += blanksHtml[bi] || '';
+        bi++;
+      } else {
+        html += p;
+      }
+    }
+    return `<div class="question">
+      <div class="q-text">${html}</div>
+      <div style="margin-top:4px;font-size:12px;color:#94a3b8">参考答案：${item.answers.join('、')}</div>
+    </div>`;
+  }).join('');
+}
+
+// Render Short Answers
+function renderShort() {
+  const container = document.getElementById('shortContainer');
+  container.innerHTML = shortQuestions.map(item => {
+    return `<div class="question">
+      <div class="q-text">${item.q}</div>
+      <div class="q-textarea"><textarea id="${item.id}" placeholder="${item.hint}"></textarea></div>
+    </div>`;
+  }).join('');
+}
+
+// Render Cases
+function renderCases() {
+  const container = document.getElementById('caseContainer');
+  container.innerHTML = caseQuestions.map(c => {
+    const subsHtml = c.sub.map(s => {
+      return `<div style="margin-top:12px">
+        <div class="q-text">${s.q}</div>
+        <div class="q-textarea"><textarea id="${s.id}" class="tall" placeholder="请在此作答..."></textarea></div>
+      </div>`;
+    }).join('');
+    return `<div class="question">
+      <div class="q-text" style="font-size:15px">${c.title}</div>
+      <div style="background:#f8fafc;padding:10px 12px;border-radius:8px;margin:8px 0;font-size:13px;color:#475569;border-left:3px solid #00d68f">${c.desc}</div>
+      ${subsHtml}
+    </div>`;
+  }).join('');
+}
+
+// ============================================================
+// TIMER
+// ============================================================
+let timeLeft = 3600; // 60 minutes in seconds
+let timerInterval = null;
+
+function formatTime(secs) {
+  const m = Math.floor(secs / 60);
+  const s = secs % 60;
+  return `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+}
+
+function updateTimer() {
+  const el = document.getElementById('countdown');
+  el.textContent = formatTime(timeLeft);
+  if (timeLeft <= 300) el.classList.add('warning');
+  if (timeLeft <= 0) {
+    clearInterval(timerInterval);
+    autoSubmit();
+  }
+}
+
+function autoSubmit() {
+  alert('⏰ 时间到！系统将自动交卷。');
+  doSubmit();
+}
+
+// ============================================================
+// SUBMIT & SCORE
+// ============================================================
+function confirmSubmit() {
+  if (confirm('确认交卷吗？\n\n提交后将自动计算客观题得分，简答题和案例题需要阅卷人评分。')) {
+    doSubmit();
+  }
+}
+
+function doSubmit() {
+  clearInterval(timerInterval);
+  document.getElementById('submitBtn').disabled = true;
+
+  // Score MCQs
+  let mcqScore = 0;
+  mcqs.forEach((item, idx) => {
+    const selected = document.querySelector(`input[name="mcq_${idx}"]:checked`);
+    if (selected && parseInt(selected.value) === item.ans) mcqScore++;
+  });
+
+  // Score fill-in-the-blanks (simple keyword match)
+  let fillScore = 0;
+  const maxFillScore = fillQuestions.reduce((s, f) => s + f.blanks.length, 0);
+  fillQuestions.forEach((item, idx) => {
+    item.blanks.forEach((b, bi) => {
+      const input = document.getElementById(`fill_${idx}_${bi}`);
+      if (input) {
+        const val = input.value.trim();
+        // Check if answer matches (partial match allowed)
+        const matched = item.answers[bi] && (
+          val.includes(item.answers[bi].slice(0,2)) ||
+          item.answers[bi].includes(val) ||
+          val === item.answers[bi]
+        );
+        if (matched) fillScore++;
+      }
+    });
+  });
+
+  const mcqTotal = 20;
+  const fillTotal = 12; // 12 blanks total
+  const shortTotal = 20; // 4 questions x 5 pts = max 20
+  const caseTotal = 40; // 2 questions x 20 pts = max 40
+
+  const autoScore = mcqScore + fillScore;
+
+  // Show result
+  showResult({
+    mcqScore, mcqTotal,
+    fillScore, fillTotal,
+    shortTotal,
+    caseTotal,
+    autoScore,
+    totalScore: autoScore,
+    totalFull: mcqTotal + fillTotal + shortTotal + caseTotal
+  });
+}
+
+function showResult(data) {
+  const modal = document.getElementById('resultModal');
+  const title = document.getElementById('resultTitle');
+  const display = document.getElementById('scoreDisplay');
+  const grade = document.getElementById('gradeDisplay');
+  const breakdown = document.getElementById('breakdown');
+
+  title.textContent = '📊 考试结果';
+  display.textContent = `${data.autoScore}/${data.mcqTotal + data.fillTotal}`;
+  display.className = 'score-display ' + (data.autoScore >= 20 ? 'pass' : 'fail');
+
+  grade.innerHTML = `
+    客观题：<strong>${data.mcqScore}/${data.mcqTotal}</strong> 分（选择题） · <strong>${data.fillScore}/${data.fillTotal}</strong> 分（填空题）<br>
+    主观题（简答题+案例题）：<span style="color:#f59e0b">待阅卷评分（共 ${data.shortTotal + data.caseTotal} 分）</span><br>
+    <span style="color:#64748b;font-size:13px">总分 = 客观题得分 + 阅卷人评分</span>
+  `;
+
+  breakdown.innerHTML = `
+    <div class="breakdown-item"><span>📝 单选题</span><span>${data.mcqScore} / ${data.mcqTotal}</span></div>
+    <div class="breakdown-item"><span>✏️ 填空题</span><span>${data.fillScore} / ${data.fillTotal}</span></div>
+    <div class="breakdown-item" style="color:#f59e0b"><span>📋 简答题（待批改）</span><span>— / ${data.shortTotal}</span></div>
+    <div class="breakdown-item" style="color:#f59e0b"><span>🏥 综合案例（待批改）</span><span>— / ${data.caseTotal}</span></div>
+    <div class="breakdown-item" style="font-weight:600;border-top:2px solid #e2e8f0;padding-top:8px;margin-top:4px">
+      <span>客观题合计</span><span>${data.autoScore} / ${data.mcqTotal + data.fillTotal}</span>
+    </div>
+  `;
+
+  modal.classList.add('active');
+}
+
+function closeResult() {
+  document.getElementById('resultModal').classList.remove('active');
+}
+
+// ============================================================
+// INIT
+// ============================================================
+renderMCQs();
+renderFills();
+renderShort();
+renderCases();
+
+// Start timer
+timerInterval = setInterval(() => {
+  timeLeft--;
+  updateTimer();
+  if (timeLeft <= 0) clearInterval(timerInterval);
+}, 1000);
+updateTimer();
+</script>
+</body>
+</html>

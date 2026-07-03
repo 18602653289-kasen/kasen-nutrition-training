@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>判卷后台 · Kasen Nutrition</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:#f5f7fa;color:#0f172a;line-height:1.6}
+  .container{max-width:960px;margin:0 auto;padding:16px 16px 60px}
+
+  /* Header */
+  .header{background:linear-gradient(135deg,#006b4a,#00d68f 55%,#00b37a);color:#fff;padding:24px 24px 20px;border-radius:16px;margin-bottom:20px;position:relative;overflow:hidden}
+  .header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.25) 50%,rgba(255,255,255,0))}
+  .header::before{content:'';position:absolute;top:-30%;right:-15%;width:250px;height:250px;background:rgba(255,255,255,.04);border-radius:50%}.header h1{font-size:22px;font-weight:700;position:relative;z-index:1}
+  .header .sub{font-size:13px;opacity:.7;margin-top:2px;position:relative;z-index:1}
+  .header .meta{display:flex;gap:12px;margin-top:8px;flex-wrap:wrap;position:relative;z-index:1}
+  .header .meta span{background:rgba(255,255,255,.18);color:#fff;padding:2px 10px;border-radius:8px;font-size:12px;font-weight:500;backdrop-filter:blur(4px)}
+
+  /* Card */
+  .card{background:#fff;border-radius:12px;padding:20px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.06);border:1px solid #e2e8f0}
+  .card-title{font-size:16px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px;padding-bottom:10px;border-bottom:1px solid #f1f5f9}
+  .card-title .badge{background:linear-gradient(135deg,#00d68f,#00b37a);color:#fff;font-size:11px;padding:1px 8px;border-radius:6px;font-weight:500;margin-left:auto}
+
+  /* Form elements */
+  .form-row{display:flex;gap:12px;margin-bottom:12px;flex-wrap:wrap;align-items:center}
+  .form-row label{font-size:13px;font-weight:600;color:#475569;min-width:70px}
+  .form-row select,.form-row input[type="text"],.form-row input[type="number"]{padding:8px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;font-family:inherit;outline:none;transition:border-color .2s;flex:1;min-width:120px;background:#fff;color:#0f172a}
+  .form-row select:focus,.form-row input:focus{border-color:#00d68f;box-shadow:0 0 0 3px rgba(0,214,143,.1)}
+  .form-row select{appearance:auto}
+
+  /* Button */
+  .btn{display:inline-flex;align-items:center;gap:6px;padding:8px 20px;border-radius:8px;font-size:14px;font-weight:600;border:none;cursor:pointer;transition:all .2s;text-decoration:none}
+  .btn-dark{background:linear-gradient(135deg,#00d68f,#00b37a);color:#fff;box-shadow:0 2px 8px rgba(0,214,143,.2)}
+  .btn-dark:hover{background:linear-gradient(135deg,#00b37a,#009966);transform:translateY(-1px);box-shadow:0 4px 14px rgba(0,214,143,.35)}
+  .btn-green{background:linear-gradient(135deg,#00d68f,#00b37a);color:#fff;box-shadow:0 2px 8px rgba(0,214,143,.2)}
+  .btn-green:hover{background:linear-gradient(135deg,#00b37a,#009966);transform:translateY(-1px);box-shadow:0 4px 16px rgba(0,214,143,.4)}
+  .btn-outline{background:#fff;color:#475569;border:1px solid #e2e8f0}
+  .btn-outline:hover{background:#f8fafc;border-color:#00d68f;color:#0f172a}
+  .btn-sm{padding:5px 12px;font-size:12px}
+  .btn-danger{background:#ef4444;color:#fff}
+  .btn-danger:hover{background:#dc2626}
+
+  /* Question list */
+  .question-block{margin-bottom:14px;padding:14px;background:#f8fafc;border-radius:10px;border:1px solid #e2e8f0}
+  .question-block .q-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+  .question-block .q-header .q-num{font-weight:700;color:#006b4a;font-size:14px}
+  .question-block .q-header .q-score{font-size:12px;color:#64748b}
+  .question-block .q-text{font-size:14px;margin-bottom:8px;color:#1e293b}
+  .question-block .q-answer{font-size:13px;color:#475569;margin-bottom:6px}
+  .question-block .q-answer .correct{color:#10b981;font-weight:600}
+  .question-block .q-answer .wrong{color:#ef4444;font-weight:600}
+  .question-block .q-answer .partial{color:#f59e0b;font-weight:600}
+
+  /* MCQ grading */
+  .mcq-options{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0}
+  .mcq-options .opt{padding:4px 10px;border-radius:6px;font-size:13px;border:1px solid #e2e8f0;background:#fff}
+  .mcq-options .opt.selected{border-color:#00d68f;background:#f0fdf6}
+  .mcq-options .opt.correct{border-color:#10b981;background:#ecfdf5}
+  .mcq-options .opt.wrong{border-color:#ef4444;background:#fef2f2}
+
+  /* Subjective keyword check */
+  .keyword-row{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}
+  .kw-tag{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:6px;font-size:12px;font-weight:500;background:#f1f5f9;border:1px solid #e2e8f0;cursor:pointer;transition:all .15s}
+  .kw-tag:hover{border-color:#00d68f}
+  .kw-tag.hit{background:#ecfdf5;border-color:#10b981;color:#065f46}
+  .kw-tag.miss{background:#fef2f2;border-color:#fecaca;color:#991b1b}
+  .kw-tag .kw-score{font-size:10px;color:#94a3b8;margin-left:2px}
+
+  /* Score result */
+  .result-bar{display:flex;gap:16px;padding:16px;border-radius:10px;margin:14px 0;align-items:center;flex-wrap:wrap}
+  .result-bar.pass{background:#ecfdf5;border:1px solid #a7f3d0}
+  .result-bar.fail{background:#fef2f2;border:1px solid #fecaca}
+  .result-bar.resit{background:#fffbeb;border:1px solid #fde68a}
+  .result-bar .score-num{font-size:36px;font-weight:800;background:linear-gradient(135deg,#00d68f,#00b37a);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .result-bar .score-label{font-size:14px;}
+  .result-bar .status-tag{padding:4px 14px;border-radius:8px;font-size:14px;font-weight:700}
+  .result-bar .status-tag.pass{background:#10b981;color:#fff}
+  .result-bar .status-tag.fail{background:#ef4444;color:#fff}
+  .result-bar .status-tag.resit{background:#f59e0b;color:#fff}
+
+  /* Tab nav */
+  .tab-nav{display:flex;gap:4px;margin-bottom:14px;border-bottom:2px solid #e2e8f0}
+  .tab-btn{padding:8px 16px;border:none;background:none;font-size:14px;font-weight:600;color:#94a3b8;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .15s}
+  .tab-btn:hover{color:#475569}
+  .tab-btn.active{color:#006b4a;border-bottom-color:#00d68f;font-weight:700}
+
+  /* Table */
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th{background:#f1f5f9;padding:8px 10px;text-align:left;font-weight:600;border:1px solid #e2e8f0;color:#0f172a}
+  td{padding:8px 10px;border:1px solid #e2e8f0}
+  tr:nth-child(even){background:#f8fafc}
+
+  /* Responsive */
+  @media(max-width:600px){
+    .form-row{flex-direction:column;align-items:stretch}
+    .result-bar{flex-direction:column;text-align:center}
+    .tab-btn{font-size:12px;padding:6px 10px}
+  }
+
+  /* Tag input */
+  .tag-input-wrap{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+  .tag-input-wrap input{flex:1;min-width:100px}
+
+  /* Section hide/show */
+  .tab-content{display:none}
+  .tab-content.active{display:block}
+
+  .step-indicator{display:flex;gap:8px;margin-bottom:16px}
+  .step{flex:1;padding:8px;text-align:center;border-radius:8px;font-size:12px;font-weight:600;background:#f1f5f9;color:#94a3b8}
+  .step.active{background:#0a1628;color:#fff}
+  .step.done{background:#ecfdf5;color:#065f46;border:1px solid #a7f3d0}
+
+  .divider{border:none;border-top:1px solid #e2e8f0;margin:16px 0}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Header -->
+  <div class="header">
+    <h1>📊 判卷后台</h1>
+    <div class="sub">建美元素 · 专家助理培训考核系统</div>
+    <div class="meta">
+      <span>⚡ 客观题自动判卷</span>
+      <span>🔍 主观题关键词辅助</span>
+      <span>📋 三级考核标准</span>
+    </div>
+  </div>
+
+  <!-- Step Indicator -->
+  <div class="step-indicator" id="stepIndicator">
+    <div class="step active" id="s1">① 考试配置</div>
+    <div class="step" id="s2">② 答案录入</div>
+    <div class="step" id="s3">③ 判卷评分</div>
+    <div class="step" id="s4">④ 结果输出</div>
+  </div>
+
+  <!-- ==================== STEP 1: 考试配置 ==================== -->
+  <div class="card" id="step1Card">
+    <div class="card-title">⚙️ 考试配置 <span class="badge">Step 1</span></div>
+
+    <div class="form-row">
+      <label>考试类型</label>
+      <select id="examType" onchange="updatePassLine()">
+        <option value="daily">📅 每日考核（通过≥60）</option>
+        <option value="weekly">📆 每周考核（通过≥70）</option>
+        <option value="monthly">📅 每月考核（通过≥80）</option>
+      </select>
+    </div>
+
+    <div class="form-row">
+      <label>考试专题</label>
+      <select id="examTopic">
+        <option value="digestive-upper">消化系统（上）— 结构功能与慢病根源</option>
+        <option value="digestive-lower">消化系统（下）</option>
+        <option value="liver">肝病</option>
+        <option value="diabetes-upper">糖尿病（上）</option>
+        <option value="diabetes-lower">糖尿病（下）</option>
+        <option value="hypertension-upper">高血压（上）</option>
+        <option value="hypertension-lower">高血压（下）</option>
+        <option value="blood-fat">高血脂/动脉硬化</option>
+        <option value="uric-acid">高尿酸/痛风</option>
+        <option value="autoimmune">自身免疫病</option>
+        <option value="nodules">结节囊肿</option>
+        <option value="insomnia">失眠+肌少症</option>
+        <option value="kidney">肾病</option>
+        <option value="integration">五大系统整合</option>
+        <option value="final">专业终考</option>
+      </select>
+    </div>
+
+    <div class="form-row">
+      <label>学员姓名</label>
+      <input type="text" id="studentName" placeholder="输入学员姓名" value="徐楚炎">
+    </div>
+
+    <div class="form-row">
+      <label>及格线</label>
+      <span id="passLine" style="font-weight:700;color:#00d68f;font-size:18px">60</span>
+      <span style="font-size:12px;color:#94a3b8">分 · 补考区间: <span id="resitRange">40-59</span>分 · 淘汰线: ＜<span id="elimLine">40</span></span>
+    </div>
+
+    <div style="display:flex;gap:8px;margin-top:4px">
+      <button class="btn btn-dark" onclick="goToStep(2)">下一步 → 录入答案</button>
+      <button class="btn btn-outline btn-sm" onclick="loadSampleData()">📥 加载样例数据</button>
+    </div>
+  </div>
+
+  <!-- ==================== STEP 2: 答案录入 ==================== -->
+  <div class="card" id="step2Card" style="display:none">
+    <div class="card-title">📝 答案录入 <span class="badge">Step 2</span></div>
+
+    <!-- Tab: 客观题 -->
+    <div class="tab-nav">
+      <button class="tab-btn active" onclick="switchTab('mcq',this)">📝 选择题</button>
+      <button class="tab-btn" onclick="switchTab('fill',this)">✏️ 填空题</button>
+      <button class="tab-btn" onclick="switchTab('short',this)">📋 简答题</button>
+      <button class="tab-btn" onclick="switchTab('case',this)">🏥 案例分析</button>
+    </div>
+
+    <!-- MCQ Tab -->
+    <div class="tab-content active" id="tabMcq">
+      <div id="mcqAnswers"></div>
+    </div>
+
+    <!-- Fill Tab -->
+    <div class="tab-content" id="tabFill">
+      <div id="fillAnswers"></div>
+    </div>
+
+    <!-- Short Answer Tab -->
+    <div class="tab-content" id="tabShort">
+      <div id="shortAnswers"></div>
+    </div>
+
+    <!-- Case Tab -->
+    <div class="tab-content" id="tabCase">
+      <div id="caseAnswers"></div>
+    </div>
+
+    <hr class="divider">
+
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn btn-green" onclick="gradeAll()">⚡ 开始判卷</button>
+      <button class="btn btn-outline" onclick="goToStep(1)">← 返回配置</button>
+    </div>
+  </div>
+
+  <!-- ==================== STEP 3: 判卷评分 ==================== -->
+  <div class="card" id="step3Card" style="display:none">
+    <div class="card-title">📊 判卷评分 <span class="badge">Step 3</span></div>
+
+    <div id="gradingResults"></div>
+
+    <hr class="divider">
+
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn btn-dark" onclick="goToStep(4)" id="toResultBtn" disabled>下一步 → 结果报告</button>
+      <button class="btn btn-outline" onclick="goToStep(2)">← 返回修改答案</button>
+    </div>
+  </div>
+
+  <!-- ==================== STEP 4: 结果输出 ==================== -->
+  <div class="card" id="step4Card" style="display:none">
+    <div class="card-title">📋 成绩报告 <span class="badge">Step 4</span></div>
+
+    <div id="resultContent"></div>
+
+    <hr class="divider">
+
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn btn-dark" onclick="printResult()">🖨️ 打印报告</button>
+      <button class="btn btn-green" onclick="copyResult()">📋 复制成绩</button>
+      <button class="btn btn-outline" onclick="newGrading()">🔄 重新判卷</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// ANSWER KEY — 以消化系统（上）综合考试为标准
+// ============================================================
+const ANSWER_KEY = {
+  // 20 MCQs
+  mcq: [
+    { answer: 0, text: "A" },  // B. 消化吸收、屏障防御、菌群调控
+    { answer: 1, text: "B" },  // B. 口腔→食管→胃→小肠→大肠
+    { answer: 2, text: "C" },  // C. 胰腺
+    { answer: 1, text: "B" },  // B. 保护胃自身不被消化
+    { answer: 2, text: "C" },  // C. 可能导致SIBO
+    { answer: 2, text: "C" },  // C. 大便粘腻浮水
+    { answer: 0, text: "A" },  // A. 一吃油腻就腹胀
+    { answer: 1, text: "B" },  // B. 长期不吃早餐
+    { answer: 1, text: "B" },  // B. 失去浓缩和定时
+    { answer: 1, text: "B" },  // B. 被过度激活
+    { answer: 1, text: "B" },  // B. 黏液层
+    { answer: 2, text: "C" },  // C. 麸质
+    { answer: 2, text: "C" },  // C. 阴燃暗火
+    { answer: 1, text: "B" },  // B. 促进胰岛素分泌
+    { answer: 2, text: "C" },  // C. 肠道
+    { answer: 3, text: "D" },  // D. 约95%
+    { answer: 0, text: "A" },  // A. 废弃雌激素重吸收
+    { answer: 2, text: "C" },  // C. 修复黏膜
+    { answer: 1, text: "B" },  // B. 按结果排优先级
+    { answer: 1, text: "B" },  // B. 拿掉阻碍+给足原料
+  ],
+  // Fill-in (by questions)
+  fill: [
+    { answers: ["口腔","食管","胃","小肠","大肠"], keywords: ["口腔","食管","胃","小肠","大肠"] },
+    { answers: ["肝脏","胆囊","胰腺"], keywords: ["肝脏","胆囊","胰腺"] },
+    { answers: ["黏液层","紧密连接","分泌型IgA"], keywords: ["黏液","紧密连接","分泌型IgA","IgA"] },
+    { answers: ["抑酸药","幽门螺杆菌"], keywords: ["抑酸","PPI","奥美拉唑","幽门螺杆菌"] },
+  ],
+  // Short answer keywords
+  short: [
+    {
+      title: "1、胃酸的三大任务",
+      keywords: [
+        { word: "激活胃蛋白酶原", score: 2 },
+        { word: "杀菌", score: 1.5 },
+        { word: "发信号", score: 1.5 },
+      ],
+      synonyms: { "激活胃蛋白酶原": ["激活胃蛋白酶","激活酶原"], "杀菌": ["杀灭细菌","杀死细菌","抑菌"], "发信号": ["刺激CCK","促胰液素","启动下游"] }
+    },
+    {
+      title: "2、菌群的三大核心功能",
+      keywords: [
+        { word: "代谢/发酵", score: 2 },
+        { word: "屏障保护", score: 1.5 },
+        { word: "免疫调节", score: 1.5 },
+      ],
+      synonyms: { "代谢/发酵": ["短链脂肪酸","发酵","代谢"], "屏障保护": ["屏障","保护","防御"], "免疫调节": ["免疫","训练免疫"] }
+    },
+    {
+      title: "3、修复黏膜的四类精准营养",
+      keywords: [
+        { word: "谷氨酰胺", score: 1.5 },
+        { word: "锌", score: 1 },
+        { word: "维生素A", score: 1 },
+        { word: "丁酸/短链脂肪酸", score: 1.5 },
+      ],
+      synonyms: { "谷氨酰胺": ["谷氨","谷氨酰胺"], "锌": ["锌"], "维生素A": ["VA","维A","视黄醇"], "丁酸/短链脂肪酸": ["丁酸","SCFA","短链脂肪酸"] }
+    },
+    {
+      title: "4、腐败发酵与有益发酵的三个区别",
+      keywords: [
+        { word: "底物不同", score: 2 },
+        { word: "产物不同", score: 1.5 },
+        { word: "肠道环境影响不同", score: 1.5 },
+      ],
+      synonyms: { "底物不同": ["底物","纤维","蛋白质","脂肪"], "产物不同": ["产物","短链脂肪酸","LPS","内毒素"], "肠道环境影响不同": ["肠道环境","pH","酸性","碱性"] }
+    }
+  ],
+  // Case study keywords
+  case: [
+    {
+      title: "案例一（反酸烧心）",
+      subs: [
+        {
+          id: "c1q1",
+          q: "（1）胃酸过多还是过少？依据？",
+          keywords: [
+            { word: "胃酸过少", score: 2 },
+            { word: "PPI服药史", score: 1.5 },
+            { word: "B12偏低", score: 1.5 },
+          ],
+          synonyms: { "胃酸过少": ["过少","不足","太少","胃酸少"], "PPI服药史": ["奥美拉唑","PPI","抑酸药"], "B12偏低": ["B₁₂","维生素B12","B12"] }
+        },
+        {
+          id: "c1q2",
+          q: "（2）腹胀和B₁₂偏低的故障环节",
+          keywords: [
+            { word: "胃掉棒/胃环节故障", score: 2 },
+            { word: "蛋白质滞留产气", score: 1.5 },
+            { word: "内因子不足/壁细胞损伤", score: 1.5 },
+          ],
+          synonyms: { "胃掉棒/胃环节故障": ["胃","胃掉棒","胃环节"], "蛋白质滞留产气": ["蛋白质","产气","滞留","发酵"], "内因子不足/壁细胞损伤": ["内因子","壁细胞","B₁₂吸收"] }
+        },
+        {
+          id: "c1q3",
+          q: "（3）下游两种消化液？",
+          keywords: [
+            { word: "胰液", score: 2.5 },
+            { word: "胆汁", score: 2.5 },
+          ],
+          synonyms: { "胰液": ["胰液","胰腺","胰酶"], "胆汁": ["胆汁","胆囊","胆"] }
+        },
+        {
+          id: "c1q4",
+          q: "（4）优先执行的两步修复框架",
+          keywords: [
+            { word: "替代消化", score: 2 },
+            { word: "移除伤害/停PPI", score: 2 },
+            { word: "具体动作描述", score: 1 },
+          ],
+          synonyms: { "替代消化": ["替代消化","消化酶","盐酸甜菜碱"], "移除伤害/停PPI": ["移除","停PPI","停奥美拉唑","医嘱"], "具体动作描述": ["动作","具体"] }
+        }
+      ]
+    },
+    {
+      title: "案例二（多症状综合分析）",
+      subs: [
+        {
+          id: "c2q1",
+          q: "（1）吃油腻腹泻的生理原因",
+          keywords: [
+            { word: "胆囊切除", score: 2 },
+            { word: "失去浓缩/定时释放", score: 2 },
+            { word: "脂肪消化跟不上", score: 1 },
+          ],
+          synonyms: { "胆囊切除": ["胆囊切除","切胆","无胆囊"], "失去浓缩/定时释放": ["浓缩","定时","释放","库存"], "脂肪消化跟不上": ["脂肪","消化","跟不上","脂泻"] }
+        },
+        {
+          id: "c2q2",
+          q: "（2）血糖问题的传导链",
+          keywords: [
+            { word: "胆囊切除→脂肪消化不良", score: 1.5 },
+            { word: "肠漏/LPS入血", score: 1.5 },
+            { word: "胰岛素抵抗", score: 2 },
+          ],
+          synonyms: { "胆囊切除→脂肪消化不良": ["胆囊切除","脂肪泻","消化不良"], "肠漏/LPS入血": ["肠漏","LPS","通透性增加"], "胰岛素抵抗": ["胰岛素抵抗","IR"] }
+        },
+        {
+          id: "c2q3",
+          q: "（3）乳腺增生的传导链",
+          keywords: [
+            { word: "雌激素肝肠循环", score: 2 },
+            { word: "胆汁不足→雌激素重吸收", score: 2 },
+            { word: "雌激素优势", score: 1 },
+          ],
+          synonyms: { "雌激素肝肠循环": ["肝肠循环","雌激素"], "胆汁不足→雌激素重吸收": ["胆汁不足","重吸收","再吸收","重新激活"], "雌激素优势": ["雌激素优势","雌激素过高"] }
+        },
+        {
+          id: "c2q4",
+          q: "（4）优先执行三步修复框架",
+          keywords: [
+            { word: "替代消化", score: 2 },
+            { word: "修复黏膜", score: 2 },
+            { word: "移除伤害", score: 1 },
+          ],
+          synonyms: { "替代消化": ["替代消化","消化酶","胆盐"], "修复黏膜": ["修复黏膜","黏膜修复","谷氨酰胺"], "移除伤害": ["移除伤害","移除"] }
+        }
+      ]
+    }
+  ]
+};
+
+// ============================================================
+// STATE
+// ============================================================
+let currentStep = 1;
+let gradingResults = null;
+
+// ============================================================
+// HELPERS
+// ============================================================
+function updatePassLine() {
+  const type = document.getElementById('examType').value;
+  const passes = { daily: { pass: 60, resit: '40-59', elim: 40 }, weekly: { pass: 70, resit: '50-69', elim: 50 }, monthly: { pass: 80, resit: '60-79', elim: 60 } };
+  const p = passes[type];
+  document.getElementById('passLine').textContent = p.pass;
+  document.getElementById('resitRange').textContent = p.resit;
+  document.getElementById('elimLine').textContent = p.elim;
+}
+
+function goToStep(n) {
+  currentStep = n;
+  document.querySelectorAll('.card[id^="step"]').forEach(c => c.style.display = 'none');
+  document.querySelectorAll('.step').forEach(s => s.className = 'step');
+  document.getElementById(`step${n}Card`).style.display = 'block';
+  document.getElementById(`s${n}`).className = 'step active';
+  for (let i = 1; i < n; i++) document.getElementById(`s${i}`).className = 'step done';
+
+  if (n === 2) renderAnswerForms();
+  if (n === 3) gradeAll();
+}
+
+function switchTab(tab, btn) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(`tab${tab.charAt(0).toUpperCase() + tab.slice(1)}`).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ============================================================
+// RENDER ANSWER FORMS
+// ============================================================
+function renderAnswerForms() {
+  renderMCQForm();
+  renderFillForm();
+  renderShortForm();
+  renderCaseForm();
+}
+
+function renderMCQForm() {
+  const container = document.getElementById('mcqAnswers');
+  const questions = [
+    "消化系统三大核心功能",
+    "消化管正确顺序",
+    "内分泌+外分泌双重功能器官",
+    "胃蛋白酶原酶原形式的意义",
+    "胃酸不足的后果",
+    "胰酶不足典型信号",
+    "胆汁不足典型信号",
+    "易增胆结石饮食习惯",
+    "胆囊切除后腹泻原因",
+    "肠漏时连蛋白状态",
+    "肠道黏膜护城河指什么",
+    "直接激活连蛋白的伤害源",
+    "肠漏慢性炎症描述",
+    "短链脂肪酸+GLP-1作用",
+    "95%血清素合成位置",
+    "肝肠循环重吸收比例",
+    "结节囊肿核心通路",
+    "打扫战场准备原料是哪步",
+    "五步修复框架适用范围",
+    "激活自愈力的含义"
+  ];
+
+  container.innerHTML = questions.map((q, i) => {
+    const opts = ['A','B','C','D'];
+    const correctIdx = ANSWER_KEY.mcq[i].answer;
+    return `
+      <div class="question-block">
+        <div class="q-header">
+          <span class="q-num">第${i+1}题</span>
+          <span class="q-score">参考答案: ${ANSWER_KEY.mcq[i].text}</span>
+        </div>
+        <div class="q-text">${q}</div>
+        <div class="mcq-options">
+          ${opts.map((o, oi) => {
+            const isCorrect = oi === correctIdx;
+            return `<span class="opt ${isCorrect ? 'correct' : ''}">${o}</span>`;
+          }).join('')}
+        </div>
+        <div class="form-row" style="margin-bottom:0">
+          <label style="min-width:auto;font-weight:400">学员答案</label>
+          <select id="mcq_${i}" style="flex:0;width:120px">
+            <option value="">未作答</option>
+            <option value="0">A</option>
+            <option value="1">B</option>
+            <option value="2">C</option>
+            <option value="3">D</option>
+          </select>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderFillForm() {
+  const container = document.getElementById('fillAnswers');
+  const questions = [
+    { q: "消化管五个站点依次是：", blanks: 5, answers: "口腔、食管、胃、小肠、大肠" },
+    { q: "消化系统附属器官三巨头：", blanks: 3, answers: "肝脏、胆囊、胰腺" },
+    { q: "肠道黏膜三道防线（护城河/城墙/巡逻兵）：", blanks: 3, answers: "黏液层、紧密连接、分泌型IgA" },
+    { q: "胃酸不足四大常见原因（写两个主要）：", blanks: 2, answers: "抑酸药、幽门螺杆菌" }
+  ];
+
+  container.innerHTML = questions.map((q, qi) => {
+    let html = `
+      <div class="question-block">
+        <div class="q-header">
+          <span class="q-num">填空题 ${qi+1}</span>
+          <span class="q-score">参考答案: ${q.answers}</span>
+        </div>
+        <div class="q-text">${q.q}</div>
+    `;
+    for (let b = 0; b < q.blanks; b++) {
+      html += `<div class="form-row" style="margin-bottom:6px">
+        <label style="min-width:auto;font-weight:400">空${b+1}</label>
+        <input type="text" id="fill_${qi}_${b}" placeholder="学员填写内容" style="flex:0;width:200px">
+      </div>`;
+    }
+    html += '</div>';
+    return html;
+  }).join('');
+}
+
+function renderShortForm() {
+  const container = document.getElementById('shortAnswers');
+  container.innerHTML = ANSWER_KEY.short.map((q, qi) => {
+    const kwHtml = q.keywords.map(k =>
+      `<span class="kw-tag">${k.word} <span class="kw-score">${k.score}分</span></span>`
+    ).join('');
+    return `
+      <div class="question-block">
+        <div class="q-header">
+          <span class="q-num">简答题 ${qi+1}</span>
+          <span class="q-score">满分 5 分 · 关键词: ${q.keywords.reduce((s,k) => s + k.score, 0)}分</span>
+        </div>
+        <div class="q-text">${q.title}</div>
+        <div class="keyword-row">${kwHtml}</div>
+        <div class="q-textarea">
+          <textarea id="short_${qi}" placeholder="粘贴或输入学员答案..." style="width:100%;min-height:60px;border:1px solid #e2e8f0;border-radius:8px;padding:8px;font-size:14px;font-family:inherit;resize:vertical"></textarea>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderCaseForm() {
+  const container = document.getElementById('caseAnswers');
+  container.innerHTML = ANSWER_KEY.case.map((c, ci) => {
+    const subsHtml = c.subs.map((s, si) => {
+      const kwHtml = s.keywords.map(k =>
+        `<span class="kw-tag">${k.word} <span class="kw-score">${k.score}分</span></span>`
+      ).join('');
+      return `
+        <div style="margin-top:10px;padding:10px;background:#fff;border-radius:8px;border:1px solid #e2e8f0">
+          <div style="font-size:13px;font-weight:600;margin-bottom:6px">${s.q}</div>
+          <div class="keyword-row">${kwHtml}</div>
+          <textarea id="case_${ci}_${si}" placeholder="粘贴或输入学员答案..." style="width:100%;min-height:80px;border:1px solid #e2e8f0;border-radius:8px;padding:8px;font-size:14px;font-family:inherit;resize:vertical;margin-top:4px"></textarea>
+        </div>
+      `;
+    }).join('');
+
+    return `
+      <div class="question-block">
+        <div class="q-header">
+          <span class="q-num">${c.title}</span>
+          <span class="q-score">满分 20 分</span>
+        </div>
+        ${subsHtml}
+      </div>
+    `;
+  }).join('');
+}
+
+// ============================================================
+// GRADING ENGINE
+// ============================================================
+function gradeAll() {
+  let totalScore = 0;
+  let details = [];
+
+  // Grade MCQs
+  let mcqCorrect = 0;
+  for (let i = 0; i < 20; i++) {
+    const sel = document.getElementById(`mcq_${i}`);
+    if (sel) {
+      const val = sel.value;
+      const isCorrect = val !== '' && parseInt(val) === ANSWER_KEY.mcq[i].answer;
+      if (isCorrect) mcqCorrect++;
+      details.push({
+        type: 'mcq',
+        num: i+1,
+        text: `第${i+1}题`,
+        correct: isCorrect,
+        score: isCorrect ? 1 : 0,
+        max: 1,
+        studentAnswer: val !== '' ? ['A','B','C','D'][parseInt(val)] : '未作答',
+        correctAnswer: ANSWER_KEY.mcq[i].text
+      });
+    }
+  }
+  const mcqScore = mcqCorrect; // 每题1分
+  totalScore += mcqScore;
+
+  // Grade Fill-ins (partial match)
+  let fillScore = 0;
+  let fillTotal = 0;
+  for (let qi = 0; qi < ANSWER_KEY.fill.length; qi++) {
+    const q = ANSWER_KEY.fill[qi];
+    q.keywords.forEach((kw, ki) => {
+      const input = document.getElementById(`fill_${qi}_${ki}`);
+      fillTotal++;
+      if (input) {
+        const val = input.value.trim();
+        let matched = false;
+        // Check if any keyword matches
+        for (let w of q.keywords) {
+          if (val.includes(w.slice(0,2)) || w.includes(val)) {
+            matched = true;
+            break;
+          }
+        }
+        if (matched) fillScore++;
+        details.push({
+          type: 'fill', section: qi+1, slot: ki+1,
+          text: `填空题${qi+1}·空${ki+1}`,
+          correct: matched,
+          score: matched ? 2 : 0,
+          max: 2,
+          studentAnswer: val || '空',
+          correctAnswer: q.answers[ki] || ''
+        });
+      }
+    });
+  }
+  totalScore += fillScore * 2;
+
+  // Grade Short Answers (keyword matching)
+  let shortScore = 0;
+  for (let qi = 0; qi < ANSWER_KEY.short.length; qi++) {
+    const q = ANSWER_KEY.short[qi];
+    const textarea = document.getElementById(`short_${qi}`);
+    const text = textarea ? textarea.value.trim() : '';
+    let qScore = 0;
+    const kwResults = [];
+
+    q.keywords.forEach(kw => {
+      const synonyms = q.synonyms[kw.word] || [kw.word];
+      let matched = false;
+      for (let syn of synonyms) {
+        if (text.includes(syn)) { matched = true; break; }
+      }
+      if (matched) qScore += kw.score;
+      kwResults.push({ word: kw.word, matched, score: matched ? kw.score : 0, max: kw.score });
+    });
+
+    qScore = Math.round(qScore * 10) / 10;
+    shortScore += qScore;
+    details.push({
+      type: 'short', num: qi+1,
+      text: q.title,
+      score: qScore,
+      max: 5,
+      keywords: kwResults,
+      studentAnswer: text.substring(0, 80) + (text.length > 80 ? '...' : '')
+    });
+  }
+  totalScore += shortScore;
+
+  // Grade Case Studies (keyword matching)
+  let caseScore = 0;
+  for (let ci = 0; ci < ANSWER_KEY.case.length; ci++) {
+    const c = ANSWER_KEY.case[ci];
+    let cScore = 0;
+    const subResults = [];
+
+    c.subs.forEach((s, si) => {
+      const textarea = document.getElementById(`case_${ci}_${si}`);
+      const text = textarea ? textarea.value.trim() : '';
+      let sScore = 0;
+      const kwResults = [];
+
+      s.keywords.forEach(kw => {
+        const synonyms = s.synonyms[kw.word] || [kw.word];
+        let matched = false;
+        for (let syn of synonyms) {
+          if (text.includes(syn)) { matched = true; break; }
+        }
+        if (matched) sScore += kw.score;
+        kwResults.push({ word: kw.word, matched, score: matched ? kw.score : 0, max: kw.score });
+      });
+
+      sScore = Math.round(sScore * 10) / 10;
+      cScore += sScore;
+      subResults.push({
+        q: s.q,
+        score: sScore,
+        max: s.keywords.reduce((sum, k) => sum + k.score, 0),
+        keywords: kwResults,
+        studentAnswer: text.substring(0, 60) + (text.length > 60 ? '...' : '')
+      });
+    });
+
+    caseScore += cScore;
+    details.push({
+      type: 'case', num: ci+1,
+      text: c.title,
+      score: cScore,
+      max: 20,
+      subs: subResults
+    });
+  }
+  totalScore += caseScore;
+  totalScore = Math.round(totalScore * 10) / 10;
+
+  // Determine result
+  const examType = document.getElementById('examType').value;
+  const passes = { daily: { pass: 60, resitLow: 40, resitHigh: 59, elim: 40 }, weekly: { pass: 70, resitLow: 50, resitHigh: 69, elim: 50 }, monthly: { pass: 80, resitLow: 60, resitHigh: 79, elim: 60 } };
+  const p = passes[examType];
+
+  let status, statusText, statusClass;
+  if (totalScore >= p.pass) {
+    status = 'pass';
+    statusText = '✅ 通过';
+    statusClass = 'pass';
+  } else if (totalScore >= p.elim) {
+    status = 'resit';
+    statusText = '🔄 补考';
+    statusClass = 'resit';
+  } else {
+    status = 'fail';
+    statusText = '❌ 淘汰';
+    statusClass = 'fail';
+  }
+
+  gradingResults = {
+    studentName: document.getElementById('studentName').value,
+    examType: examType,
+    examTopic: document.getElementById('examTopic').selectedOptions[0].text,
+    totalScore: totalScore,
+    mcqScore: mcqScore, mcqTotal: 20,
+    fillScore: fillScore * 2, fillTotal: fillTotal * 2,
+    shortScore: shortScore, shortTotal: 20,
+    caseScore: caseScore, caseTotal: 40,
+    status, statusText, statusClass,
+    passLine: p.pass,
+    details
+  };
+
+  // Enable next step
+  document.getElementById('toResultBtn').disabled = false;
+
+  renderGradingResults();
+}
+
+function renderGradingResults() {
+  const r = gradingResults;
+  const container = document.getElementById('gradingResults');
+
+  // Summary bar
+  let barClass = r.statusClass;
+  let barContent = `
+    <div class="result-bar ${barClass}">
+      <div>
+        <div class="score-num" style="color:${r.status === 'pass' ? '#10b981' : r.status === 'resit' ? '#f59e0b' : '#ef4446'}">${r.totalScore}</div>
+        <div class="score-label">总分 / 100</div>
+      </div>
+      <div style="flex:1;min-width:120px">
+        <div style="font-weight:600;font-size:15px;margin-bottom:4px">${r.studentName} · ${r.statusText}</div>
+        <div style="font-size:13px;color:#64748b">及格线 ${r.passLine} 分</div>
+      </div>
+      <div>
+        <span class="status-tag ${barClass}" style="display:inline-block;margin-top:4px">${r.statusText}</span>
+      </div>
+    </div>
+  `;
+
+  // Score breakdown
+  let breakdown = `
+    <table style="margin:14px 0">
+      <tr><th>题型</th><th>得分</th><th>满分</th><th>正确率</th></tr>
+      <tr><td>📝 选择题</td><td style="font-weight:600">${r.mcqScore}</td><td>${r.mcqTotal}</td><td>${Math.round(r.mcqScore/r.mcqTotal*100)}%</td></tr>
+      <tr><td>✏️ 填空题</td><td style="font-weight:600">${r.fillScore}</td><td>${r.fillTotal}</td><td>${r.fillTotal > 0 ? Math.round(r.fillScore/r.fillTotal*100) : 0}%</td></tr>
+      <tr><td>📋 简答题</td><td style="font-weight:600">${r.shortScore}</td><td>${r.shortTotal}</td><td>${Math.round(r.shortScore/r.shortTotal*100)}%</td></tr>
+      <tr><td>🏥 案例分析</td><td style="font-weight:600">${r.caseScore}</td><td>${r.caseTotal}</td><td>${Math.round(r.caseScore/r.caseTotal*100)}%</td></tr>
+      <tr style="font-weight:700;background:#f8fafc"><td>📊 总分</td><td style="color:#0a1628">${r.totalScore}</td><td>100</td><td>${r.totalScore}%</td></tr>
+    </table>
+  `;
+
+  // Detailed question results
+  let detailHtml = '<div style="margin-top:14px"><h4 style="margin-bottom:8px;font-size:14px">📋 各题详情</h4>';
+
+  // MCQ details
+  detailHtml += '<div style="font-weight:600;font-size:13px;color:#475569;margin:8px 0 4px">选择题：</div>';
+  const mcqDetails = r.details.filter(d => d.type === 'mcq');
+  mcqDetails.forEach(d => {
+    detailHtml += `<div style="font-size:12px;padding:2px 0">
+      <span style="display:inline-block;width:50px">${d.text}</span>
+      <span style="color:${d.correct ? '#10b981' : '#ef4444'};font-weight:600">${d.correct ? '✅' : '❌'}</span>
+      <span style="color:#64748b">学员: ${d.studentAnswer} · 正确: ${d.correctAnswer}</span>
+    </div>`;
+  });
+
+  // Fill details
+  detailHtml += '<div style="font-weight:600;font-size:13px;color:#475569;margin:8px 0 4px">填空题：</div>';
+  const fillDetails = r.details.filter(d => d.type === 'fill');
+  fillDetails.forEach(d => {
+    detailHtml += `<div style="font-size:12px;padding:2px 0">
+      <span style="display:inline-block;width:80px">${d.text}</span>
+      <span style="color:${d.correct ? '#10b981' : '#ef4444'};font-weight:600">${d.correct ? '✅ 2分' : '❌ 0分'}</span>
+      <span style="color:#64748b">学员: "${d.studentAnswer}" · 正确: ${d.correctAnswer}</span>
+    </div>`;
+  });
+
+  // Short answer keyword hits
+  detailHtml += '<div style="font-weight:600;font-size:13px;color:#475569;margin:8px 0 4px">简答题（关键词匹配结果）：</div>';
+  const shortDetails = r.details.filter(d => d.type === 'short');
+  shortDetails.forEach(d => {
+    const kwHtml = d.keywords.map(k =>
+      `<span class="kw-tag ${k.matched ? 'hit' : 'miss'}" style="cursor:default">${k.word} ${k.matched ? '✅' : '❌'} ${k.score}/${k.max}</span>`
+    ).join('');
+    detailHtml += `<div style="font-size:12px;padding:4px 0;border-bottom:1px solid #f1f5f9">
+      <div style="font-weight:600;margin-bottom:2px">${d.text} — <span style="color:#0a1628">${d.score}/${d.max} 分</span></div>
+      <div class="keyword-row">${kwHtml}</div>
+      <div style="color:#94a3b8;margin-top:2px">${d.studentAnswer}</div>
+    </div>`;
+  });
+
+  // Case keyword hits
+  detailHtml += '<div style="font-weight:600;font-size:13px;color:#475569;margin:8px 0 4px">案例分析（关键词匹配结果）：</div>';
+  const caseDetails = r.details.filter(d => d.type === 'case');
+  caseDetails.forEach(d => {
+    detailHtml += `<div style="font-size:12px;padding:6px 0;border-bottom:1px solid #f1f5f9">
+      <div style="font-weight:600;margin-bottom:4px">${d.text} — <span style="color:#0a1628">${d.score}/${d.max} 分</span></div>`;
+    d.subs.forEach(s => {
+      const kwHtml = s.keywords.map(k =>
+        `<span class="kw-tag ${k.matched ? 'hit' : 'miss'}" style="cursor:default">${k.word} ${k.matched ? '✅' : '❌'} ${k.score}/${k.max}</span>`
+      ).join('');
+      detailHtml += `<div style="margin:4px 0;padding:4px 8px;background:#f8fafc;border-radius:6px">
+        <div style="margin-bottom:2px">${s.q.substring(0,40)}</div>
+        <div class="keyword-row">${kwHtml}</div>
+      </div>`;
+    });
+    detailHtml += '</div>';
+  });
+
+  detailHtml += '</div>';
+
+  container.innerHTML = barContent + '<hr class="divider">' + breakdown + detailHtml;
+  document.getElementById('step3Card').style.display = 'block';
+  window.scrollTo(0,0);
+}
+
+// ============================================================
+// STEP 4: RESULT OUTPUT
+// ============================================================
+function goToStep(n) {
+  currentStep = n;
+  document.querySelectorAll('.card[id^="step"]').forEach(c => c.style.display = 'none');
+  document.querySelectorAll('.step').forEach(s => s.className = 'step');
+  document.getElementById(`step${n}Card`).style.display = 'block';
+  document.getElementById(`s${n}`).className = 'step active';
+  for (let i = 1; i < n; i++) document.getElementById(`s${i}`).className = 'step done';
+
+  if (n === 2) renderAnswerForms();
+  if (n === 3) gradeAll();
+  if (n === 4) renderResult();
+}
+
+function renderResult() {
+  const r = gradingResults;
+  if (!r) return;
+  const container = document.getElementById('resultContent');
+
+  const examTypeNames = { daily: '每日考核', weekly: '每周考核', monthly: '每月考核' };
+
+  let statusIcon = r.status === 'pass' ? '✅' : r.status === 'resit' ? '🔄' : '❌';
+
+  container.innerHTML = `
+    <div style="padding:20px;border:2px solid ${r.status === 'pass' ? '#10b981' : r.status === 'resit' ? '#f59e0b' : '#ef4444'};border-radius:12px;text-align:center;margin-bottom:16px">
+      <div style="font-size:48px">${statusIcon}</div>
+      <div style="font-size:28px;font-weight:800;margin:8px 0;color:#0a1628">${r.totalScore} 分</div>
+      <div style="font-size:16px;font-weight:600;color:${r.status === 'pass' ? '#10b981' : r.status === 'resit' ? '#f59e0b' : '#ef4444'};margin-bottom:4px">${r.statusText}</div>
+    </div>
+
+    <table style="margin-bottom:16px">
+      <tr><th style="width:120px">项目</th><th>内容</th></tr>
+      <tr><td>学员姓名</td><td><strong>${r.studentName}</strong></td></tr>
+      <tr><td>考试类型</td><td>${examTypeNames[r.examType] || r.examType}</td></tr>
+      <tr><td>考试专题</td><td>${r.examTopic}</td></tr>
+      <tr><td>及格线</td><td>${r.passLine} 分</td></tr>
+      <tr><td>客观题得分</td><td>${r.mcqScore + r.fillScore} / ${r.mcqTotal + r.fillTotal} 分</td></tr>
+      <tr><td>主观题得分</td><td>${r.shortScore + r.caseScore} / ${r.shortTotal + r.caseTotal} 分</td></tr>
+      <tr style="font-weight:700;background:#f8fafc"><td>最终判定</td><td style="color:${r.status === 'pass' ? '#10b981' : r.status === 'resit' ? '#f59e0b' : '#ef4444'}">${r.statusText}</td></tr>
+    </table>
+
+    <div style="font-size:12px;color:#94a3b8;text-align:center">
+      判卷时间: ${new Date().toLocaleString('zh-CN')} · Kasen Nutrition 考核评分系统
+    </div>
+  `;
+}
+
+function printResult() {
+  window.print();
+}
+
+function copyResult() {
+  const r = gradingResults;
+  if (!r) return;
+  const examTypeNames = { daily: '每日考核', weekly: '每周考核', monthly: '每月考核' };
+  const text = `═══ Kasen Nutrition 判卷结果 ═══
+学员: ${r.studentName}
+考试: ${examTypeNames[r.examType]} · ${r.examTopic}
+总分: ${r.totalScore}/100
+客观题: ${r.mcqScore + r.fillScore}/${r.mcqTotal + r.fillTotal}
+主观题: ${r.shortScore + r.caseScore}/${r.shortTotal + r.caseTotal}
+判定: ${r.statusText}
+判卷时间: ${new Date().toLocaleString('zh-CN')}`;
+
+  navigator.clipboard.writeText(text).then(() => {
+    alert('✅ 成绩已复制到剪贴板');
+  }).catch(() => {
+    // Fallback
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    alert('✅ 成绩已复制');
+  });
+}
+
+function newGrading() {
+  if (!confirm('确定重新判卷？当前结果将丢失。')) return;
+  gradingResults = null;
+  currentStep = 1;
+  document.querySelectorAll('.card[id^="step"]').forEach(c => c.style.display = 'none');
+  document.querySelectorAll('.step').forEach(s => s.className = 'step');
+  document.getElementById('step1Card').style.display = 'block';
+  document.getElementById('s1').className = 'step active';
+  document.getElementById('toResultBtn').disabled = true;
+  window.scrollTo(0,0);
+}
+
+// ============================================================
+// SAMPLE DATA
+// ============================================================
+function loadSampleData() {
+  document.getElementById('studentName').value = '徐楚炎';
+  document.getElementById('examType').value = 'daily';
+  updatePassLine();
+  goToStep(2);
+
+  // Set MCQ answers (all correct except a few)
+  const correctAnswers = [0,1,2,1,2,2,0,1,1,1,1,2,2,1,2,3,0,2,1,1];
+  correctAnswers.forEach((ans, i) => {
+    const sel = document.getElementById(`mcq_${i}`);
+    if (sel) sel.value = String(ans);
+  });
+
+  // Set fill answers
+  const fillAnswers = [
+    ["口腔","食管","胃","小肠","大肠"],
+    ["肝脏","胆囊","胰腺"],
+    ["黏液层","紧密连接","IgA"],
+    ["奥美拉唑","幽门螺杆菌"]
+  ];
+  fillAnswers.forEach((q, qi) => {
+    q.forEach((a, bi) => {
+      const input = document.getElementById(`fill_${qi}_${bi}`);
+      if (input) input.value = a;
+    });
+  });
+
+  // Set short answers
+  const shortAnswers = [
+    "胃酸的三大任务是：1) 激活胃蛋白酶原，使胃蛋白酶原被激活为有活性的胃蛋白酶来分解蛋白质；2) 杀菌，胃酸pH 1.5-3.0可以杀灭绝大多数随食物进入的细菌；3) 发信号，酸性食糜刺激CCK和促胰液素分泌，命令胆囊排胆汁和胰腺分泌消化酶。",
+    "菌群的三大核心功能包括：1) 代谢功能——发酵膳食纤维产生短链脂肪酸；2) 屏障保护功能——维持肠道屏障完整性；3) 免疫调节功能——训练和调节免疫系统。",
+    "修复黏膜需要的四类精准营养：1) 谷氨酰胺——肠上皮细胞的主要燃料；2) 锌——参与黏膜修复和紧密连接蛋白合成；3) 维生素A——维持黏膜上皮细胞完整性；4) 丁酸（短链脂肪酸）——结肠上皮细胞的主要能量来源。",
+    "腐败发酵与有益发酵的三个区别：1) 底物不同——有益发酵以膳食纤维为底物，腐败发酵以未消化的蛋白质、脂肪为底物；2) 产物不同——有益发酵产生短链脂肪酸，腐败发酵产生内毒素LPS和氨等有害物质；3) 对肠道环境影响不同——有益发酵维持弱酸性环境抑制坏菌，腐败发酵使肠道偏碱性促进坏菌繁殖。"
+  ];
+  shortAnswers.forEach((a, i) => {
+    const ta = document.getElementById(`short_${i}`);
+    if (ta) ta.value = a;
+  });
+
+  // Set case answers
+  const caseAnswers = [
+    [
+      "该客户的反酸烧心更可能是胃酸过少。判断依据：1) 长期服用奥美拉唑（PPI）会抑制胃酸分泌，说明本身可能胃酸不足；2) 吃高蛋白食物后腹胀明显，说明蛋白质消化需要足量胃酸；3) 维生素B₁₂偏低，提示壁细胞功能下降导致内因子不足。",
+      "腹胀可以用胃环节的故障解释——胃酸不足→蛋白质消化卡死→食物在胃中停留产生气体→腹胀。B₁₂偏低可以用壁细胞损伤解释——壁细胞同时分泌胃酸和内因子，壁细胞功能下降→内因子减少→B₁₂吸收障碍。",
+      "胃酸不足会导致：1) 胰液分泌不足——表现为腹胀、脂肪泻、大便粘腻浮水有食物残渣；2) 胆汁分泌不足——表现为一吃油腻就腹胀恶心、大便颜色偏浅。",
+      "最应优先执行的两步：1) 替代消化——补充消化酶或盐酸甜菜碱（需专业指导），帮助分解食物；2) 移除伤害——在医生指导下逐步停用PPI，因为长期抑酸会加重消化问题。"
+    ],
+    [
+      "胆囊切除后失去储存和浓缩胆汁的功能，胆汁由肝脏持续缓慢滴入肠道。当摄入高脂食物时，没有足够的浓缩胆汁一次性释放来乳化脂肪，导致脂肪消化跟不上，未消化的脂肪进入肠道引起渗透性腹泻。",
+      "胆囊切除 → 胆汁不足 → 脂肪消化不良 → 肠黏膜屏障受损（肠漏） → LPS入血 → 全身慢性低度炎症 → 炎症因子干扰胰岛素信号传导 → 胰岛素抵抗 → 血糖升高。",
+      "胆囊切除 → 胆汁分泌减少 → 雌激素在肝脏处理打包后经胆汁进入肠道的通道受阻 → 肠道坏菌产生β-葡萄糖醛酸苷酶重新激活已打包的雌激素 → 雌激素通过肝肠循环被重吸收进入血液 → 雌激素优势 → 持续刺激乳腺组织 → 乳腺增生。",
+      "最应优先执行的三步：1) 替代消化——补充消化酶和胆盐帮助脂肪消化；2) 修复黏膜——补充谷氨酰胺、锌等营养素修复肠漏；3) 移除伤害——调整饮食结构，少量多餐，避免高脂大餐。"
+    ]
+  ];
+  caseAnswers.forEach((c, ci) => {
+    c.forEach((a, si) => {
+      const ta = document.getElementById(`case_${ci}_${si}`);
+      if (ta) ta.value = a;
+    });
+  });
+
+  // Auto grade after loading
+  gradeAll();
+}
+</script>
+
+</body>
+</html>
