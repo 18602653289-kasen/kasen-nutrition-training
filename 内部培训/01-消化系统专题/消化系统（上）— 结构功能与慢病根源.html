@@ -653,6 +653,11 @@ function upUI() {
     else if (ok) { n.classList.add('active'); n.textContent = s; }
     else { n.classList.add('todo'); n.textContent = s; }
     sts.textContent = done ? '✅ 已完成' : ok ? '📌 进行中' : '🔒 未解锁';
+    const body = document.getElementById('stepBody' + s);
+    if (body) {
+      body.classList.toggle('locked', !ok);
+      body.classList.toggle('open', ok);
+    }
   }
 }
 
