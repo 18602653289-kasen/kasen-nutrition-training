@@ -121,6 +121,48 @@
 </head>
 <body>
 
+<!-- Entrance Overlay -->
+<div class="entrance-modal" id="entranceModal">
+  <div class="entrance-card">
+    <div class="entrance-step active" id="entStep1">
+      <div class="icon">📝</div>
+      <h2>准备进入考试</h2>
+      <div class="sub">消化系统（上）— 结构功能与慢病根源</div>
+      <div class="warn-box">
+        <strong>⚠️ 重要提示</strong><br><br>
+        综合考试一旦进入：<br>
+        • <strong>不能中途退出</strong>，退出将视为自动交卷<br>
+        • 进入后计时器立即开始，<strong>60分钟</strong>内完成<br>
+        • 系统将记录首次进入时间，作为考核依据<br><br>
+        请确认您已完成学习并准备好参加考试。
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-secondary" onclick="window.location.href='https://18602653289-kasen.github.io/kasen-nutrition-training/%E5%AD%A6%E4%B9%A0%E5%B9%B3%E5%8F%B0.html'">暂时不考</button>
+        <button class="btn btn-primary" onclick="entranceStep2()">我已了解，继续 →</button>
+      </div>
+    </div>
+
+    <div class="entrance-step" id="entStep2">
+      <div class="icon">🔒</div>
+      <h2>最终确认</h2>
+      <div class="sub">请再次确认您已准备好</div>
+      <div class="warn-box">
+        <strong>📋 考试须知</strong><br><br>
+        • 考试时长：60分钟 · 闭卷<br>
+        • 满分100分 · 选择题+填空题+简答题+案例题<br>
+        • 进入后倒计时立即开始<br>
+        • 中途退出视为自动交卷，成绩以已答内容为准<br>
+        • 本次成绩将记录进您的培训档案
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-secondary" onclick="entranceStep1()">← 返回</button>
+        <button class="btn btn-primary" onclick="startExam()">✅ 确认，开始考试</button>
+      </div>
+      <div class="counter">进入即同意上述条款</div>
+    </div>
+  </div>
+</div>
+
 <div class="container" id="app" style="display:none">
   <!-- Header -->
   <div class="header">
