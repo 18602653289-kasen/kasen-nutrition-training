@@ -609,15 +609,19 @@ renderCases();
 // Check exam state
 const existingState = getExamState();
 
-if (existingState && existingState.status === 'completed') {
+if (existingState && existingState.status === 'completed' && existingState.result) {
+  // Already completed — show result
   document.getElementById('entranceModal').classList.add('hidden');
   document.getElementById('app').style.display = 'block';
   showResult(existingState.result);
-} else if (existingState && existingState.status === 'in_progress') {
+} else if (existingState && existingState.status === 'in_progress' && existingState.startedAt) {
+  // Resuming — continue
   document.getElementById('entranceModal').classList.add('hidden');
   document.getElementById('app').style.display = 'block';
   startTimer();
 } else {
+  // Fresh start — clear any stale state and show entrance
+  localStorage.removeItem(STORAGE_KEY);
   entranceStep1();
 }
 
