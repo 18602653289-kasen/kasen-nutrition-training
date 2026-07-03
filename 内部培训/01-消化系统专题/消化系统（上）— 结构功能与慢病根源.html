@@ -158,20 +158,7 @@
 </div>
 
 
-      <div style="display:flex;align-items:center;gap:10px">
-        <span id="currentTime" style="font-size:12px;color:#94a3b8;min-width:32px">00:00</span>
-        <div style="flex:1;height:6px;background:#b3f0d9;border-radius:3px;cursor:pointer;position:relative" onclick="seekAudio(event)">
-          <div id="progressBar" style="width:0%;height:100%;background:#00d68f;border-radius:3px;transition:width .1s linear"></div>
-        </div>
-        <span id="totalTime" style="font-size:12px;color:#94a3b8;min-width:32px">57:58</span>
-      </div>
-    </div>
-  </div>
-</div>
 
-<audio id="audioPlayer" preload="metadata" style="display:none">
-  <source src="https://18602653289-kasen.github.io/kasen-nutrition-training/%E5%86%85%E9%83%A8%E5%9F%B9%E8%AE%AD/01-%E6%B6%88%E5%8C%96%E7%B3%BB%E7%BB%9F%E4%B8%93%E9%A2%98/%E9%9F%B3%E9%A2%91/2.1%E6%B6%88%E5%8C%96%E7%B3%BB%E7%BB%9F%E9%9F%B3%E9%A2%91.mp3" type="audio/mpeg">
-</audio>
 
 <script>
 var audio = document.getElementById('audioPlayer');
@@ -618,6 +605,61 @@ function checkExamAndOpen(url) {
     alert('📌 请先完成综合考试，提交试卷后才能查看答案解析。');
   }
 }
+
+// ============================================================
+// PROGRESSIVE LEARNING
+// ============================================================
+const PROGRESS_KEY = 'kasen_…ss_v2';
+
+function getSt() {
+  try { return JSON.parse(localStorage.getItem(PROGRESS_KEY)) || {}; }
+  catch(e) { return {}; }
+}
+
+function saveSt(s) {
+  localStorage.setItem(PROGRESS_KEY, JSON.stringify(s));
+}
+
+function toggleStep(n) {
+  const body = document.getElementById('stepBody' + n);
+  if (!body) return;
+  const st = getSt();
+  if (!st['s' + n] && n > 1) return;
+  body.classList.toggle('open');
+}
+
+function toggleOutline(e) {
+  if (e) e.stopPropagation();
+  const el = document.getElementById('outlineContent');
+  const btn = document.querySelector('.outline-toggle');
+  if (!el) return;
+  el.classList.toggle('open');
+  if (btn) btn.textContent = el.classList.contains('open') ? '收起大纲 ▾' : '展开查看 ▸';
+}
+
+function upUI() {
+  const st = getSt();
+  for (let s = 1; s <= 4; s++) {
+    const h = document.getElementById('stepHeader' + s);
+    const n = document.getElementById('stepNum' + s);
+    const sts = document.getElementById('stepStatus' + s);
+    if (!h || !n || !sts) continue;
+    const ok = s === 1 || st['s' + s];
+    const done = st['s' + s + '_d'];
+    h.classList.toggle('locked', !ok && s > 1);
+    n.className = 'step-num';
+    if (done) { n.classList.add('done'); n.textContent = '✓'; }
+    else if (ok) { n.classList.add('active'); n.textContent = s; }
+    else { n.classList.add('todo'); n.textContent = s; }
+    sts.textContent = done ? '✅ 已完成' : ok ? '📌 进行中' : '🔒 未解锁';
+  }
+}
+
+function cp() { const st = getSt(); st.s1_d = true; st.s2 = true; saveSt(st); upUI(); }
+function cc() { const st = getSt(); st.s2_d = true; st.s3 = true; saveSt(st); upUI(); document.getElementById('stepBody3').classList.add('open'); }
+function cpt() { const st = getSt(); st.s3_d = true; st.s4 = true; saveSt(st); upUI(); }
+
+document.addEventListener('DOMContentLoaded', upUI);
 </script>
 
 </body>
