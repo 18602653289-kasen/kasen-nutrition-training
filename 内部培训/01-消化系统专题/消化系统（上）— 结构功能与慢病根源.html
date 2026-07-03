@@ -113,8 +113,8 @@
   .step-num.active{background:linear-gradient(135deg,#00d68f,#00b37a);color:#fff}
   .step-num.done{background:#e6faf2;color:#006b4a}
   .step-body{padding:20px;background:#fff;border:1px solid #e2e8f0;border-top:none;border-radius:0 0 14px 14px;display:none}
-  .step-body.open{display:block}
   .step-body.locked{display:none}
+  .step-body.open{display:block}
   .step-status{font-size:11px;color:#94a3b8;margin-left:auto}
   .step-status.ready{color:#00d68f;font-weight:600}
   .step-unlock-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 20px;background:linear-gradient(135deg,#00d68f,#00b37a);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;margin-top:12px}
@@ -626,6 +626,7 @@ function toggleStep(n) {
   const st = getSt();
   if (!st['s' + n] && n > 1) return;
   body.classList.toggle('open');
+  body.classList.remove('locked');
 }
 
 function toggleOutline(e) {
@@ -655,8 +656,8 @@ function upUI() {
   }
 }
 
-function cp() { const st = getSt(); st.s1_d = true; st.s2 = true; saveSt(st); upUI(); document.getElementById('stepBody2').classList.add('open'); }
-function cc() { const st = getSt(); st.s2_d = true; st.s3 = true; saveSt(st); upUI(); document.getElementById('stepBody3').classList.add('open'); }
+function cp() { const st = getSt(); st.s1_d = true; st.s2 = true; saveSt(st); upUI(); var b=document.getElementById('stepBody2'); if(b){b.classList.add('open');b.classList.remove('locked');} }
+function cc() { const st = getSt(); st.s2_d = true; st.s3 = true; saveSt(st); upUI(); var b=document.getElementById('stepBody3'); if(b){b.classList.add('open');b.classList.remove('locked');} }
 function cpt() { 
   const st = getSt(); st.s3_d = true; st.s4 = true; saveSt(st); upUI(); 
   try { 
