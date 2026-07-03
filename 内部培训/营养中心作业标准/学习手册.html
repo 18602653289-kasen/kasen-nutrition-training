@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>营养中心作业标准（上）—— 接待前准备</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:#f5f7fa;color:#1e293b;line-height:1.8}
+  .container{max-width:740px;margin:0 auto;padding:0 16px 60px}
+  .top-nav{display:flex;align-items:center;gap:8px;padding:10px 0 4px;margin-bottom:0;position:sticky;top:0;z-index:100;background:#f5f7fa}
+  .top-nav .back-link{display:inline-flex;align-items:center;gap:4px;color:#64748b;font-size:13px;text-decoration:none;padding:4px 10px;border-radius:6px}
+  .top-nav .back-link:hover{background:#f1f5f9;color:#00d68f}
+  .header{background:linear-gradient(135deg,#006b4a,#00d68f 55%,#00b37a);color:#fff;padding:36px 24px 28px;border-radius:0 0 24px 24px;margin:0 -16px 24px;position:relative;overflow:hidden}
+  .header::before{content:'';position:absolute;top:-30%;right:-15%;width:250px;height:250px;background:rgba(255,255,255,.04);border-radius:50%}
+  .header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.25),rgba(255,255,255,0))}
+  .header h1{font-size:22px;font-weight:700;position:relative;z-index:1}
+  .header .sub{font-size:13px;opacity:.8;margin-top:2px;position:relative;z-index:1}
+  .header .badge{display:inline-block;background:rgba(255,255,255,.18);padding:2px 12px;border-radius:10px;font-size:12px;margin-bottom:8px;position:relative;z-index:1}
+  .section{background:#fff;border-radius:14px;padding:24px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+  .section-title{font-size:17px;font-weight:700;padding-bottom:10px;margin-bottom:14px;border-bottom:2px solid #e2e8f0;display:flex;align-items:center;gap:8px}
+  .section-title .l{display:flex;align-items:center;gap:8px}
+  .section-title .l::before{content:'';width:3px;height:16px;background:linear-gradient(to bottom,#00d68f,#00b37a);border-radius:2px}
+  h2{font-size:18px;margin:24px 0 12px;color:#0f172a}
+  h3{font-size:16px;margin:18px 0 8px;color:#334155}
+  h4{font-size:15px;margin:14px 0 6px;color:#475569}
+  p{margin-bottom:10px;font-size:14px}
+  .box-tip{background:#f0fdf6;border-left:3px solid #00d68f;padding:10px 14px;margin:12px 0;border-radius:0 8px 8px 0;font-size:13px}
+  .box-warn{background:#fffbeb;border-left:3px solid #f59e0b;padding:10px 14px;margin:12px 0;border-radius:0 8px 8px 0;font-size:13px}
+  .img-wrap{margin:14px 0;text-align:center}
+  .img-wrap img,.img-wrap svg{max-width:100%;border-radius:10px;border:1px solid #e2e8f0}
+  .img-wrap .cap{font-size:11px;color:#94a3b8;margin-top:4px}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
+  th{background:#f1f5f9;padding:8px 10px;text-align:left;font-weight:600;border:1px solid #e2e8f0}
+  td{padding:8px 10px;border:1px solid #e2e8f0;vertical-align:top}
+  tr:nth-child(even){background:#f8fafc}
+  .quiz{padding:14px;margin:10px 0;background:#f8fafc;border-radius:10px;border:1px solid #e2e8f0}
+  .quiz .q{font-weight:600;margin-bottom:6px;font-size:14px}
+  .quiz .opt{display:block;padding:6px 10px;margin:3px 0;border-radius:6px;font-size:13px;cursor:pointer;border:1px solid #e2e8f0;background:#fff;transition:all .15s}
+  .quiz .opt:hover{border-color:#00d68f;background:#f0fdf6}
+  .quiz .opt.selected{border-color:#00d68f;background:#e6faf2}
+  .quiz .opt.correct{border-color:#10b981;background:#ecfdf5;color:#065f46}
+  .quiz .opt.wrong{border-color:#ef4444;background:#fef2f2;color:#991b1b}
+  .btn-primary{background:linear-gradient(135deg,#00d68f,#00b37a);color:#fff;border:none;padding:8px 20px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;box-shadow:0 2px 8px rgba(0,214,143,.2)}
+  .btn-primary:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,214,143,.3)}
+  .btn-secondary{background:#fff;color:#64748b;border:1px solid #e2e8f0;padding:8px 20px;border-radius:8px;font-size:13px;cursor:pointer}
+  .btn-secondary:hover{background:#f8fafc;border-color:#00d68f;color:#006b4a}
+  .step-section{margin:0 0 20px;border-radius:14px;overflow:hidden}
+  .step-section.locked{display:none}
+  .step-header{display:flex;align-items:center;gap:12px;padding:14px 18px;background:#fff;cursor:pointer;border:1px solid #e2e8f0;border-radius:14px;transition:all .2s}
+  .step-header:hover{border-color:#00d68f}
+  .step-header.locked{opacity:.5;cursor:not-allowed}
+  .step-num{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
+  .step-num.todo{background:#f1f5f9;color:#94a3b8}
+  .step-num.active{background:linear-gradient(135deg,#00d68f,#00b37a);color:#fff}
+  .step-num.done{background:#e6faf2;color:#006b4a}
+  .step-body{padding:20px;background:#fff;border:1px solid #e2e8f0;border-top:none;border-radius:0 0 14px 14px;display:none}
+  .step-body.locked{display:none}
+  .step-body.open{display:block}
+  .step-status{font-size:11px;color:#94a3b8;margin-left:auto}
+  .step-status.ready{color:#00d68f;font-weight:600}
+  .outline-toggle{display:inline-flex;align-items:center;gap:4px;color:#00d68f;font-size:12px;cursor:pointer;border:none;background:none;padding:2px 0;font-weight:600}
+  .outline-toggle:hover{color:#006b4a}
+  .outline-content{display:none;padding:10px;background:#f8fafc;border-radius:10px;border:1px solid #e2e8f0;margin-top:6px;font-size:13px;line-height:2}
+  .outline-content.open{display:block}
+  .res-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}
+  .res-item{display:flex;align-items:center;gap:8px;padding:10px 12px;background:#f8fafc;border-radius:10px;text-decoration:none;color:#334155;font-size:13px;border:1px solid #e2e8f0;transition:all .2s}
+  .res-item:hover{background:#f0fdf6;border-color:#00d68f;transform:translateY(-1px)}
+  .res-item .ri{font-size:18px}
+  .footer{text-align:center;color:#94a3b8;font-size:11px;margin:20px 0;padding-top:14px;border-top:1px solid #e2e8f0}
+  .footer strong{color:#00d68f}
+  @media(max-width:600px){.header h1{font-size:19px}.res-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Top Nav -->
+  <div class="top-nav">
+    <a class="back-link" href="https://18602653289-kasen.github.io/kasen-nutrition-training/%E5%AD%A6%E4%B9%A0%E5%B9%B3%E5%8F%B0.html">‹ 返回课程列表</a>
+  </div>
+
+  <!-- Header -->
+  <div class="header">
+    <span class="badge">📘 标准操作流程</span>
+    <h1>营养中心作业标准（上）— 接待前准备</h1>
+    <div class="sub">精神与物质双丰收 · 利他为本</div>
+  </div>
+
+  <!-- ===== Step 1: 学前准备 ===== -->
+  <div class="step-section" id="step1">
+    <div class="step-header" id="stepHeader1" onclick="toggleStep(1)">
+      <div class="step-num active" id="stepNum1">1</div>
+      <div style="flex:1"><div style="font-weight:600;font-size:14px">📝 学前准备</div><div style="font-size:11px;color:#64748b">了解大纲，完成自测</div></div>
+      <div class="step-status" id="stepStatus1">📌 进行中</div>
+    </div>
+    <div class="step-body open" id="stepBody1">
+      <div style="margin-bottom:12px">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px">
+          <span style="font-weight:600;font-size:13px">📋 本节大纲</span>
+          <button class="outline-toggle" onclick="toggleOutline(event)">展开查看 ▸</button>
+        </div>
+        <div class="outline-content" id="outlineContent">
+          <strong>第一章：</strong>商业模式与商业理念（S-E-C模式）<br>
+          <strong>第二章：</strong>商业机制与商业思路（六大考核指标、商业闭环）<br>
+          <strong>第三章：</strong>助理作业思路（八大动作、十步话术）<br>
+          <strong>第四章：</strong>专家作业思路（六步问题解决、1+20模式）<br>
+          <strong>第五章：</strong>3-3-3制式作业（三个角色、三个动作、三个循环）<br>
+          <strong>第六章：</strong>个人规范五维度（气质、心态、思想、专业、管理）<br>
+          <strong>第七章：</strong>小结与预告
+        </div>
+      </div>
+      <div id="pre-quiz-area"></div>
+      <div style="text-align:center;margin-top:8px">
+        <button class="btn-primary" onclick="checkPreQuiz();cp()">✅ 提交自测</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Step 2: 正式学习 ===== -->
+  <div class="step-section" id="step2">
+    <div class="step-header" id="stepHeader2" onclick="toggleStep(2)">
+      <div class="step-num todo" id="stepNum2">2</div>
+      <div style="flex:1"><div style="font-weight:600;font-size:14px">📖 正式学习</div><div style="font-size:11px;color:#64748b">图文正文 + 伴读音频</div></div>
+      <div class="step-status" id="stepStatus2">🔒 未解锁</div>
+    </div>
+    <div class="step-body locked" id="stepBody2">
+      <!-- Audio -->
+      <div class="audio-wrap" style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin-bottom:16px">
+        <div style="display:flex;align-items:center;gap:12px">
+          <button id="playBtn" onclick="togglePlay()" style="width:44px;height:44px;border-radius:50%;border:none;background:linear-gradient(135deg,#00d68f,#00b37a);color:#fff;font-size:18px;cursor:pointer;flex-shrink:0">▶</button>
+          <div style="flex:1;min-width:0">
+            <div style="font-weight:600;font-size:14px;color:#005533;margin-bottom:2px">🎧 伴读音频</div>
+            <div style="font-size:12px;color:#64748b;margin-bottom:6px">建议先通读全文，再配合音频复习</div>
+            <div style="display:flex;align-items:center;gap:8px">
+              <span id="currentTime" style="font-size:11px;color:#94a3b8;min-width:30px">00:00</span>
+              <div style="flex:1;height:5px;background:#b3f0d9;border-radius:3px;cursor:pointer;position:relative" onclick="seekAudio(event)">
+                <div id="progressBar" style="width:0%;height:100%;background:#00d68f;border-radius:3px"></div>
+              </div>
+              <span id="totalTime" style="font-size:11px;color:#94a3b8;min-width:30px">00:00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <audio id="audioPlayer" preload="metadata" style="display:none">
+        <source src="https://18602653289-kasen.github.io/kasen-nutrition-training/%E5%86%85%E9%83%A8%E5%9F%B9%E8%AE%AD/%E8%90%A5%E5%85%BB%E4%B8%AD%E5%BF%83%E4%BD%9C%E4%B8%9A%E6%A0%87%E5%87%86/%E9%9F%B3%E9%A2%91/%E7%AC%AC%E4%B8%80%E8%AF%BE%E9%9F%B3%E9%A2%91.m4a" type="audio/mp4">
+      </audio>
+
+      <h2>🎯 课程导言：精神与物质双丰收</h2>
+      <p>欢迎来到健美国际营养中心新人培训课堂。在正式开始之前，先请思考一个问题——你来到健美国际，究竟想获得什么？</p>
+      <h3>精神层面（三大收获）</h3>
+      <p>① 成为受人尊重的营养专家——尊重来自真正帮学员解决了问题，不是靠头衔堆砌。<br>
+      ② 获得帮助他人改善健康的能力——把血糖从10降到6，改变一个人生命轨迹。<br>
+      ③ 习得改善自身生活的终身技能——知识不会因工作变动而丢失。</p>
+      <h3>物质层面（三大保障）</h3>
+      <p>① 高收入路径清晰：专家5万-50万/月，助理1万-5万/月。<br>
+      ② 客源充足：助理最多承接5000人客资，深度服务500人。<br>
+      ③ 强大团队：每位专家配20位助理，协同作战。</p>
+      <div class="box-tip"><strong>💡 核心词：利他</strong> — 做一切事情的底层逻辑。先问自己："我这样做对学员有什么好处？"</div>
+
+      <h2>📚 第一章：商业模式与商业理念</h2>
+      <h3>S-E-C 模式</h3>
+      <div class="img-wrap"><img src="https://18602653289-kasen.github.io/kasen-nutrition-training/%E5%86%85%E9%83%A8%E5%9F%B9%E8%AE%AD/%E8%90%A5%E5%85%BB%E4%B8%AD%E5%BF%83%E4%BD%9C%E4%B8%9A%E6%A0%87%E5%87%86/SVG-SEC%E6%A8%A1%E5%BC%8F%E5%85%B3%E7%B3%BB%E5%9B%BE.svg" alt="SEC模式"><div class="cap">S-E-C 商业模式关系图</div></div>
+      <p><strong>S（平台）</strong>——提供培育、产品、工具、招聘助理、客源、薪资保障。好比成熟的餐厅，厨房已备好，你只负责做好菜。</p>
+      <p><strong>E+a（专家+助理）</strong>——核心素养：三观一致、努力拼搏、坚持如一。</p>
+      <p><strong>C（学员）</strong>——学课程、养习惯、解问题。</p>
+      <p><strong>商业理念：</strong>高认知改变命运，精准营养改变生命。四大战略目标：认知→解决→体量→品牌（正向循环不可跳跃）。</p>
+
+      <h2>📚 第二章：商业机制与商业思路</h2>
+      <h3>总监级六大考核指标</h3>
+      <p>12个月周期 · 投诉＜3次 · 学员＞1万人 · GMV＞1000万 · 助理＞20人 · 续购转介率＞102%</p>
+      <h3>完整商业闭环</h3>
+      <div class="img-wrap"><img src="https://18602653289-kasen.github.io/kasen-nutrition-training/%E5%86%85%E9%83%A8%E5%9F%B9%E8%AE%AD/%E8%90%A5%E5%85%BB%E4%B8%AD%E5%BF%83%E4%BD%9C%E4%B8%9A%E6%A0%87%E5%87%86/SVG-%E5%95%86%E4%B8%9A%E9%97%AD%E7%8E%AF%E6%B5%81%E7%A8%8B%E5%9B%BE.svg" alt="商业闭环"><div class="cap">商业闭环六环节</div></div>
+      <p>接待 → 教育 → 指导 → 转化 → 保护 → 口碑增长。中间任何一个环节断裂，都会导致学员流失。</p>
+
+      <h2>📚 第三章：助理作业思路</h2>
+      <p><strong>八大作业动作：</strong>健康早会 · 健康指导 · 专家课程 · 专家连线 · 健康问询 · 专家通话 · 定制方案 · 精准营养</p>
+      <p><strong>十步接待话术（不可跳、不可乱）：</strong>激活→跟进→开场白→留存→欢迎语→下载注册→健康管理要求→进群→添加→课程配置首课学习</p>
+
+      <h2>📚 第四章：专家作业思路</h2>
+      <p><strong>服务模式：</strong>1位专家 + 20位持证助理 (1+20)</p>
+      <p><strong>六步问题解决链路：</strong>信息汇总 → 原因分析 → 危害分析 → 解决方案 → 建议方案 → 执行计划</p>
+      <p><strong>核心动作：</strong>专家课程（传播认知）· 专家连线（建立信任）· 专家通话（输出方案）</p>
+
+      <h2>📚 第五章：3-3-3 制式作业</h2>
+      <p><strong>第一个3：</strong>三个角色——专家、助理、学员（各司其职）</p>
+      <p><strong>第二个3：</strong>三个核心动作——助理（接待与留存）、专家（深度服务与转化）、学员（参与与改善）</p>
+      <p><strong>第三个3：</strong>三个循环——升级 → 续购 → 转介（信任逐层加深）</p>
+      <div class="box-tip"><strong>贯穿灵魂：</strong>利他</div>
+
+      <h2>📚 第六章：个人规范（五维素养）</h2>
+      <table>
+        <tr><th>维度</th><th>条目数</th><th>核心</th></tr>
+        <tr><td>气质规范</td><td>16项</td><td>从发型到状态的全方位形象标准</td></tr>
+        <tr><td>心态规范</td><td>22项</td><td>三层：底线→中坚→最高（牺牲小我）</td></tr>
+        <tr><td>思想规范</td><td>18项</td><td>心怀希望·先舍后得·执行第一·结果至上</td></tr>
+        <tr><td>专业规范</td><td>16项</td><td>以学员为中心，资质为基，方案有效果</td></tr>
+        <tr><td>管理规范</td><td>14项</td><td>工作严格，生活包容</td></tr>
+      </table>
+
+      <h2>📚 第七章：小结与预告</h2>
+      <p><strong>本课回顾：</strong>S-E-C模式、六大考核指标、商业闭环、助理八大动作+十步话术、专家六步链路+1+20模式、3-3-3制式、五维个人规范。</p>
+      <p><strong>贯穿灵魂：</strong>利他</p>
+      <p><strong>下节课预告：</strong>八大核心动作详解（健康早会、健康指导、专家课程等）</p>
+
+      <div style="text-align:center;margin:16px 0;padding:14px;background:#f0fdf6;border-radius:10px;border:1px solid #b3f0d9">
+        <div style="font-size:13px;color:#1a4a2a;margin-bottom:6px">📖 已经学完了吗？</div>
+        <button class="btn-primary" onclick="cc()">✅ 标记学完，解锁课后自测</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Step 3: 巩固练习 ===== -->
+  <div class="step-section" id="step3">
+    <div class="step-header" id="stepHeader3" onclick="toggleStep(3)">
+      <div class="step-num todo" id="stepNum3">3</div>
+      <div style="flex:1"><div style="font-weight:600;font-size:14px">🧠 巩固练习</div><div style="font-size:11px;color:#64748b">完成课后自测</div></div>
+      <div class="step-status" id="stepStatus3">🔒 未解锁</div>
+    </div>
+    <div class="step-body locked" id="stepBody3">
+      <div id="post-quiz-area"></div>
+      <div style="text-align:center;margin-top:8px">
+        <button class="btn-primary" onclick="checkPostQuiz();cpt()">✅ 提交批改</button>
+        <button class="btn-secondary" onclick="resetPostQuiz()" style="margin-left:6px">🔄 重做</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Step 4: 配套资源 ===== -->
+  <div class="step-section" id="step4">
+    <div class="step-header" id="stepHeader4" onclick="toggleStep(4)">
+      <div class="step-num todo" id="stepNum4">4</div>
+      <div style="flex:1"><div style="font-weight:600;font-size:14px">📎 配套资源</div><div style="font-size:11px;color:#64748b">综合考试·学习卡</div></div>
+      <div class="step-status" id="stepStatus4">🔒 未解锁</div>
+    </div>
+    <div class="step-body locked" id="stepBody4">
+      <div class="res-grid">
+        <a class="res-item" href="https://18602653289-kasen.github.io/kasen-nutrition-training/%E5%86%85%E9%83%A8%E5%9F%B9%E8%AE%AD/%E8%90%A5%E5%85%BB%E4%B8%AD%E5%BF%83%E4%BD%9C%E4%B8%9A%E6%A0%87%E5%87%86/%E8%80%83%E8%AF%95/%E7%BB%BC%E5%90%88%E8%80%83%E8%AF%95.html"><span class="ri">📝</span> 综合考试</a>
+        <a class="res-item" href="#"><span class="ri">🃏</span> 学习卡（待补充）</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">Kasen Nutrition · 内部培训体系 · <strong>营养中心作业标准</strong></div>
+</div>
+
+<script>
+// ============================================================
+// PROGRESSIVE LEARNING
+// ============================================================
+const PK = 'kasen_…s_v2';
+function gs() { try{return JSON.parse(localStorage.getItem(PK))||{}}catch(e){return{}} }
+function ss(s){localStorage.setItem(PK,JSON.stringify(s))}
+function toggleStep(n){
+  var b=document.getElementById('stepBody'+n);if(!b)return;
+  var st=gs();if(!st['s'+n]&&n>1)return;
+  b.classList.toggle('open');b.classList.remove('locked');
+}
+function toggleOutline(e){
+  if(e)e.stopPropagation();
+  var el=document.getElementById('outlineContent'),btn=document.querySelector('.outline-toggle');
+  if(!el)return;el.classList.toggle('open');
+  if(btn)btn.textContent=el.classList.contains('open')?'收起大纲 ▾':'展开查看 ▸';
+}
+function upUI(){
+  var st=gs();
+  for(var s=1;s<=4;s++){
+    var h=document.getElementById('stepHeader'+s),n=document.getElementById('stepNum'+s),st_=document.getElementById('stepStatus'+s);
+    if(!h||!n||!st_)continue;
+    var ok=s===1||st['s'+s],done=st['s'+s+'_d'];
+    h.classList.toggle('locked',!ok&&s>1);
+    n.className='step-num';
+    if(done){n.classList.add('done');n.textContent='✓'}
+    else if(ok||s===1){n.classList.add('active');n.textContent=s}
+    else{n.classList.add('todo');n.textContent=s}
+    st_.textContent=done?'✅ 已完成':ok?'📌 进行中':'🔒 未解锁';
+    var bd=document.getElementById('stepBody'+s);
+    if(bd){bd.classList.toggle('locked',!ok);bd.classList.toggle('open',ok)}
+    var sec=document.getElementById('step'+s);
+    if(sec&&s>1)sec.classList.toggle('locked',!ok);
+  }
+}
+function cp(){var st=gs();st.s1_d=true;st.s2=true;ss(st);upUI();var b=document.getElementById('stepBody2');if(b){b.classList.add('open');b.classList.remove('locked');}}
+function cc(){var st=gs();st.s2_d=true;st.s3=true;ss(st);upUI();var b=document.getElementById('stepBody3');if(b){b.classList.add('open');b.classList.remove('locked');}}
+function cpt(){var st=gs();st.s3_d=true;st.s4=true;ss(st);upUI();try{var ls=JSON.parse(localStorage.getItem('kasen_…pper'))||{};ls.lesson_done=true;localStorage.setItem('kasen_…pper',JSON.stringify(ls))}catch(e){}}
+
+// ============================================================
+// AUDIO
+// ============================================================
+function togglePlay(){
+  var btn=document.getElementById('playBtn'),ap=document.getElementById('audioPlayer');
+  if(!btn||!ap)return;
+  if(ap.paused){ap.play().catch(function(){});btn.textContent='⏸'}
+  else{ap.pause();btn.textContent='▶'}
+}
+function seekAudio(e){
+  var ap=document.getElementById('audioPlayer');if(!ap)return;
+  var rect=e.currentTarget.getBoundingClientRect(),pct=(e.clientX-rect.left)/rect.width;
+  ap.currentTime=pct*ap.duration;
+}
+document.addEventListener('DOMContentLoaded',function(){
+  var ap=document.getElementById('audioPlayer'),pb=document.getElementById('progressBar'),ct=document.getElementById('currentTime'),tt=document.getElementById('totalTime');
+  if(!ap)return;
+  ap.addEventListener('loadedmetadata',function(){
+    var m=Math.floor(ap.duration/60),s=Math.floor(ap.duration%60);
+    if(tt)tt.textContent=m+':'+(s<10?'0':'')+s;
+  });
+  ap.addEventListener('timeupdate',function(){
+    var pct=(ap.currentTime/ap.duration)*100;
+    if(pb)pb.style.width=pct+'%';
+    if(ct){var m=Math.floor(ap.currentTime/60),s=Math.floor(ap.currentTime%60);ct.textContent=m+':'+(s<10?'0':'')+s}
+  });
+  ap.addEventListener('ended',function(){var btn=document.getElementById('playBtn');if(btn)btn.textContent='▶'});
+});
+
+// ============================================================
+// QUIZ — 学前自测 & 课后自测
+// ============================================================
+var preQ=[
+  {q:'S-E-C模式中，S代表什么？',o:['A. 学员','B. 平台','C. 专家','D. 助理'],a:1},
+  {q:'公司商业理念的核心口号是？',o:['A. 健康第一，利润第二','B. 高认知改变命运，精准营养改变生命','C. 为客户创造价值','D. 专业成就未来'],a:1},
+  {q:'助理的八大作业动作中，第一个和最后一个分别是？',o:['A. 健康指导、精准营养','B. 健康早会、精准营养','C. 专家课程、健康问询','D. 专家连线、定制方案'],a:1},
+  {q:'3-3-3制式中第三个"3"代表什么？',o:['A. 三个角色','B. 三个核心动作','C. 三个循环：升级→续购→转介','D. 三个考核指标'],a:2}
+];
+var postQ=[
+  {q:'完整商业闭环的正确顺序是？',o:['A. 接待→教育→转化→指导→保护→口碑','B. 接待→教育→指导→转化→保护→口碑','C. 教育→接待→指导→转化→保护→口碑','D. 接待→指导→教育→转化→保护→口碑'],a:1},
+  {q:'总监级考核指标中，续购转介率目标是多少？',o:['A. >80%','B. >90%','C. >102%','D. >120%'],a:2},
+  {q:'个人规范五维度中，哪两个维度最能体现"努力拼搏"？',o:['A. 气质规范和专业规范','B. 心态规范和管理规范','C. 思想规范和气质规范','D. 专业规范和思想规范'],a:1},
+  {q:'专家六步问题解决链路中，关键原因分析之后应该做什么？',o:['A. 信息汇总','B. 危害分析','C. 解决方案','D. 执行计划'],a:1},
+  {q:'公司战略目标的递进逻辑是？',o:['A. 品牌→体量→解决→认知','B. 解决→认知→体量→品牌','C. 认知→解决→体量→品牌','D. 体量→认知→解决→品牌'],a:2},
+  {q:'以下哪项不属于助理的八大作业动作？',o:['A. 健康早会','B. 专家课程','C. 产品研发','D. 精准营养'],a:2}
+];
+
+function renderQuiz(containerId,data,prefix){
+  var c=document.getElementById(containerId);if(!c)return;
+  c.innerHTML=data.map(function(q,i){
+    return '<div class="quiz"><div class="q"><span class="qb" style="display:inline-block;background:linear-gradient(135deg,#00d68f,#00b37a);color:#fff;font-size:10px;padding:1px 8px;border-radius:8px;margin-right:4px">'+(i+1)+'</span>'+q.q+'</div><div class="opts">'+q.o.map(function(o,oi){
+      return '<div class="opt" onclick="selectOpt(this,\''+prefix+'\',\''+i+'\')" data-idx="'+oi+'">'+o+'</div>';
+    }).join('')+'</div></div>';
+  }).join('');
+}
+
+function selectOpt(el,prefix,qidx){
+  var parent=el.parentElement;
+  parent.querySelectorAll('.opt').forEach(function(o){o.classList.remove('selected');});
+  el.classList.add('selected');
+}
+
+function checkPreQuiz(){
+  var qs=document.querySelectorAll('#pre-quiz-area .opt.selected');
+  if(qs.length<preQ.length){alert('请完成所有自测题后再提交。');return false;}
+  var correct=0;
+  preQ.forEach(function(q,i){
+    var opts=document.querySelectorAll('#pre-quiz-area .opts')[i].querySelectorAll('.opt');
+    opts.forEach(function(o){o.classList.add('readonly');o.style.pointerEvents='none';});
+    var sel=opts[q.a];
+    if(sel)sel.classList.add('correct');
+    if(qs[i]&&parseInt(qs[i].dataset.idx)===q.a)correct++;
+  });
+  var pct=Math.round(correct/preQ.length*100);
+  alert('✅ 学前自测完成！'+correct+'/'+preQ.length+' 正确 ('+pct+'%)\n'+(pct>=80?'很好的开始！':'知识点在课文中可以找到答案。'));
+  return true;
+}
+
+function checkPostQuiz(){
+  var qs=document.querySelectorAll('#post-quiz-area .opt.selected');
+  if(qs.length<postQ.length){alert('请完成所有课后自测题后再提交。');return false;}
+  var correct=0;
+  postQ.forEach(function(q,i){
+    var opts=document.querySelectorAll('#post-quiz-area .opts')[i].querySelectorAll('.opt');
+    opts.forEach(function(o){o.classList.add('readonly');o.style.pointerEvents='none';});
+    var sel=opts[q.a];
+    if(sel)sel.classList.add('correct');
+    if(qs[i]&&parseInt(qs[i].dataset.idx)===q.a)correct++;
+  });
+  var pct=Math.round(correct/postQ.length*100);
+  alert('✅ 课后自测完成！'+correct+'/'+postQ.length+' 正确 ('+pct+'%)\n'+(pct>=80?'掌握不错！':'建议再回看对应章节。'));
+  return true;
+}
+
+function resetPostQuiz(){renderQuiz('post-quiz-area',postQ,'post');}
+
+renderQuiz('pre-quiz-area',preQ,'pre');
+renderQuiz('post-quiz-area',postQ,'post');
+upUI();
+</script>
+
+</body>
+</html>

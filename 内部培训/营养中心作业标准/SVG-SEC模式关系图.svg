@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" font-family="'PingFang SC','Microsoft YaHei',sans-serif">
+  <rect width="600" height="400" fill="#f5f7fa" rx="12"/>
+  <!-- Title -->
+  <text x="300" y="35" text-anchor="middle" font-size="16" font-weight="bold" fill="#0f172a">S-E-C 商业模式</text>
+  <!-- S Box -->
+  <rect x="40" y="60" width="160" height="130" rx="12" fill="#e6faf2" stroke="#00d68f" stroke-width="2"/>
+  <text x="120" y="90" text-anchor="middle" font-size="20" font-weight="bold" fill="#006b4a">S</text>
+  <text x="120" y="108" text-anchor="middle" font-size="11" fill="#006b4a">平台</text>
+  <text x="120" y="130" text-anchor="middle" font-size="9" fill="#475569">提供培育·产品·工具</text>
+  <text x="120" y="145" text-anchor="middle" font-size="9" fill="#475569">招聘助理·提供客源</text>
+  <text x="120" y="160" text-anchor="middle" font-size="9" fill="#475569">保障薪资</text>
+  <!-- Arrow S→E -->
+  <line x1="200" y1="100" x2="230" y2="100" stroke="#94a3b8" stroke-width="1.5"/>
+  <polygon points="230,95 238,100 230,105" fill="#94a3b8"/>
+  <!-- E Box -->
+  <rect x="240" y="55" width="140" height="140" rx="12" fill="#fffbeb" stroke="#f59e0b" stroke-width="2"/>
+  <text x="310" y="88" text-anchor="middle" font-size="20" font-weight="bold" fill="#92400e">E+a</text>
+  <text x="310" y="106" text-anchor="middle" font-size="11" fill="#92400e">专家+助理</text>
+  <text x="310" y="128" text-anchor="middle" font-size="9" fill="#475569">三观一致</text>
+  <text x="310" y="143" text-anchor="middle" font-size="9" fill="#475569">努力拼搏</text>
+  <text x="310" y="158" text-anchor="middle" font-size="9" fill="#475569">坚持如一</text>
+  <!-- Arrow E→C -->
+  <line x1="380" y1="100" x2="410" y2="100" stroke="#94a3b8" stroke-width="1.5"/>
+  <polygon points="410,95 418,100 410,105" fill="#94a3b8"/>
+  <!-- C Box -->
+  <rect x="420" y="55" width="140" height="140" rx="12" fill="#eff6ff" stroke="#3b82f6" stroke-width="2"/>
+  <text x="490" y="88" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e40af">C</text>
+  <text x="490" y="106" text-anchor="middle" font-size="11" fill="#1e40af">学员</text>
+  <text x="490" y="128" text-anchor="middle" font-size="9" fill="#475569">学课程</text>
+  <text x="490" y="143" text-anchor="middle" font-size="9" fill="#475569">养习惯</text>
+  <text x="490" y="158" text-anchor="middle" font-size="9" fill="#475569">解问题</text>
+  <!-- Bottom: 利他 circle -->
+  <circle cx="300" cy="320" r="45" fill="none" stroke="#00d68f" stroke-width="2" stroke-dasharray="4"/>
+  <text x="300" y="315" text-anchor="middle" font-size="16" fill="#006b4a" font-weight="bold">利他</text>
+  <text x="300" y="332" text-anchor="middle" font-size="9" fill="#64748b">底层逻辑</text>
+  <!-- Connecting lines to 利他 -->
+  <line x1="120" y1="190" x2="260" y2="290" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="4"/>
+  <line x1="310" y1="195" x2="300" y2="275" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="4"/>
+  <line x1="490" y1="195" x2="340" y2="290" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="4"/>
+</svg>

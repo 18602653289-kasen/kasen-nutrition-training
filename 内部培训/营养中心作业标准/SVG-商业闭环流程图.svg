@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 360" font-family="'PingFang SC','Microsoft YaHei',sans-serif">
+  <rect width="600" height="360" fill="#f5f7fa" rx="12"/>
+  <text x="300" y="30" text-anchor="middle" font-size="15" font-weight="bold" fill="#0f172a">商业闭环六环节</text>
+  <!-- Flow: left to right with arrows -->
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#00d68f"/>
+    </marker>
+  </defs>
+  <!-- Row 1: 接待 → 教育 → 指导 -->
+  <g>
+    <rect x="20" y="70" width="95" height="90" rx="8" fill="#e6faf2" stroke="#00d68f" stroke-width="1.5"/>
+    <text x="67" y="105" text-anchor="middle" font-size="13" font-weight="bold" fill="#006b4a">① 接待</text>
+    <text x="67" y="122" text-anchor="middle" font-size="9" fill="#475569">第一印象</text>
+    <text x="67" y="137" text-anchor="middle" font-size="9" fill="#475569">激活留存</text>
+  </g>
+  <line x1="115" y1="115" x2="146" y2="115" stroke="#00d68f" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <g>
+    <rect x="150" y="70" width="95" height="90" rx="8" fill="#e6faf2" stroke="#00d68f" stroke-width="1.5"/>
+    <text x="197" y="105" text-anchor="middle" font-size="13" font-weight="bold" fill="#006b4a">② 教育</text>
+    <text x="197" y="122" text-anchor="middle" font-size="9" fill="#475569">认知传递</text>
+    <text x="197" y="137" text-anchor="middle" font-size="9" fill="#475569">提升理解</text>
+  </g>
+  <line x1="245" y1="115" x2="276" y2="115" stroke="#00d68f" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <g>
+    <rect x="280" y="70" width="95" height="90" rx="8" fill="#e6faf2" stroke="#00d68f" stroke-width="1.5"/>
+    <text x="327" y="105" text-anchor="middle" font-size="13" font-weight="bold" fill="#006b4a">③ 指导</text>
+    <text x="327" y="122" text-anchor="middle" font-size="9" fill="#475569">日常跟进</text>
+    <text x="327" y="137" text-anchor="middle" font-size="9" fill="#475569">习惯养成</text>
+  </g>
+  <!-- Row 2: 转化 → 保护 → 口碑 -->
+  <line x1="327" y1="160" x2="327" y2="180" stroke="#00d68f" stroke-width="1.5"/>
+  <polygon points="322,178 327,186 332,178" fill="#00d68f"/>
+  <g>
+    <rect x="20" y="190" width="95" height="90" rx="8" fill="#fffbeb" stroke="#f59e0b" stroke-width="1.5"/>
+    <text x="67" y="225" text-anchor="middle" font-size="13" font-weight="bold" fill="#92400e">④ 转化</text>
+    <text x="67" y="242" text-anchor="middle" font-size="9" fill="#475569">价值确认</text>
+    <text x="67" y="257" text-anchor="middle" font-size="9" fill="#475569">学员升级</text>
+  </g>
+  <line x1="115" y1="235" x2="146" y2="235" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <g>
+    <rect x="150" y="190" width="95" height="90" rx="8" fill="#fffbeb" stroke="#f59e0b" stroke-width="1.5"/>
+    <text x="197" y="225" text-anchor="middle" font-size="13" font-weight="bold" fill="#92400e">⑤ 保护</text>
+    <text x="197" y="242" text-anchor="middle" font-size="9" fill="#475569">防流失</text>
+    <text x="197" y="257" text-anchor="middle" font-size="9" fill="#475569">持续服务</text>
+  </g>
+  <line x1="245" y1="235" x2="276" y2="235" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <g>
+    <rect x="280" y="190" width="95" height="90" rx="8" fill="#fffbeb" stroke="#f59e0b" stroke-width="1.5"/>
+    <text x="327" y="225" text-anchor="middle" font-size="13" font-weight="bold" fill="#92400e">⑥ 口碑</text>
+    <text x="327" y="242" text-anchor="middle" font-size="9" fill="#475569">续购转介</text>
+    <text x="327" y="257" text-anchor="middle" font-size="9" fill="#475569">正向循环</text>
+  </g>
+  <!-- Feedback arrow -->
+  <path d="M375,235 Q420,235 420,115 Q420,80 375,80" fill="none" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4"/>
+  <text x="428" y="155" font-size="9" fill="#94a3b8" writing-mode="tb">口碑反哺</text>
+  <!-- Bottom note -->
+  <text x="300" y="330" text-anchor="middle" font-size="10" fill="#64748b">六个环节环环相扣，任何一个断裂都会导致学员流失</text>
+</svg>
