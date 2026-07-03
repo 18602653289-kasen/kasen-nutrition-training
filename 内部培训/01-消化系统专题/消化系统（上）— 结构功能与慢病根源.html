@@ -101,6 +101,40 @@
   /* ===== Nav Buttons ===== */
   .nav-btn{display:inline-block;background:linear-gradient(135deg,#00d68f,#00b37a);color:#fff;text-decoration:none;padding:10px 24px;border-radius:8px;font-size:14px;font-weight:600;margin:6px 2px;transition:all .2s;box-shadow:0 2px 8px rgba(0,214,143,.2)}
   .nav-btn:hover{background:linear-gradient(135deg,#00b37a,#009966);transform:translateY(-1px);box-shadow:0 4px 14px rgba(0,214,143,.35)}
+
+  /* Progressive Learning */
+  .step-section{margin-bottom:20px;border-radius:14px;overflow:hidden;transition:all .3s}
+  .step-header{display:flex;align-items:center;gap:12px;padding:16px 20px;background:#fff;cursor:pointer;border:1px solid #e2e8f0;border-radius:14px;transition:all .2s}
+  .step-header:hover{border-color:#00d68f}
+  .step-header.locked{opacity:.5;cursor:not-allowed}
+  .step-header.locked:hover{border-color:#e2e8f0}
+  .step-num{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0}
+  .step-num.todo{background:#f1f5f9;color:#94a3b8}
+  .step-num.active{background:linear-gradient(135deg,#00d68f,#00b37a);color:#fff}
+  .step-num.done{background:#e6faf2;color:#006b4a}
+  .step-body{padding:20px;background:#fff;border:1px solid #e2e8f0;border-top:none;border-radius:0 0 14px 14px;display:none}
+  .step-body.open{display:block}
+  .step-body.locked{display:none}
+  .step-status{font-size:11px;color:#94a3b8;margin-left:auto}
+  .step-status.ready{color:#00d68f;font-weight:600}
+  .step-unlock-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 20px;background:linear-gradient(135deg,#00d68f,#00b37a);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;margin-top:12px}
+  .step-unlock-btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,214,143,.3)}
+  .step-divider{height:2px;background:linear-gradient(90deg,#e2e8f0 50%,transparent 100%);margin:0 auto;width:2px}
+  .timeline{display:flex;flex-direction:column;align-items:center;gap:0;margin-bottom:20px}
+  .timeline-dot{width:12px;height:12px;border-radius:50%;border:2px solid #e2e8f0;background:#fff;flex-shrink:0}
+  .timeline-dot.active{border-color:#00d68f;background:#00d68f}
+  .timeline-dot.done{border-color:#006b4a;background:#e6faf2}
+  .timeline-line{width:2px;height:24px;background:#e2e8f0}
+  .timeline-line.done{background:#00d68f}
+  /* Collapsible outline */
+  .outline-toggle{display:inline-flex;align-items:center;gap:6px;color:#00d68f;font-size:13px;cursor:pointer;font-weight:600;border:none;background:none;padding:4px 0}
+  .outline-toggle:hover{color:#006b4a}
+  .outline-content{display:none;padding:12px;background:#f8fafc;border-radius:10px;border:1px solid #e2e8f0;margin-top:8px;max-height:400px;overflow-y:auto}
+  .outline-content.open{display:block}
+  /* Completion badge */
+  .completion-badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:10px;font-size:11px;font-weight:600}
+  .completion-badge.done{background:#e6faf2;color:#006b4a}
+  .completion-badge.pending{background:#fffbeb;color:#b45309}
   /* ===== Progress bar accent ===== */
   #progressBar{background:#00d68f !important}
   /* ===== Responsive ===== */
@@ -191,15 +225,33 @@ function seekAudio(e) {
 }
 </script>
 
-<!-- ==================== PROGRESS ==================== -->
-<div class="progress-wrap">
-  <div class="progress-track">
-    <div class="prog-step active" onclick="scrollToSection('pre-test')"><span class="num">01</span>📝 学前自测</div>
-    <div class="prog-step" onclick="scrollToSection('study')"><span class="num">02</span>📖 知识学习</div>
-    <div class="prog-step" onclick="scrollToSection('post-test')"><span class="num">03</span>🧠 课后自测</div>
-    <div class="prog-step" onclick="scrollToSection('resources')"><span class="num">04</span>📎 综合考试</div>
+<!-- ===== Step 1: 学前准备 ===== -->
+<div class="step-section" id="step1">
+  <div class="step-header" id="stepHeader1" onclick="toggleStep(1)">
+    <div class="step-num active" id="stepNum1">1</div>
+    <div style="flex:1">
+      <div style="font-weight:600;font-size:15px">📝 学前准备</div>
+      <div style="font-size:12px;color:#64748b">了解本节大纲，完成学前自测</div>
+    </div>
+    <div class="step-status" id="stepStatus1">📌 进行中</div>
   </div>
-</div>
+  <div class="step-body open" id="stepBody1">
+    <div style="margin-bottom:14px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+        <span style="font-weight:600;font-size:14px">📋 本节大纲</span>
+        <button class="outline-toggle" onclick="toggleOutline(event)">展开查看 ▸</button>
+      </div>
+      <div class="outline-content" id="outlineContent">
+        <div style="font-size:13px;color:#475569;line-height:2">
+          <strong>模块一：</strong>重新认识消化系统（组成、功能、三把钥匙）<br>
+          <strong>模块二：</strong>消化系统与慢病（地基论、七大慢病因果链）<br>
+          <strong>模块三：</strong>消化接力赛（五站分析、两大颠覆认知）<br>
+          <strong>模块四：</strong>故障的连锁反应（消化液不足→肠漏前奏）<br>
+          <strong>模块五：</strong>小结与预告<br><br>
+          <span style="color:#94a3b8">完成学前自测后自动解锁正式学习内容。</span>
+        </div>
+      </div>
+    </div>
 
 <!-- ==================== PRE-TEST ==================== -->
 <div id="pre-test" class="section">
@@ -223,7 +275,21 @@ function seekAudio(e) {
 
 <!-- ==================== STUDY CONTENT ==================== -->
 <div id="study" class="section">
-  <div class="section-title"><span class="l">📖 知识学习</span></div>
+  </div> <!-- end step1 body -->
+  </div> <!-- end step1 section -->
+
+  <!-- ===== Step 2: 正式学习 ===== -->
+  <div class="step-section" id="step2">
+    <div class="step-header" id="stepHeader2" onclick="toggleStep(2)">
+      <div class="step-num todo" id="stepNum2">2</div>
+      <div style="flex:1">
+        <div style="font-weight:600;font-size:15px">📖 正式学习</div>
+        <div style="font-size:12px;color:#64748b">阅读课程正文，收听伴读音频</div>
+      </div>
+      <div class="step-status" id="stepStatus2">🔒 未解锁</div>
+    </div>
+    <div class="step-body locked" id="stepBody2">
+      <div class="section-title"><span class="l">📖 知识学习</span></div>
 
   <!-- Module 1 -->
   <h2>🔬 模块一：重新认识消化系统</h2>
@@ -353,7 +419,20 @@ function seekAudio(e) {
   </div>
 
   <div class="nav-btn" onclick="scrollToSection('post-test')">👇 去做课后自测 →</div>
-</div>
+  </div>
+</div> <!-- end step2 section -->
+
+<!-- ===== Step 3: 巩固练习 ===== -->
+<div class="step-section" id="step3">
+  <div class="step-header" id="stepHeader3" onclick="toggleStep(3)">
+    <div class="step-num todo" id="stepNum3">3</div>
+    <div style="flex:1">
+      <div style="font-weight:600;font-size:15px">🧠 巩固练习</div>
+      <div style="font-size:12px;color:#64748b">完成课后自测，检验学习成果</div>
+    </div>
+    <div class="step-status" id="stepStatus3">🔒 未解锁</div>
+  </div>
+  <div class="step-body locked" id="stepBody3">
 
 <!-- ==================== POST-TEST ==================== -->
 <div id="post-test" class="section">
@@ -375,7 +454,21 @@ function seekAudio(e) {
 
 <!-- ==================== RESOURCES ==================== -->
 <div id="resources" class="section">
-  <div class="section-title"><span class="l">📎 配套资源</span></div>
+    </div> <!-- end step3 body -->
+  </div> <!-- end step3 section -->
+
+  <!-- ===== Step 4: 配套资源 ===== -->
+  <div class="step-section" id="step4">
+    <div class="step-header" id="stepHeader4" onclick="toggleStep(4)">
+      <div class="step-num todo" id="stepNum4">4</div>
+      <div style="flex:1">
+        <div style="font-weight:600;font-size:15px">📎 配套资源</div>
+        <div style="font-size:12px;color:#64748b">学习卡、综合考试、答案解析</div>
+      </div>
+      <div class="step-status" id="stepStatus4">🔒 未解锁</div>
+    </div>
+    <div class="step-body locked" id="stepBody4">
+      <div class="section-title"><span class="l">📎 配套资源</span></div>
   <div class="res-grid">
     <a class="res-item" href="https://18602653289-kasen.github.io/kasen-nutrition-training/%E5%86%85%E9%83%A8%E5%9F%B9%E8%AE%AD/01-%E6%B6%88%E5%8C%96%E7%B3%BB%E7%BB%9F%E4%B8%93%E9%A2%98/%E8%80%83%E8%AF%95/%E7%BB%BC%E5%90%88%E8%80%83%E8%AF%95.html"><span class="ri">🖊️</span> 🎯 综合考试（在线作答）</a>
     <a class="res-item" href="javascript:void(0)" onclick="checkExamAndOpen('https://18602653289-kasen.github.io/kasen-nutrition-training/%E5%86%85%E9%83%A8%E5%9F%B9%E8%AE%AD/01-%E6%B6%88%E5%8C%96%E7%B3%BB%E7%BB%9F%E4%B8%93%E9%A2%98/%E8%80%83%E8%AF%95/%E7%BB%BC%E5%90%88%E8%80%83%E8%AF%95%E7%AD%94%E6%A1%88%E4%B8%8E%E8%A7%A3%E6%9E%90.docx')"><span class="ri">✅</span> 答案解析</a>
