@@ -242,7 +242,7 @@ function seekAudio(e) {
   <div class="box-muted">⏱ 约5分钟 · 先凭现有认知作答，学完正文后再回来看。所有答案在下方课文中可以找到。</div>
   <div id="pre-quiz-area"></div>
   <div style="text-align:center;margin:16px 0">
-    <button class="btn-primary" onclick="checkPreTest();completePretest()">✅ 提交批改</button>
+    <button class="btn-primary" onclick="checkPreTest();cp()">✅ 提交批改</button>
     <button class="btn-secondary" onclick="resetPreTest()">🔄 重做</button>
   </div>
   <div id="pre-result" class="score-bar" style="display:none">
@@ -400,7 +400,7 @@ function seekAudio(e) {
 
   <div style="text-align:center;margin:16px 0;padding:16px;background:#f0fdf6;border-radius:10px;border:1px solid #b3f0d9">
     <div style="font-size:13px;color:#1a4a2a;margin-bottom:8px">📖 已经学完本节内容了吗？</div>
-    <button class="btn-primary" onclick="completeContent()">✅ 标记学完，解锁课后自测</button>
+    <button class="btn-primary" onclick="cc()">✅ 标记学完，解锁课后自测</button>
   </div>
   <div class="nav-btn" onclick="scrollToSection('post-test')">👇 去做课后自测 →</div>
   </div>
@@ -426,7 +426,7 @@ function seekAudio(e) {
   </div>
   <div id="post-quiz-area"></div>
   <div style="text-align:center;margin:16px 0">
-    <button class="btn-primary" onclick="checkPostTest();completePosttest()">✅ 提交批改</button>
+    <button class="btn-primary" onclick="checkPostTest();cpt()">✅ 提交批改</button>
     <button class="btn-secondary" onclick="resetPostTest()">🔄 重做</button>
   </div>
   <div id="post-result" class="score-bar" style="display:none">
@@ -655,7 +655,7 @@ function upUI() {
   }
 }
 
-function cp() { const st = getSt(); st.s1_d = true; st.s2 = true; saveSt(st); upUI(); }
+function cp() { const st = getSt(); st.s1_d = true; st.s2 = true; saveSt(st); upUI(); document.getElementById('stepBody2').classList.add('open'); }
 function cc() { const st = getSt(); st.s2_d = true; st.s3 = true; saveSt(st); upUI(); document.getElementById('stepBody3').classList.add('open'); }
 function cpt() { const st = getSt(); st.s3_d = true; st.s4 = true; saveSt(st); upUI(); }
 
