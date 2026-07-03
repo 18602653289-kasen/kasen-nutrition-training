@@ -378,7 +378,7 @@ function seekAudio(e) {
   <div class="section-title"><span class="l">📎 配套资源</span></div>
   <div class="res-grid">
     <a class="res-item" href="https://18602653289-kasen.github.io/kasen-nutrition-training/%E5%86%85%E9%83%A8%E5%9F%B9%E8%AE%AD/01-%E6%B6%88%E5%8C%96%E7%B3%BB%E7%BB%9F%E4%B8%93%E9%A2%98/%E8%80%83%E8%AF%95/%E7%BB%BC%E5%90%88%E8%80%83%E8%AF%95.html"><span class="ri">🖊️</span> 🎯 综合考试（在线作答）</a>
-    <a class="res-item" href="https://18602653289-kasen.github.io/kasen-nutrition-training/%E5%86%85%E9%83%A8%E5%9F%B9%E8%AE%AD/01-%E6%B6%88%E5%8C%96%E7%B3%BB%E7%BB%9F%E4%B8%93%E9%A2%98/%E8%80%83%E8%AF%95/%E7%BB%BC%E5%90%88%E8%80%83%E8%AF%95%E7%AD%94%E6%A1%88%E4%B8%8E%E8%A7%A3%E6%9E%90.docx"><span class="ri">✅</span> 答案解析</a>
+    <a class="res-item" href="javascript:void(0)" onclick="checkExamAndOpen('https://18602653289-kasen.github.io/kasen-nutrition-training/%E5%86%85%E9%83%A8%E5%9F%B9%E8%AE%AD/01-%E6%B6%88%E5%8C%96%E7%B3%BB%E7%BB%9F%E4%B8%93%E9%A2%98/%E8%80%83%E8%AF%95/%E7%BB%BC%E5%90%88%E8%80%83%E8%AF%95%E7%AD%94%E6%A1%88%E4%B8%8E%E8%A7%A3%E6%9E%90.docx')"><span class="ri">✅</span> 答案解析</a>
     <a class="res-item" href="https://18602653289-kasen.github.io/kasen-nutrition-training/%E5%86%85%E9%83%A8%E5%9F%B9%E8%AE%AD/01-%E6%B6%88%E5%8C%96%E7%B3%BB%E7%BB%9F%E4%B8%93%E9%A2%98/%E5%A4%A7%E7%BA%B2/"><span class="ri">📋</span> 课程大纲</a>
     <a class="res-item" href="https://18602653289-kasen.github.io/kasen-nutrition-training/%E5%86%85%E9%83%A8%E5%9F%B9%E8%AE%AD/01-%E6%B6%88%E5%8C%96%E7%B3%BB%E7%BB%9F%E4%B8%93%E9%A2%98/%E5%AD%A6%E4%B9%A0%E5%8D%A1/"><span class="ri">🃏</span> 学习卡（共2张）</a>
   </div>
@@ -512,6 +512,22 @@ function scrollToSection(id) {
 // Init
 renderQuiz('pre-quiz-area', preTestData, 'pre');
 renderQuiz('post-quiz-area', postTestData, 'post');
+</script>
+
+
+<script>
+function checkExamAndOpen(url) {
+  try {
+    const state = JSON.parse(localStorage.getItem('kasen_exam_digestive_upper'));
+    if (state && state.status === 'completed') {
+      window.open(url, '_blank');
+    } else {
+      alert('📌 请先完成综合考试，提交试卷后才能查看答案解析。');
+    }
+  } catch(e) {
+    alert('📌 请先完成综合考试，提交试卷后才能查看答案解析。');
+  }
+}
 </script>
 
 </body>
