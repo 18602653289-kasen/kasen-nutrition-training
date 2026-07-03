@@ -657,7 +657,14 @@ function upUI() {
 
 function cp() { const st = getSt(); st.s1_d = true; st.s2 = true; saveSt(st); upUI(); document.getElementById('stepBody2').classList.add('open'); }
 function cc() { const st = getSt(); st.s2_d = true; st.s3 = true; saveSt(st); upUI(); document.getElementById('stepBody3').classList.add('open'); }
-function cpt() { const st = getSt(); st.s3_d = true; st.s4 = true; saveSt(st); upUI(); }
+function cpt() { 
+  const st = getSt(); st.s3_d = true; st.s4 = true; saveSt(st); upUI(); 
+  try { 
+    const ls = JSON.parse(localStorage.getItem('kasen_lesson_digestive-upper')) || {}; 
+    ls.lesson_done = true; 
+    localStorage.setItem('kasen_lesson_digestive-upper', JSON.stringify(ls)); 
+  } catch(e){} 
+}
 
 document.addEventListener('DOMContentLoaded', upUI);
 </script>
