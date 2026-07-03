@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>学习卡 · 消化系统专题</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:#f0f2f5;color:#1e293b;line-height:1.6}
+  .container{max-width:800px;margin:0 auto;padding:20px 16px 60px}
+
+  .header{background:linear-gradient(135deg,#006b4a,#00d68f 55%,#00b37a);color:#fff;padding:24px 20px 20px;border-radius:14px;margin-bottom:20px}
+  .header h1{font-size:20px;font-weight:700;display:flex;align-items:center;gap:8px}
+  .header .sub{font-size:13px;opacity:.8;margin-top:4px}
+  .header .count{display:inline-block;background:rgba(255,255,255,.2);padding:2px 10px;border-radius:8px;font-size:12px;margin-top:8px}
+
+  /* Card list */
+  .card-list{display:flex;flex-direction:column;gap:12px}
+
+  .card-item{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06);cursor:pointer;transition:all .2s;display:flex;align-items:stretch}
+  .card-item:hover{box-shadow:0 4px 16px rgba(0,0,0,.1);transform:translateY(-2px)}
+
+  .card-thumb{width:100px;min-height:100px;background:#f1f5f9;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden}
+  .card-thumb img{width:100%;height:100%;object-fit:cover}
+
+  .card-info{flex:1;padding:14px 16px;display:flex;flex-direction:column;justify-content:center}
+  .card-info .title{font-weight:600;font-size:15px}
+  .card-info .desc{font-size:13px;color:#64748b;margin-top:2px}
+  .card-info .meta{font-size:12px;color:#94a3b8;margin-top:4px;display:flex;gap:8px}
+
+  .card-tag{display:inline-block;background:#e6faf2;color:#00d68f;padding:1px 8px;border-radius:4px;font-size:11px;font-weight:500}
+
+  /* Lightbox */
+  .lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:1000;justify-content:center;align-items:center;padding:20px;cursor:zoom-out}
+  .lightbox.active{display:flex}
+  .lightbox img{max-width:95%;max-height:95vh;border-radius:8px;box-shadow:0 10px 40px rgba(0,0,0,.4);object-fit:contain;cursor:default}
+  .lightbox .nav{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);display:flex;gap:10px;background:rgba(0,0,0,.5);padding:8px 16px;border-radius:20px;cursor:default}
+  .lightbox .nav button{background:rgba(255,255,255,.2);color:#fff;border:none;padding:6px 14px;border-radius:10px;cursor:pointer;font-size:13px;transition:background .15s}
+  .lightbox .nav button:hover{background:rgba(255,255,255,.35)}
+  .lightbox .counter{color:rgba(255,255,255,.7);font-size:13px;display:flex;align-items:center;padding:0 8px}
+  .lightbox .close-btn{position:fixed;top:20px;right:20px;background:rgba(0,0,0,.4);color:#fff;border:none;width:36px;height:36px;border-radius:50%;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+  .lightbox .close-btn:hover{background:rgba(0,0,0,.6)}
+
+  /* Empty state */
+  .empty{text-align:center;padding:60px 20px;background:#fff;border-radius:12px}
+  .empty h3{color:#64748b;font-weight:500}
+  .empty p{color:#94a3b8;font-size:14px;margin-top:4px}
+
+  @media(max-width:480px){
+    .card-thumb{width:72px;min-height:72px}
+    .card-info .title{font-size:14px}
+  }
+  .top-nav{display:flex;align-items:center;gap:8px;padding:10px 0 4px;margin-bottom:0;position:sticky;top:0;z-index:100;background:#f5f7fa}
+  .top-nav a{display:inline-flex;align-items:center;gap:4px;color:#64748b;font-size:13px;text-decoration:none;padding:4px 10px;border-radius:6px}
+  .top-nav a:hover{background:#f1f5f9;color:#00d68f}
+  .top-nav .crumb{font-size:11px;color:#94a3b8}
+  .top-nav .crumb a{color:#94a3b8;text-decoration:none;padding:4px 4px}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Top Nav -->
+  <div class="top-nav">
+    <a href="javascript:history.back()" style="display:inline-flex;align-items:center;gap:4px;color:#64748b;font-size:13px;text-decoration:none;padding:4px 10px;border-radius:6px">‹ 返回课程列表</a>
+    <span style="font-size:11px;color:#94a3b8">/ 学习卡</span>
+  </div>
+
+  <div class="header">
+    <h1>🃏 学习卡</h1>
+    <div class="sub">消化系统（上）— 结构功能与慢病根源</div>
+    <div class="count" id="cardCount">共 0 张</div>
+  </div>
+
+  <div class="card-list" id="cardList"></div>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <button class="close-btn" onclick="closeLightbox()">✕</button>
+  <img id="lightboxImg" src="" alt="学习卡">
+  <div class="nav">
+    <button onclick="navLightbox(-1)">‹ 上一张</button>
+    <span class="counter" id="lightboxCounter"></span>
+    <button onclick="navLightbox(1)">下一张 ›</button>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// CONFIG — scan image files in this directory
+// ============================================================
+const basePath = ''; // same directory
+const cards = [];
+
+// Scan for card images by fetching directory (simple approach)
+// We'll define the known card files here
+(function() {
+  // Card files should be named in order
+  const knownFiles = [
+    '8、内部培训2.0 · 学习卡一.png',
+    '8、内部培训2.0· 学习卡二.png'
+  ];
+
+  knownFiles.forEach((f, i) => {
+    // Extract title from filename
+    let title = f.replace(/\.png$/,'').trim();
+    // Try to extract card number
+    const numMatch = title.match(/学习卡(.*?)$/);
+    const cardNum = numMatch ? numMatch[1].trim() : `#${i+1}`;
+    cards.push({
+      file: f,
+      title: `学习卡${cardNum}`,
+      num: i + 1,
+      total: knownFiles.length
+    });
+  });
+})();
+
+// ============================================================
+// RENDER
+// ============================================================
+function renderCards() {
+  const list = document.getElementById('cardList');
+  const count = document.getElementById('cardCount');
+
+  if (cards.length === 0) {
+    list.innerHTML = '<div class="empty"><h3>暂无学习卡</h3><p>该专题的学习卡正在制作中，敬请期待。</p></div>';
+    count.textContent = '共 0 张';
+    return;
+  }
+
+  count.textContent = `共 ${cards.length} 张`;
+
+  list.innerHTML = cards.map((card, idx) => `
+    <div class="card-item" onclick="openLightbox(${idx})">
+      <div class="card-thumb">
+        <img src="${card.file}" alt="${card.title}" loading="lazy">
+      </div>
+      <div class="card-info">
+        <div class="title">${card.title}</div>
+        <div class="desc">第${card.num}张 / 共${card.total}张</div>
+        <div class="meta">
+          <span class="card-tag">🃏 速记卡片</span>
+          <span>点击查看大图</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ============================================================
+// LIGHTBOX
+// ============================================================
+let currentIdx = 0;
+
+function openLightbox(idx) {
+  currentIdx = idx;
+  updateLightbox();
+  document.getElementById('lightbox').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox(e) {
+  if (e && e.target !== e.currentTarget) return; // only close when clicking backdrop
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function navLightbox(dir) {
+  currentIdx = (currentIdx + dir + cards.length) % cards.length;
+  updateLightbox();
+}
+
+function updateLightbox() {
+  const card = cards[currentIdx];
+  document.getElementById('lightboxImg').src = card.file;
+  document.getElementById('lightboxCounter').textContent = `${card.num} / ${card.total}`;
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', (e) => {
+  if (!document.getElementById('lightbox').classList.contains('active')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft') navLightbox(-1);
+  if (e.key === 'ArrowRight') navLightbox(1);
+});
+
+// Touch swipe for lightbox
+let touchStartX = 0;
+document.getElementById('lightbox').addEventListener('touchstart', (e) => {
+  touchStartX = e.touches[0].clientX;
+});
+document.getElementById('lightbox').addEventListener('touchend', (e) => {
+  const diff = e.changedTouches[0].clientX - touchStartX;
+  if (Math.abs(diff) > 50) {
+    navLightbox(diff > 0 ? -1 : 1);
+  }
+});
+
+// ============================================================
+// INIT
+// ============================================================
+renderCards();
+</script>
+</body>
+</html>

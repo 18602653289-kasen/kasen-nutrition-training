@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>消化系统（上）— 结构功能与慢病根源</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:#f5f7fa;color:#1e293b;line-height:1.8}
+  .container{max-width:740px;margin:0 auto;padding:0 16px 60px}
+  /* ===== Header — Green Dominant ===== */
+  .header{background:linear-gradient(135deg,#006b4a,#00d68f 55%,#00b37a);color:#fff;padding:36px 24px 28px;border-radius:0 0 24px 24px;margin:0 -16px 24px;position:relative;overflow:hidden}
+  .header::before{content:'';position:absolute;top:-40%;right:-20%;width:300px;height:300px;background:rgba(255,255,255,.04);border-radius:50%}
+  .header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.3) 50%,rgba(255,255,255,0))}
+  .header h1{font-size:24px;font-weight:700;margin-bottom:6px;line-height:1.4;position:relative;z-index:1}
+  .header .sub{font-size:14px;opacity:.85;font-weight:400;position:relative;z-index:1}
+  .header .badge{display:inline-block;background:rgba(255,255,255,.18);color:#fff;padding:2px 12px;border-radius:12px;font-size:12px;margin-bottom:10px;font-weight:500;letter-spacing:.3px;position:relative;z-index:1;backdrop-filter:blur(4px)}
+  /* ===== Audio Card ===== */
+  .audio-wrap{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:20px;margin-bottom:20px;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:box-shadow .2s}
+  .audio-wrap:hover{box-shadow:0 4px 16px rgba(0,0,0,.08)}
+  .audio-wrap .play-btn{width:48px;height:48px;border-radius:50%;border:none;background:linear-gradient(135deg,#00d68f,#00b37a);color:#fff;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;box-shadow:0 2px 10px rgba(0,214,143,.35)}
+  .audio-wrap .play-btn:hover{transform:scale(1.06);box-shadow:0 4px 16px rgba(0,214,143,.45)}
+  /* ===== Progress ===== */
+  .progress-wrap{margin-bottom:20px}
+  .progress-track{display:flex;gap:4px}
+  .prog-step{flex:1;text-align:center;padding:8px 2px;border-radius:8px;font-size:11px;font-weight:600;background:#f1f5f9;color:#94a3b8;cursor:pointer;transition:all .2s}
+  .prog-step.active{background:linear-gradient(135deg,#00d68f,#00b37a);color:#fff;box-shadow:0 2px 8px rgba(0,214,143,.25)}
+  .prog-step.done{background:#e6faf2;color:#006b4a}
+  .prog-step .num{display:block;font-size:13px;margin-bottom:1px}
+  /* ===== Section ===== */
+  .section{background:#fff;border-radius:14px;padding:24px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+  .section-title{font-size:18px;font-weight:700;padding-bottom:10px;margin-bottom:16px;border-bottom:2px solid #e2e8f0;display:flex;align-items:center;justify-content:space-between}
+  .section-title .l{display:flex;align-items:center;gap:8px}
+  .section-title .l::before{content:'';display:inline-block;width:3px;height:18px;background:linear-gradient(to bottom,#00d68f,#00b37a);border-radius:2px;margin-right:4px}
+  .section-title .r{font-size:12px;color:#94a3b8;font-weight:400}
+  h2{font-size:20px;margin:28px 0 14px;color:#0f172a}
+  h3{font-size:17px;margin:22px 0 10px;color:#334155}
+  h4{font-size:15px;margin:16px 0 8px;color:#475569}
+  p{margin-bottom:12px;font-size:15px}
+  /* ===== Boxes ===== */
+  .box-tip{background:#f0fdf6;border-left:3px solid #00d68f;padding:12px 16px;margin:14px 0;border-radius:0 8px 8px 0;font-size:14px}
+  .box-warn{background:#fffbeb;border-left:3px solid #f59e0b;padding:12px 16px;margin:14px 0;border-radius:0 8px 8px 0;font-size:14px}
+  .box-danger{background:#fef2f2;border-left:3px solid #ef4444;padding:12px 16px;margin:14px 0;border-radius:0 8px 8px 0;font-size:14px}
+  .box-muted{background:#f8fafc;border:1px dashed #cbd5e1;padding:14px;margin:14px 0;border-radius:8px;font-size:14px;color:#64748b}
+  /* ===== Tables ===== */
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+  th{background:#f1f5f9;padding:10px 12px;text-align:left;font-weight:600;border:1px solid #e2e8f0;color:#0f172a}
+  td{padding:10px 12px;border:1px solid #e2e8f0;vertical-align:top}
+  tr:nth-child(even){background:#f8fafc}
+  /* ===== Images ===== */
+  .img-wrap{margin:16px 0;text-align:center}
+  .img-wrap img,.img-wrap svg{max-width:100%;border-radius:10px;border:1px solid #e2e8f0}
+  .img-wrap .cap{font-size:12px;color:#94a3b8;margin-top:6px}
+  /* ===== Quiz ===== */
+  .quiz{padding:16px;margin:12px 0;background:#f8fafc;border-radius:10px;border:1px solid #e2e8f0}
+  .quiz .q{font-weight:600;margin-bottom:8px;font-size:15px}
+  .quiz .qb{display:inline-block;background:linear-gradient(135deg,#00d68f,#00b37a);color:#fff;font-size:11px;padding:2px 10px;border-radius:10px;margin-right:6px;vertical-align:middle;font-weight:600}
+  .quiz .opt{display:block;padding:7px 12px;margin:4px 0;border-radius:6px;font-size:14px;cursor:pointer;border:1px solid #e2e8f0;background:#fff;transition:all .15s}
+  .quiz .opt:hover{border-color:#00d68f;background:#f0fdf6}
+  .quiz .opt.selected{border-color:#00d68f;background:#e6faf2;box-shadow:inset 0 0 0 1px #00d68f}
+  .quiz .opt.correct{border-color:#10b981;background:#ecfdf5;color:#065f46}
+  .quiz .opt.wrong{border-color:#ef4444;background:#fef2f2;color:#991b1b}
+  .quiz .opt.readonly{cursor:default;opacity:.85}
+  .quiz .fb{font-size:13px;margin-top:6px;padding:8px 12px;border-radius:6px;display:none}
+  .quiz .fb.show{display:block}
+  .quiz .fb.correct{background:#ecfdf5;color:#065f46;border:1px solid #a7f3d0}
+  .quiz .fb.wrong{background:#fef2f2;color:#991b1b;border:1px solid #fecaca}
+  .quiz textarea{width:100%;padding:8px;border:1px solid #e2e8f0;border-radius:6px;font-size:14px;font-family:inherit;resize:vertical;min-height:50px}
+  .quiz textarea:focus{outline:none;border-color:#00d68f;box-shadow:0 0 0 3px rgba(0,214,143,.12)}
+  .score-bar{display:flex;gap:8px;align-items:center;margin:14px 0;padding:12px 16px;background:linear-gradient(135deg,#f0fdf6,#e6faf2);border-radius:8px;font-size:14px}
+  .score-bar .num{font-size:24px;font-weight:700;color:#00d68f}
+  .btn-primary{background:linear-gradient(135deg,#00d68f,#00b37a);color:#fff;border:none;padding:8px 24px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;margin:6px 4px;transition:all .2s;box-shadow:0 2px 8px rgba(0,214,143,.2)}
+  .btn-primary:hover{background:linear-gradient(135deg,#00b37a,#009966);transform:translateY(-1px);box-shadow:0 4px 14px rgba(0,214,143,.35)}
+  .btn-primary:disabled{opacity:.4;cursor:default;transform:none;box-shadow:none}
+  .btn-secondary{background:#fff;color:#475569;border:1px solid #e2e8f0;padding:8px 20px;border-radius:8px;font-size:14px;cursor:pointer;margin:6px 4px;transition:all .15s}
+  .btn-secondary:hover{background:#f0fdf6;border-color:#00d68f;color:#006b4a}
+  /* ===== Summary Cards ===== */
+  .summary-card{background:#fafafa;border:1px solid #e2e8f0;border-radius:12px;padding:20px;margin:16px 0;border-left:3px solid #00d68f}
+  .summary-card h4{font-size:15px;margin:0 0 10px;display:flex;align-items:center;gap:6px}
+  .summary-card ul{margin:0 0 0 18px;font-size:14px;line-height:1.9}
+  .summary-card.green h4{color:#006b4a}
+  .summary-card.green ul{color:#1a4a2a}
+  .summary-card.amber{border-left-color:#f59e0b}
+  .summary-card.amber h4{color:#92400e}
+  .summary-card.amber ul{color:#783f0e}
+  /* ===== Resources ===== */
+  .res-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+  .res-item{display:flex;align-items:center;gap:10px;padding:12px 14px;background:#f8fafc;border-radius:10px;text-decoration:none;color:#334155;font-size:14px;border:1px solid #e2e8f0;transition:all .2s}
+  .res-item:hover{background:linear-gradient(135deg,#f0fdf6,#e6faf2);border-color:#00d68f;color:#006b4a;transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,214,143,.12)}
+  .res-item .ri{font-size:20px}
+  /* ===== Footer ===== */
+  .footer{text-align:center;color:#94a3b8;font-size:12px;margin-top:32px;padding-top:20px;border-top:1px solid #e2e8f0}
+  .footer strong{color:#00d68f}
+  /* ===== Top Navigation Bar ===== */
+  .top-nav{display:flex;align-items:center;gap:8px;padding:10px 0 4px;margin-bottom:0;position:sticky;top:0;z-index:100;background:#f5f7fa}
+  .top-nav .back-link{display:inline-flex;align-items:center;gap:4px;color:#64748b;font-size:13px;text-decoration:none;padding:4px 10px;border-radius:6px;transition:all .15s}
+  .top-nav .back-link:hover{background:#f1f5f9;color:#00d68f}
+  .top-nav .breadcrumb{font-size:11px;color:#94a3b8}
+  .top-nav .breadcrumb a{color:#94a3b8;text-decoration:none}
+  .top-nav .breadcrumb a:hover{color:#00d68f}
+  /* ===== Nav Buttons ===== */
+  .nav-btn{display:inline-block;background:linear-gradient(135deg,#00d68f,#00b37a);color:#fff;text-decoration:none;padding:10px 24px;border-radius:8px;font-size:14px;font-weight:600;margin:6px 2px;transition:all .2s;box-shadow:0 2px 8px rgba(0,214,143,.2)}
+  .nav-btn:hover{background:linear-gradient(135deg,#00b37a,#009966);transform:translateY(-1px);box-shadow:0 4px 14px rgba(0,214,143,.35)}
+  /* ===== Progress bar accent ===== */
+  #progressBar{background:#00d68f !important}
+  /* ===== Responsive ===== */
+  @media(max-width:600px){.header h1{font-size:20px}.prog-step{font-size:10px;padding:6px 2px}.res-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- ==================== TOP NAV ==================== -->
+<div class="top-nav">
+  <a class="back-link" href="javascript:history.back()">‹ 返回课程列表</a>
+  <span class="breadcrumb">/ 消化系统（上）</span>
+</div>
+
+<!-- ==================== HEADER ==================== -->
+<div class="header">
+  <span class="badge">🧬 Kasen Nutrition · 内部培训</span>
+  <h1>消化系统（上）— 结构功能与慢病根源</h1>
+  <div class="sub">打好地基——消化系统的正常运作与常见故障 · 上篇</div>
+</div>
+
+<div class="audio-wrap">
+  <div style="display:flex;align-items:center;gap:16px">
+    <button id="playBtn" onclick="togglePlay()" class="play-btn" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+      ▶
+    </button>
+    <div style="flex:1;min-width:0">
+      <div style="font-weight:700;font-size:16px;color:#005533;margin-bottom:4px">🎧 本讲伴读音频</div>
+      <div style="font-size:13px;color:#64748b;margin-bottom:8px">建议先通读全文，再配合音频复习 · 全长约58分钟</div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <span id="currentTime" style="font-size:12px;color:#94a3b8;min-width:32px">00:00</span>
+        <div style="flex:1;height:6px;background:#b3f0d9;border-radius:3px;cursor:pointer;position:relative" onclick="seekAudio(event)">
+          <div id="progressBar" style="width:0%;height:100%;background:#00d68f;border-radius:3px;transition:width .1s linear"></div>
+        </div>
+        <span id="totalTime" style="font-size:12px;color:#94a3b8;min-width:32px">57:58</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<audio id="audioPlayer" preload="metadata" style="display:none">
+  <source src="https://18602653289-kasen.github.io/kasen-nutrition-training/%E5%86%85%E9%83%A8%E5%9F%B9%E8%AE%AD/01-%E6%B6%88%E5%8C%96%E7%B3%BB%E7%BB%9F%E4%B8%93%E9%A2%98/%E9%9F%B3%E9%A2%91/2.1%E6%B6%88%E5%8C%96%E7%B3%BB%E7%BB%9F%E9%9F%B3%E9%A2%91.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+var audio = document.getElementById('audioPlayer');
+var playBtn = document.getElementById('playBtn');
+var progressBar = document.getElementById('progressBar');
+var currentTime = document.getElementById('currentTime');
+var totalTime = document.getElementById('totalTime');
+var isPlaying = false;
+
+audio.addEventListener('loadedmetadata', function() {
+  var mins = Math.floor(audio.duration / 60);
+  var secs = Math.floor(audio.duration % 60);
+  totalTime.textContent = mins + ':' + (secs < 10 ? '0' : '') + secs;
+});
+
+audio.addEventListener('timeupdate', function() {
+  var pct = (audio.currentTime / audio.duration) * 100;
+  progressBar.style.width = pct + '%';
+  var mins = Math.floor(audio.currentTime / 60);
+  var secs = Math.floor(audio.currentTime % 60);
+  currentTime.textContent = mins + ':' + (secs < 10 ? '0' : '') + secs;
+});
+
+audio.addEventListener('ended', function() {
+  playBtn.textContent = '▶';
+  isPlaying = false;
+});
+
+function togglePlay() {
+  if (isPlaying) {
+    audio.pause();
+    playBtn.textContent = '▶';
+  } else {
+    audio.play();
+    playBtn.textContent = '⏸';
+  }
+  isPlaying = !isPlaying;
+}
+
+function seekAudio(e) {
+  var rect = e.currentTarget.getBoundingClientRect();
+  var pct = (e.clientX - rect.left) / rect.width;
+  audio.currentTime = pct * audio.duration;
+}
+</script>
+
+<!-- ==================== PROGRESS ==================== -->
+<div class="progress-wrap">
+  <div class="progress-track">
+    <div class="prog-step active" onclick="scrollToSection('pre-test')"><span class="num">01</span>📝 学前自测</div>
+    <div class="prog-step" onclick="scrollToSection('study')"><span class="num">02</span>📖 知识学习</div>
+    <div class="prog-step" onclick="scrollToSection('post-test')"><span class="num">03</span>🧠 课后自测</div>
+    <div class="prog-step" onclick="scrollToSection('resources')"><span class="num">04</span>📎 综合考试</div>
+  </div>
+</div>
+
+<!-- ==================== PRE-TEST ==================== -->
+<div id="pre-test" class="section">
+  <div class="section-title">
+    <span class="l">📝 学前自测</span>
+    <span class="r" id="pre-score-label">未作答</span>
+  </div>
+  <div class="box-muted">⏱ 约5分钟 · 先凭现有认知作答，学完正文后再回来看。所有答案在下方课文中可以找到。</div>
+  <div id="pre-quiz-area"></div>
+  <div style="text-align:center;margin:16px 0">
+    <button class="btn-primary" onclick="checkPreTest()">✅ 提交批改</button>
+    <button class="btn-secondary" onclick="resetPreTest()">🔄 重做</button>
+  </div>
+  <div id="pre-result" class="score-bar" style="display:none">
+    <span>成绩：</span><span class="num" id="pre-score">0</span><span>/6</span>
+    <span style="flex:1"></span>
+    <span id="pre-comment" style="font-size:13px"></span>
+  </div>
+  <div class="nav-btn" onclick="scrollToSection('study')">👇 开始学习 →</div>
+</div>
+
+<!-- ==================== STUDY CONTENT ==================== -->
+<div id="study" class="section">
+  <div class="section-title"><span class="l">📖 知识学习</span></div>
+
+  <!-- Module 1 -->
+  <h2>🔬 模块一：重新认识消化系统</h2>
+  <h3>核心认知：它是精密生化工厂，不是一根管道</h3>
+  <p>消化系统不是一根管道，而是一套多器官协同的生化工厂。食物从入口到排出：<strong>口腔</strong>→<strong>食管</strong>→<strong>胃</strong>→<strong>小肠</strong>→<strong>大肠</strong>，加<strong>肝脏</strong>、<strong>胆囊</strong>、<strong>胰腺</strong>三个附属器官协同工作。最终被拆解成氨基酸、单糖、脂肪酸、维生素，穿过肠壁进入血液，为全身约60万亿个细胞提供能量。</p>
+
+  <h3>三大核心功能</h3>
+  <div class="img-wrap"><img src="https://kasen-nutrition-1449812974.cos.ap-guangzhou.myqcloud.com/01-消化系统专题/【图片】三大核心功能关系图.svg" alt="三大核心功能关系图"><div class="cap">图1：三大核心功能</div></div>
+  <table>
+    <tr><th>功能</th><th>一句话说清</th><th>临床意义</th></tr>
+    <tr><td><strong>① 消化吸收</strong></td><td>把食物拆成小分子送进血液</td><td>任何环节出问题→吃进去用不上</td></tr>
+    <tr><td><strong>② 屏障防御</strong></td><td>挡住不该进来的细菌毒素</td><td>70%免疫细胞在肠道</td></tr>
+    <tr><td><strong>③ 菌群调控</strong></td><td>养着100万亿微生物帮身体干活</td><td>1.5-2kg隐形器官</td></tr>
+  </table>
+
+  <!-- Module 2 -->
+  <h2>🔬 模块二：消化管五站</h2>
+  <div class="img-wrap"><img src="https://kasen-nutrition-1449812974.cos.ap-guangzhou.myqcloud.com/01-消化系统专题/【图片】消化系统全景图.svg" alt="消化系统全景图"><div class="cap">图2：消化系统全景图</div></div>
+
+  <h3>第一站：口腔</h3>
+  <p><strong>双重消化：</strong>机械消化（牙齿粉碎，表面积增加10倍）+ 化学消化（唾液淀粉酶→分解淀粉，舌脂肪酶→预分解脂肪）。口腔是唯一能主动控制的消化环节。</p>
+  <div class="box-tip"><strong>🎯 营养师必知：</strong> 问学员"你每口嚼几下"——仅建议充分咀嚼（每口20-30次），很多人一周内餐后饱胀明显减轻。这是最简单不花钱的干预点。</div>
+
+  <h3>第二站：食管</h3>
+  <p>长约25cm，食管内壁无保护层。胃有黏液-碳酸氢盐屏障（刷了防酸漆的铁桶），食管没有（没有涂层的软管）。反流物直接灼伤食管→胃食管反流病→巴雷特食管（癌前病变）。</p>
+
+  <h3>第三站：胃</h3>
+  <div class="img-wrap"><img src="https://kasen-nutrition-1449812974.cos.ap-guangzhou.myqcloud.com/01-消化系统专题/【图片】胃酸三大任务图.svg" alt="胃酸三大任务"><div class="cap">图3：胃酸三大任务</div></div>
+  <p><strong>胃酸三大任务：</strong>①激活胃蛋白酶原（酶原形式→自我保护）②杀菌（pH 1.5-3.0）③发信号（刺激CCK+促胰液素→启动下游消化）。</p>
+  <p><strong>内因子：</strong>保护B₁₂到回肠吸收。壁细胞功能下降→胃酸+内因子同步减少→蛋白质消化障碍+B₁₂缺乏双重风险。</p>
+  <div class="box-warn"><strong>🔥 颠覆认知：</strong> 反酸烧心可能不是酸太多而是酸太少。胃酸不足→食物停留产气→撑开贲门+贲门关闭信号减弱→反流。吃抑酸药→酸更低→消化更差→反流更重→恶性循环。</div>
+
+  <h3>第四站：小肠</h3>
+  <p>全长5-7米，展开面积200-250㎡（一个网球场）。两条吸收途径：门静脉（水溶性营养→肝脏）和淋巴管（脂溶性物质→全身循环）。</p>
+
+  <h3>第五站：大肠</h3>
+  <p>吸收水分和盐分。住着100万亿微生物（1.5-2kg隐形器官）。临床原则：只要有一段肠道能用，就一定要让它用起来。</p>
+
+  <!-- Module 3 -->
+  <h2>🔬 模块三：附属器官三巨头</h2>
+  <h3>肝脏——代谢中枢</h3>
+  <p>重1.2-1.5kg。唯一双重供血：肝动脉（25%含氧血）+ 门静脉（75%营养+毒素）。五大功能：①分泌胆汁（600-1200ml/天，六大作用）②糖代谢（血糖蓄水池）③脂代谢（物流配送中心）④蛋白质代谢（白蛋白12-20g/天）⑤维生素代谢（储存95%VA，VD第一次羟化）。</p>
+
+  <h3>胆囊——肝脏的搭档</h3>
+  <p>浓缩胆汁10-15倍，胆囊管直径2-3mm。不吃油→不收排空指令→胆汁淤积浓缩→胆结石。胆囊是闲坏的。</p>
+
+  <h3>胰腺——消化液工厂</h3>
+  <p>三大消化酶（酶原形式→自我保护）+ 碳酸氢盐（酸碱切换→为胰酶创造环境+保护十二指肠+维持胆汁功能）。</p>
+  
+  <h2>🔬 模块二（续）：七大慢病与消化系统的因果链</h2>
+  <div class="box-warn"><strong>地基论：</strong> 消化系统是全身健康的"上游河流"。先修路再通车，先清源再活水。地基不牢，一切白搭。</div>
+  
+  <h3>① 糖尿病</h3>
+  <p><strong>通路：</strong>肠道屏障受损→LPS入血→慢性炎症→干扰胰岛素信号→胰岛素抵抗→胰腺代偿超负荷→功能衰竭。菌群失衡→短链脂肪酸↓→GLP-1分泌不足→血糖失去内源性刹车。</p>
+  <div class="box-tip"><strong>关键洞察：</strong> 很多二型糖尿病不是胰腺先出问题，而是肠道屏障先出现裂隙。</div>
+  
+  <h3>② 高血压</h3>
+  <p><strong>通路：</strong>LPS入血攻击血管内皮→一氧化氮↓→血管僵硬+平滑肌增生管壁增厚。同样吃盐有人有事有人没事——答案重要部分在肠道。</p>
+  
+  <h3>③ 高血脂</h3>
+  <p><strong>两条通路：</strong>①长期低脂→胆囊不收缩→胆汁淤滞→胆固醇排泄通道被堵 ②菌群失衡→分解胆固醇的好菌减少→两条出路都被堵。</p>
+  
+  <h3>④ 高尿酸</h3>
+  <p><strong>关键事实：</strong>约1/3尿酸通过肠道排泄（ABCG2转运蛋白）。黏膜受损+菌群失衡→两条通路同时受阻→排泄塌了半边天。</p>
+  
+  <h3>⑤ 免疫问题</h3>
+  <p><strong>分子模拟：</strong>70%免疫组织在肠道。屏障破损→未消化蛋白大分子入血→持续激活免疫。麸质某些肽段与甲状腺组织相似→可能误伤自身→自身免疫病扳机事件。</p>
+  
+  <h3>⑥ 结节囊肿</h3>
+  <p><strong>通路：</strong>雌激素在肝脏处理→经胆汁排入肠道→坏菌产生β-葡萄糖醛酸苷酶→已打包雌激素被重新激活→经肝肠循环重吸收→雌激素优势→刺激乳腺/子宫内膜。</p>
+  
+  <h3>⑦ 失眠</h3>
+  <p><strong>双重通路：</strong>95%血清素在肠道合成→菌群失衡→血清素↓→褪黑素原料不足。肠漏→炎症因子穿过血脑屏障→干扰皮质醇节律→晚上该降降不下来。</p>
+  
+  <div class="box-warn"><strong>💬 讲给学员听：</strong> 这七种慢病不是七个独立问题，是同一棵树上的七颗果子。根扎在消化系统里。</div>
+
+  <h2>🏃 消化接力赛详解</h2>
+  <div class="img-wrap"><img src="https://kasen-nutrition-1449812974.cos.ap-guangzhou.myqcloud.com/01-消化系统专题/【图片】消化接力赛流程图.svg" alt="消化接力赛"><div class="cap">图4：消化接力赛</div></div>
+  <p>口腔（起点）→胃（第一棒）→十二指肠（第二棒）→空肠回肠（第三棒）→大肠（终点）。任何一站掉棒→下一站超负荷→全线崩溃。</p>
+
+  
+  <div class="img-wrap"><img src="https://kasen-nutrition-1449812974.cos.ap-guangzhou.myqcloud.com/01-消化系统专题/【图片】消化接力赛流程图.svg" alt="消化接力赛"><div class="cap">图4：消化接力赛</div></div>
+  <h3>预备站：口腔</h3>
+  <p><strong>两种消化同时启动：</strong>机械消化（牙齿切割磨碎）+ 化学消化（唾液淀粉酶分解淀粉、舌脂肪酶预分解脂肪）。</p>
+  <p><strong>掉棒后果：</strong>咀嚼不充分→胃被迫超量分泌胃酸加强蠕动→胃负担加重+胰腺负担增加+未处理淀粉成坏菌食物。</p>
+  <div class="box-tip"><strong>🎯 营养师应用：</strong> 细嚼慢咽是最简单不花钱的干预点。每口嚼20-30次，一周内餐后饱胀感明显减轻。同时大脑接收饱腹信号约需20分钟，细嚼慢咽是最天然的食欲调控机制。</div>
+  
+  <h3>第一棒：胃</h3>
+  <p>胃酸三大任务（详见前文）。胃酸不足的感觉：餐后饱胀、打嗝、吃高蛋白后腹胀明显。贲门关闭信号依赖胃酸→胃酸不足时贲门关不严→反流。</p>
+  
+  <h3>第二棒：十二指肠 ⭐</h3>
+  <p><strong>胰腺出场：</strong>三大消化酶（酶原形式→自我保护）+ 碳酸氢盐（酸碱切换，三个目的：为胰酶创造环境+保护十二指肠+维持胆汁功能）。</p>
+  <p><strong>肝胆系统出场：</strong>胆汁乳化脂肪，胰脂肪酶拆解脂肪——先打散再拆解，黄金搭档。</p>
+  <div class="box-warn"><strong>关键协同链：</strong> 胃酸不足→CCK和促胰液素减少→胆汁排不出+胰液减少→一棒掉棒棒掉。</div>
+  <p><strong>胰酶不足：</strong>腹胀排气多+大便粘腻浮水（脂肪泻）+可见未消化食物残渣。<strong>胆汁不足：</strong>一吃油腻就腹胀恶心+大便颜色偏浅。</p>
+  
+  <h3>第三棒：空肠+回肠</h3>
+  <p><strong>有益吸收：</strong>各站完美交接→营养素被分解为最小分子→绒毛高效吸收→留给大肠膳食纤维→好菌有益发酵→短链脂肪酸。</p>
+  <p><strong>腐败发酵：</strong>各站掉棒→大量未消化食物涌入→坏菌疯狂繁殖。三大特征：产气暴增+释放内毒素LPS+肠道偏碱性更利坏菌繁殖（恶性循环）。</p>
+  
+  <h3>故障的连锁反应</h3>
+  <div class="box-danger"><strong>腐败发酵→肠漏的步骤：</strong> 消化液不足→食物未被正确分解→坏菌疯狂繁殖→代谢产物侵蚀黏液保护层→上皮细胞暴露毒素中→紧密连接松动→肠道通透性增加→局部免疫持续激活→为肠漏铺路。</div>
+  <div class="box-muted">这一切的起点不是外来病菌，而是学员自己吃进去的食物——因为消化液不足，没有在正确的地点被正确分解，最终在错误的地点喂养了错误的菌群，产生了错误的代谢产物。</div><!-- Summary -->
+  <h2>🧠 本节总结</h2>
+  <div class="summary-card green">
+    <h4>📌 你必须记住的</h4>
+    <ul>
+      <li>✅ 三大功能：消化吸收 + 屏障防御 + 菌群调控</li>
+      <li>✅ 五站：口腔→食管→胃→小肠→大肠</li>
+      <li>✅ 三巨头：肝脏（中枢）+ 胆囊（搭档）+ 胰腺（工厂）</li>
+      <li>✅ 胃酸三大任务：激活酶原 + 杀菌 + 发信号</li>
+      <li>✅ 肝脏双重供血→必须先处理肠道来的一切</li>
+      <li>✅ 胆囊是闲坏的，不是累坏的</li>
+      <li>✅ 消化接力赛——掉棒→全线崩溃</li>
+    </ul>
+  </div>
+  <div class="summary-card amber">
+    <h4>💬 能讲给学员听的</h4>
+    <ul>
+      <li>"您身体不是一根管道，是一座工厂"</li>
+      <li>"肝脏是身体的中央分拣车间"</li>
+      <li>"您身上住着一个1.5-2kg看不见的管家"</li>
+      <li>"反酸烧心可能是酸太少"</li>
+      <li>"不吃油反而毁胆囊"</li>
+      <li>"先修路再通车，先清源再活水"</li>
+    </ul>
+  </div>
+
+  <div class="nav-btn" onclick="scrollToSection('post-test')">👇 去做课后自测 →</div>
+</div>
+
+<!-- ==================== POST-TEST ==================== -->
+<div id="post-test" class="section">
+  <div class="section-title">
+    <span class="l">🧠 课后自测</span>
+    <span class="r" id="post-score-label">未作答</span>
+  </div>
+  <div id="post-quiz-area"></div>
+  <div style="text-align:center;margin:16px 0">
+    <button class="btn-primary" onclick="checkPostTest()">✅ 提交批改</button>
+    <button class="btn-secondary" onclick="resetPostTest()">🔄 重做</button>
+  </div>
+  <div id="post-result" class="score-bar" style="display:none">
+    <span>成绩：</span><span class="num" id="post-score">0</span><span>/6</span>
+    <span style="flex:1"></span>
+    <span id="post-comment" style="font-size:13px"></span>
+  </div>
+</div>
+
+<!-- ==================== RESOURCES ==================== -->
+<div id="resources" class="section">
+  <div class="section-title"><span class="l">📎 配套资源</span></div>
+  <div class="res-grid">
+    <a class="res-item" href="https://18602653289-kasen.github.io/kasen-nutrition-training/%E5%86%85%E9%83%A8%E5%9F%B9%E8%AE%AD/01-%E6%B6%88%E5%8C%96%E7%B3%BB%E7%BB%9F%E4%B8%93%E9%A2%98/%E8%80%83%E8%AF%95/%E7%BB%BC%E5%90%88%E8%80%83%E8%AF%95.html"><span class="ri">🖊️</span> 🎯 综合考试（在线作答）</a>
+    <a class="res-item" href="javascript:void(0)" onclick="checkExamAndOpen('https://18602653289-kasen.github.io/kasen-nutrition-training/%E5%86%85%E9%83%A8%E5%9F%B9%E8%AE%AD/01-%E6%B6%88%E5%8C%96%E7%B3%BB%E7%BB%9F%E4%B8%93%E9%A2%98/%E8%80%83%E8%AF%95/%E7%BB%BC%E5%90%88%E8%80%83%E8%AF%95%E7%AD%94%E6%A1%88%E4%B8%8E%E8%A7%A3%E6%9E%90.docx')"><span class="ri">✅</span> 答案解析</a>
+    <a class="res-item" href="https://18602653289-kasen.github.io/kasen-nutrition-training/%E5%86%85%E9%83%A8%E5%9F%B9%E8%AE%AD/01-%E6%B6%88%E5%8C%96%E7%B3%BB%E7%BB%9F%E4%B8%93%E9%A2%98/%E5%A4%A7%E7%BA%B2/"><span class="ri">📋</span> 课程大纲</a>
+    <a class="res-item" href="https://18602653289-kasen.github.io/kasen-nutrition-training/%E5%86%85%E9%83%A8%E5%9F%B9%E8%AE%AD/01-%E6%B6%88%E5%8C%96%E7%B3%BB%E7%BB%9F%E4%B8%93%E9%A2%98/%E5%AD%A6%E4%B9%A0%E5%8D%A1/"><span class="ri">🃏</span> 学习卡（共2张）</a>
+  </div>
+  <div class="box-tip"><strong>💡 推荐流程：</strong> 做完课后自测 → 在线完成综合考试（60分钟闭卷）→ 对照答案解析批改 → 学习卡日常巩固</div>
+</div>
+
+<div class="footer">Kasen Nutrition · 内部培训体系 · 消化系统专题 · v1.1</div>
+
+</div>
+
+<script>
+// ============================================================
+// QUIZ DATA
+// ============================================================
+const preTestData = [
+  { q: "消化系统的三大核心功能是哪三项？", opts: ["A. 消化吸收、血液循环、菌群调控","B. 消化吸收、屏障防御、菌群调控","C. 消化吸收、免疫调节、新陈代谢","D. 消化吸收、排泄废物、激素分泌"], ans: 1, fb: "正确答案：B。三大功能是消化吸收、屏障防御、菌群调控。屏障防御是最容易被忽略的。" },
+  { q: "食物经过消化管的正确顺序是？", opts: ["A. 口腔→食管→胃→大肠→小肠","B. 口腔→食管→胃→小肠→大肠","C. 口腔→胃→食管→小肠→大肠","D. 口腔→咽→食管→大肠→小肠"], ans: 1, fb: "正确答案：B。顺序是口腔→食管→胃→小肠→大肠。" },
+  { q: "以下哪个器官同时具备内分泌和外分泌双重功能？", opts: ["A. 肝脏","B. 胆囊","C. 胰腺","D. 胃"], ans: 2, fb: "正确答案：C。胰腺兼具外分泌（胰液消化酶）和内分泌（胰岛素/胰高血糖素）功能。" },
+  { q: "以下哪种说法是正确的？", opts: ["A. 反酸烧心一定是胃酸过多，需吃抑酸药","B. 不吃油可以保护胆囊预防胆结石","C. 反酸烧心可能是胃酸太少导致的","D. 胃酸主要作用是消化脂肪"], ans: 2, fb: "正确答案：C。反酸烧心可能是胃酸太少。胃酸不足→食物停留产气→撑开贲门→反流。吃抑酸药反而恶性循环。" },
+  { q: "肝脏被称为'中央分拣车间'，最根本的原因是？", opts: ["A. 它是人体最大的器官","B. 它拥有双重血液供应，必须首先处理从肠道来的一切","C. 它能分泌胆汁","D. 它能储存维生素"], ans: 1, fb: "正确答案：B。肝脏是唯一拥有双重供血的器官，门静脉直通肠道，必须先处理肠道来的一切——好的成营养，坏的处理解毒。" },
+  { q: "消化系统附属器官三巨头分别是：______、______、______。", opts: ["肝脏、胆囊、胰腺","肝脏、胆囊、脾脏","胰腺、胆囊、肾脏","胰腺、脾脏、肝脏"], ans: 0, fb: "三巨头：肝脏（代谢中枢）+ 胆囊（胆汁调度站）+ 胰腺（消化液工厂）" }
+];
+
+const postTestData = [
+  { q: "胃酸不足的常见原因不包括以下哪项？", opts: ["A. 长期服用PPI类抑酸药","B. 幽门螺杆菌感染","C. 每天喝8杯水","D. 年龄增长胃壁细胞萎缩"], ans: 2, fb: "正确答案：C。胃酸不足常见原因：长期抑酸药、幽门螺杆菌感染、慢性压力、年龄增长。" },
+  { q: "以下哪项是胰酶不足的典型信号？", opts: ["A. 反酸烧心","B. 右上腹绞痛","C. 大便粘腻浮水有食物残渣","D. 大便干硬呈球状"], ans: 2, fb: "正确答案：C。胰酶不足→脂肪未被分解→脂肪泻（大便粘腻浮水冲不干净），可能有未消化食物残渣。" },
+  { q: "胆囊切除后一吃油腻就腹泻，直接原因是？", opts: ["A. 肝脏停止分泌胆汁","B. 失去浓缩和定时释放胆汁的功能","C. 胰腺停止分泌脂肪酶","D. 肠道菌群完全失衡"], ans: 1, fb: "正确答案：B。胆囊切除后胆汁持续缓慢滴入肠道，高脂餐时无库存可调用，脂肪消化跟不上。" },
+  { q: "关于消化接力赛，以下描述正确的是？", opts: ["A. 口腔是第一棒","B. 胃是起点","C. 十二指肠是第二棒","D. 大肠是第三棒"], ans: 2, fb: "正确答案：C。口腔是起点，胃是第一棒，十二指肠是第二棒（最高光时刻），空肠回肠第三棒，大肠终点。" },
+  { q: "以下哪种饮食习惯最容易增加胆结石风险？", opts: ["A. 每餐都吃优质脂肪","B. 长期不吃早餐","C. 每天吃足量膳食纤维","D. 每天喝充足的水"], ans: 1, fb: "正确答案：B。长期不吃早餐→胆汁存了一晚不收排空指令→淤积浓缩→胆固醇析出→胆结石。" },
+  { q: "肝脏的核心功能不包括以下哪项？", opts: ["A. 分泌胆汁","B. 糖代谢","C. 蛋白质代谢","D. 分泌胰岛素"], ans: 3, fb: "正确答案：D。分泌胰岛素是胰腺β细胞的内分泌功能。肝脏五大功能：胆汁+糖+脂+蛋白质+维生素代谢。" }
+];
+
+// ============================================================
+// RENDER
+// ============================================================
+function renderQuiz(containerId, data, prefix) {
+  const el = document.getElementById(containerId);
+  let html = '';
+  data.forEach((item, i) => {
+    html += `<div class="quiz" id="${prefix}-q${i}">`;
+    html += `<div class="q"><span class="qb">第${i+1}题</span>${item.q}</div>`;
+    if (item.opts.length > 4) {
+      // Fill-in converted to multiple choice
+      item.opts.forEach((opt, j) => {
+        html += `<label class="opt" data-idx="${j}" data-prefix="${prefix}" data-qi="${i}" onclick="selectOpt(this, '${prefix}', ${i})">${opt}</label>`;
+      });
+    } else {
+      item.opts.forEach((opt, j) => {
+        html += `<label class="opt" data-idx="${j}" data-prefix="${prefix}" data-qi="${i}" onclick="selectOpt(this, '${prefix}', ${i})">${opt}</label>`;
+      });
+    }
+    html += `<div class="fb" id="${prefix}-fb${i}"></div>`;
+    html += `</div>`;
+  });
+  el.innerHTML = html;
+}
+
+function selectOpt(el, prefix, qi) {
+  const parent = el.closest('.quiz');
+  parent.querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  // Store answer
+  const idx = parseInt(el.dataset.idx);
+  window[prefix + '_answers'] = window[prefix + '_answers'] || {};
+  window[prefix + '_answers'][qi] = idx;
+}
+
+function checkQuiz(data, prefix, scoreId, labelId, resultId, commentId) {
+  const answers = window[prefix + '_answers'] || {};
+  let correct = 0;
+  data.forEach((item, i) => {
+    const fb = document.getElementById(`${prefix}-fb${i}`);
+    const opts = document.querySelectorAll(`#${prefix}-q${i} .opt`);
+    const selected = Array.from(opts).find(o => o.classList.contains('selected'));
+    
+    opts.forEach(o => { o.classList.add('readonly'); o.style.pointerEvents = 'none'; });
+    
+    if (selected) {
+      const idx = parseInt(selected.dataset.idx);
+      if (idx === item.ans) {
+        selected.classList.add('correct');
+        correct++;
+      } else {
+        selected.classList.add('wrong');
+        opts[item.ans].classList.add('correct');
+      }
+    } else {
+      opts[item.ans].classList.add('correct');
+    }
+    
+    fb.className = `fb show ${selected && parseInt(selected.dataset.idx) === item.ans ? 'correct' : 'wrong'}`;
+    fb.textContent = item.fb;
+  });
+  
+  document.getElementById(scoreId).textContent = correct;
+  document.getElementById(labelId).textContent = `${correct}/${data.length}`;
+  document.getElementById(resultId).style.display = 'flex';
+  
+  const pct = Math.round(correct / data.length * 100);
+  let comment = '';
+  if (pct === 100) comment = '🎉 全部正确，非常棒！';
+  else if (pct >= 80) comment = '👍 掌握不错，错了的知识点再看一遍课本。';
+  else if (pct >= 60) comment = '📖 还需要巩固，回到对应章节复习。';
+  else comment = '💪 基础需要加强，建议重读全文后再试。';
+  document.getElementById(commentId).textContent = comment;
+}
+
+function resetQuiz(containerId, data, prefix, scoreId, labelId, resultId) {
+  document.getElementById(resultId).style.display = 'none';
+  document.getElementById(labelId).textContent = '未作答';
+  window[prefix + '_answers'] = {};
+  renderQuiz(containerId, data, prefix);
+}
+
+function checkPreTest() { checkQuiz(preTestData, 'pre', 'pre-score', 'pre-score-label', 'pre-result', 'pre-comment'); }
+function checkPostTest() { checkQuiz(postTestData, 'post', 'post-score', 'post-score-label', 'post-result', 'post-comment'); }
+function resetPreTest() { resetQuiz('pre-quiz-area', preTestData, 'pre', 'pre-score', 'pre-score-label', 'pre-result'); }
+function resetPostTest() { resetQuiz('post-quiz-area', postTestData, 'post', 'post-score', 'post-score-label', 'post-result'); }
+
+function scrollToSection(id) {
+  document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+  // Update progress
+  const steps = ['pre-test','study','post-test','resources'];
+  const idx = steps.indexOf(id);
+  document.querySelectorAll('.prog-step').forEach((s, i) => {
+    s.classList.toggle('active', i === idx);
+    s.classList.toggle('done', i < idx);
+  });
+}
+
+// Init
+renderQuiz('pre-quiz-area', preTestData, 'pre');
+renderQuiz('post-quiz-area', postTestData, 'post');
+</script>
+
+
+<script>
+function checkExamAndOpen(url) {
+  try {
+    const state = JSON.parse(localStorage.getItem('kasen_exam_digestive_upper'));
+    if (state && state.status === 'completed') {
+      window.open(url, '_blank');
+    } else {
+      alert('📌 请先完成综合考试，提交试卷后才能查看答案解析。');
+    }
+  } catch(e) {
+    alert('📌 请先完成综合考试，提交试卷后才能查看答案解析。');
+  }
+}
+</script>
+
+</body>
+</html>
