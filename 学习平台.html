@@ -132,6 +132,8 @@ function renderList() {
 function showDetail(idx) {
   const c = courses[idx];
   const container = document.getElementById('courseDetail');
+  // Push browser history so back button returns to this view
+  history.pushState({courseIdx: idx}, '', '#' + c.id);
 
   document.getElementById('pageList').classList.remove('active');
   document.getElementById('pageDetail').classList.add('active');
@@ -179,6 +181,13 @@ function checkHash() {
 }
 checkHash();
 window.addEventListener('hashchange', checkHash);
+window.addEventListener('popstate', function(e) {
+  if (e.state && e.state.courseIdx !== undefined) {
+    showDetail(e.state.courseIdx);
+  } else {
+    showList();
+  }
+});
 </script>
 
 </body>
