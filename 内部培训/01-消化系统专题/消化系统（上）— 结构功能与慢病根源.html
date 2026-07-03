@@ -103,7 +103,7 @@
   .nav-btn:hover{background:linear-gradient(135deg,#00b37a,#009966);transform:translateY(-1px);box-shadow:0 4px 14px rgba(0,214,143,.35)}
 
   /* Progressive Learning */
-  .step-section{margin-bottom:20px;border-radius:14px;overflow:hidden;transition:all .3s}
+  .step-section{margin-bottom:20px;border-radius:14px;overflow:hidden;transition:all .3s}.step-section.locked{display:none}
   .step-header{display:flex;align-items:center;gap:12px;padding:16px 20px;background:#fff;cursor:pointer;border:1px solid #e2e8f0;border-radius:14px;transition:all .2s}
   .step-header:hover{border-color:#00d68f}
   .step-header.locked{opacity:.5;cursor:not-allowed}
@@ -269,6 +269,27 @@ function seekAudio(e) {
       <div class="step-status" id="stepStatus2">🔒 未解锁</div>
     </div>
     <div class="step-body locked" id="stepBody2">
+  <!-- Audio Player -->
+  <div class="audio-wrap">
+    <div style="display:flex;align-items:center;gap:16px">
+      <button id="playBtn" onclick="togglePlay()" class="play-btn" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">▶</button>
+      <div style="flex:1;min-width:0">
+        <div style="font-weight:700;font-size:16px;color:#005533;margin-bottom:4px">🎧 本讲伴读音频</div>
+        <div style="font-size:13px;color:#64748b;margin-bottom:8px">建议先通读全文，再配合音频复习 · 全长约58分钟</div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <span id="currentTime" style="font-size:12px;color:#94a3b8;min-width:32px">00:00</span>
+          <div style="flex:1;height:6px;background:#b3f0d9;border-radius:3px;cursor:pointer;position:relative" onclick="seekAudio(event)">
+            <div id="progressBar" style="width:0%;height:100%;background:#00d68f;border-radius:3px;transition:width .1s linear"></div>
+          </div>
+          <span id="totalTime" style="font-size:12px;color:#94a3b8;min-width:32px">57:58</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <audio id="audioPlayer" preload="metadata" style="display:none">
+    <source src="https://18602653289-kasen.github.io/kasen-nutrition-training/%E5%86%85%E9%83%A8%E5%9F%B9%E8%AE%AD/01-%E6%B6%88%E5%8C%96%E7%B3%BB%E7%BB%9F%E4%B8%93%E9%A2%98/%E9%9F%B3%E9%A2%91/2.1%E6%B6%88%E5%8C%96%E7%B3%BB%E7%BB%9F%E9%9F%B3%E9%A2%91.mp3" type="audio/mpeg">
+  </audio>
+
       <div class="section-title"><span class="l">📖 知识学习</span></div>
 
   <!-- Module 1 -->
@@ -277,7 +298,7 @@ function seekAudio(e) {
   <p>消化系统不是一根管道，而是一套多器官协同的生化工厂。食物从入口到排出：<strong>口腔</strong>→<strong>食管</strong>→<strong>胃</strong>→<strong>小肠</strong>→<strong>大肠</strong>，加<strong>肝脏</strong>、<strong>胆囊</strong>、<strong>胰腺</strong>三个附属器官协同工作。最终被拆解成氨基酸、单糖、脂肪酸、维生素，穿过肠壁进入血液，为全身约60万亿个细胞提供能量。</p>
 
   <h3>三大核心功能</h3>
-  <div class="img-wrap"><img src="https://kasen-nutrition-1449812974.cos.ap-guangzhou.myqcloud.com/01-消化系统专题/【图片】三大核心功能关系图.svg" alt="三大核心功能关系图"><div class="cap">图1：三大核心功能</div></div>
+  <div class="img-wrap"><img src="https://18602653289-kasen.github.io/kasen-nutrition-training/%E5%86%85%E9%83%A8%E5%9F%B9%E8%AE%AD/01-%E6%B6%88%E5%8C%96%E7%B3%BB%E7%BB%9F%E4%B8%93%E9%A2%98/【图片】三大核心功能关系图.svg" alt="三大核心功能关系图"><div class="cap">图1：三大核心功能</div></div>
   <table>
     <tr><th>功能</th><th>一句话说清</th><th>临床意义</th></tr>
     <tr><td><strong>① 消化吸收</strong></td><td>把食物拆成小分子送进血液</td><td>任何环节出问题→吃进去用不上</td></tr>
@@ -287,7 +308,7 @@ function seekAudio(e) {
 
   <!-- Module 2 -->
   <h2>🔬 模块二：消化管五站</h2>
-  <div class="img-wrap"><img src="https://kasen-nutrition-1449812974.cos.ap-guangzhou.myqcloud.com/01-消化系统专题/【图片】消化系统全景图.svg" alt="消化系统全景图"><div class="cap">图2：消化系统全景图</div></div>
+  <div class="img-wrap"><img src="https://18602653289-kasen.github.io/kasen-nutrition-training/%E5%86%85%E9%83%A8%E5%9F%B9%E8%AE%AD/01-%E6%B6%88%E5%8C%96%E7%B3%BB%E7%BB%9F%E4%B8%93%E9%A2%98/【图片】消化系统全景图.svg" alt="消化系统全景图"><div class="cap">图2：消化系统全景图</div></div>
 
   <h3>第一站：口腔</h3>
   <p><strong>双重消化：</strong>机械消化（牙齿粉碎，表面积增加10倍）+ 化学消化（唾液淀粉酶→分解淀粉，舌脂肪酶→预分解脂肪）。口腔是唯一能主动控制的消化环节。</p>
@@ -297,7 +318,7 @@ function seekAudio(e) {
   <p>长约25cm，食管内壁无保护层。胃有黏液-碳酸氢盐屏障（刷了防酸漆的铁桶），食管没有（没有涂层的软管）。反流物直接灼伤食管→胃食管反流病→巴雷特食管（癌前病变）。</p>
 
   <h3>第三站：胃</h3>
-  <div class="img-wrap"><img src="https://kasen-nutrition-1449812974.cos.ap-guangzhou.myqcloud.com/01-消化系统专题/【图片】胃酸三大任务图.svg" alt="胃酸三大任务"><div class="cap">图3：胃酸三大任务</div></div>
+  <div class="img-wrap"><img src="https://18602653289-kasen.github.io/kasen-nutrition-training/%E5%86%85%E9%83%A8%E5%9F%B9%E8%AE%AD/01-%E6%B6%88%E5%8C%96%E7%B3%BB%E7%BB%9F%E4%B8%93%E9%A2%98/【图片】胃酸三大任务图.svg" alt="胃酸三大任务"><div class="cap">图3：胃酸三大任务</div></div>
   <p><strong>胃酸三大任务：</strong>①激活胃蛋白酶原（酶原形式→自我保护）②杀菌（pH 1.5-3.0）③发信号（刺激CCK+促胰液素→启动下游消化）。</p>
   <p><strong>内因子：</strong>保护B₁₂到回肠吸收。壁细胞功能下降→胃酸+内因子同步减少→蛋白质消化障碍+B₁₂缺乏双重风险。</p>
   <div class="box-warn"><strong>🔥 颠覆认知：</strong> 反酸烧心可能不是酸太多而是酸太少。胃酸不足→食物停留产气→撑开贲门+贲门关闭信号减弱→反流。吃抑酸药→酸更低→消化更差→反流更重→恶性循环。</div>
@@ -347,11 +368,11 @@ function seekAudio(e) {
   <div class="box-warn"><strong>💬 讲给学员听：</strong> 这七种慢病不是七个独立问题，是同一棵树上的七颗果子。根扎在消化系统里。</div>
 
   <h2>🏃 消化接力赛详解</h2>
-  <div class="img-wrap"><img src="https://kasen-nutrition-1449812974.cos.ap-guangzhou.myqcloud.com/01-消化系统专题/【图片】消化接力赛流程图.svg" alt="消化接力赛"><div class="cap">图4：消化接力赛</div></div>
+  <div class="img-wrap"><img src="https://18602653289-kasen.github.io/kasen-nutrition-training/%E5%86%85%E9%83%A8%E5%9F%B9%E8%AE%AD/01-%E6%B6%88%E5%8C%96%E7%B3%BB%E7%BB%9F%E4%B8%93%E9%A2%98/【图片】消化接力赛流程图.svg" alt="消化接力赛"><div class="cap">图4：消化接力赛</div></div>
   <p>口腔（起点）→胃（第一棒）→十二指肠（第二棒）→空肠回肠（第三棒）→大肠（终点）。任何一站掉棒→下一站超负荷→全线崩溃。</p>
 
   
-  <div class="img-wrap"><img src="https://kasen-nutrition-1449812974.cos.ap-guangzhou.myqcloud.com/01-消化系统专题/【图片】消化接力赛流程图.svg" alt="消化接力赛"><div class="cap">图4：消化接力赛</div></div>
+  <div class="img-wrap"><img src="https://18602653289-kasen.github.io/kasen-nutrition-training/%E5%86%85%E9%83%A8%E5%9F%B9%E8%AE%AD/01-%E6%B6%88%E5%8C%96%E7%B3%BB%E7%BB%9F%E4%B8%93%E9%A2%98/【图片】消化接力赛流程图.svg" alt="消化接力赛"><div class="cap">图4：消化接力赛</div></div>
   <h3>预备站：口腔</h3>
   <p><strong>两种消化同时启动：</strong>机械消化（牙齿切割磨碎）+ 化学消化（唾液淀粉酶分解淀粉、舌脂肪酶预分解脂肪）。</p>
   <p><strong>掉棒后果：</strong>咀嚼不充分→胃被迫超量分泌胃酸加强蠕动→胃负担加重+胰腺负担增加+未处理淀粉成坏菌食物。</p>
@@ -657,6 +678,10 @@ function upUI() {
     if (body) {
       body.classList.toggle('locked', !ok);
       body.classList.toggle('open', ok);
+    }
+    const sec = document.getElementById('step' + s);
+    if (sec && s > 1) {
+      sec.classList.toggle('locked', !ok);
     }
   }
 }
